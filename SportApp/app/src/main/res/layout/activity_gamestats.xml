@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".GameStats"
+    android:contextClickable="false">
+
+    <EditText
+        android:id="@+id/team1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Team 1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
+    <EditText
+        android:id="@+id/team2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Team 2"
+        android:layout_marginTop="37dp"
+        android:layout_below="@+id/team1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
+    <EditText
+        android:id="@+id/rezultat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Rezultat"
+        android:layout_marginTop="41dp"
+        android:layout_below="@+id/team2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="VS"
+        android:id="@+id/textView"
+        android:layout_below="@+id/team1"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Statistike igrača"
+        android:id="@+id/statistike"
+        android:singleLine="false"
+        android:textStyle="bold"
+        android:layout_marginTop="70dp"
+        android:layout_below="@+id/rezultat"
+        android:layout_centerHorizontal="true"
+        android:onClick="igracikosarka"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pogledaj arhivu"
+        android:id="@+id/arhiva"
+        android:singleLine="false"
+        android:textStyle="bold"
+        android:layout_marginTop="38dp"
+        android:layout_below="@+id/statistike"
+        android:layout_centerHorizontal="true"
+        android:onClick="arhivakosarka"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Spremi"
+        android:id="@+id/spremi"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/team2"
+        android:layout_alignEnd="@+id/team2"
+        android:singleLine="false"
+        android:textStyle="bold" />
+
+</RelativeLayout>

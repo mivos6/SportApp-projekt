@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.rivios_.sportapp.MainActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:text="@string/kosarka"
+        android:id="@+id/kosarka"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textStyle="bold"
+        android:textColor="#f07918"
+        android:textSize="@android:dimen/app_icon_size"
+        android:onClick="newactivity"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:text="@string/nogomet"
+        android:id="@+id/nogomet"
+        android:layout_below="@+id/kosarka"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/kosarka"
+        android:layout_alignEnd="@+id/kosarka"
+        android:textStyle="bold"
+        android:textColor="#59ee14"
+        android:textSize="@android:dimen/app_icon_size" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:text="@string/tenis"
+        android:id="@+id/tenis"
+        android:layout_below="@+id/nogomet"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/nogomet"
+        android:layout_alignEnd="@+id/nogomet"
+        android:textStyle="bold"
+        android:textColor="#f3df2f"
+        android:textSize="@android:dimen/app_icon_size" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:text="@string/trcanje"
+        android:id="@+id/trcanje"
+        android:layout_below="@+id/tenis"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/tenis"
+        android:layout_alignEnd="@+id/tenis"
+        android:textStyle="bold"
+        android:textColor="#1d35e7"
+        android:textSize="@android:dimen/app_icon_size" />
+</RelativeLayout>
