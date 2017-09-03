@@ -21,7 +21,7 @@ public class ArhivaIgracaActivity extends AppCompatActivity {
 
         dbHelper = GameDBHelper.getInstance(this);
 
-        fillDBPlayers();
+        //fillDBPlayers();
 
         Intent i = getIntent();
         gameId = i.getLongExtra("GAME_ID", 0);

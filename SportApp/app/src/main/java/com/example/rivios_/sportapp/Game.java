@@ -1,11 +1,16 @@
 package com.example.rivios_.sportapp;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by admin on 26.5.2016..
  */
-public class Game {
+public class Game implements Parcelable{
     private long id;
     private String team1;
     private String team2;
@@ -33,6 +38,27 @@ public class Game {
         this.datum = datum;
         this.winner = winner;
     }
+
+    protected Game(Parcel in) {
+        id = in.readLong();
+        team1 = in.readString();
+        team2 = in.readString();
+        result1 = in.readInt();
+        result2 = in.readInt();
+        winner = in.readString();
+    }
+
+    public static final Creator<Game> CREATOR = new Creator<Game>() {
+        @Override
+        public Game createFromParcel(Parcel in) {
+            return new Game(in);
+        }
+
+        @Override
+        public Game[] newArray(int size) {
+            return new Game[size];
+        }
+    };
 
     public long getId() {
         return id;
@@ -88,5 +114,20 @@ public class Game {
 
     public void setDatum(Date datum) {
         this.datum = datum;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(id);
+        parcel.writeString(team1);
+        parcel.writeString(team2);
+        parcel.writeInt(result1);
+        parcel.writeInt(result2);
+        parcel.writeString(winner);
     }
 }

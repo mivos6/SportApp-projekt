@@ -22,7 +22,7 @@ public class ArhivaKosarka extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arhivakosarka);
 
-        fillDB();
+        //fillDB();
 
         lvGameStats = (ListView) findViewById(R.id.lvGameStats);
 

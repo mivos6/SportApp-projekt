@@ -15,7 +15,7 @@ import java.util.Date;
 public class GameDBHelper extends SQLiteOpenHelper {
 
     private static final String DTATBASE_NAME = "sportStatsDB";
-    private static final int SCHEMA = 1;
+    private static final int SCHEMA = 2;
 
     private static GameDBHelper instance;
 
@@ -41,7 +41,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
     static final String TABLE_BASKETBALL_PLAYERS = "basketball_players";
     static final String BASKETBALL_PLAYER_ID = "id";
     static final String BASKETBALL_PLAYER_NAME = "name";
-    static final String BASKETBALL_PLAYER_POSITION = "position";
+    static final String BASKETBALL_PLAYER_NICKNAME = "nickname";
 
     static final String TABLE_BASKETBALL_STATS = "basketball_stats";
     static final String BASKETBALL_STATS_GAME_ID = "game_id";
@@ -66,7 +66,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + TABLE_BASKETBALL_PLAYERS +
                         " (" + BASKETBALL_PLAYER_ID + " INTEGER AUTO_INCREMENT PRIMARY KEY," +
                         BASKETBALL_PLAYER_NAME + " TEXT," +
-                        BASKETBALL_PLAYER_POSITION + " TEXT);";
+                        BASKETBALL_PLAYER_NICKNAME + " TEXT);";
 
         final String CREATE_TABLE_BASKETBALL_STATS =
                 "CREATE TABLE " + TABLE_BASKETBALL_STATS +
@@ -117,7 +117,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(BASKETBALL_PLAYER_NAME, p.getName());
-        values.put(BASKETBALL_PLAYER_POSITION, p.getPosition());
+        values.put(BASKETBALL_PLAYER_NICKNAME, p.getNickname());
         db.insert(TABLE_BASKETBALL_PLAYERS, BASKETBALL_PLAYER_NAME, values);
         db.close();
     }
@@ -131,7 +131,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
         values.put(BASKETBALL_STATS_POINTS, s.getPoints());
         values.put(BASKETBALL_STATS_ASSISTS, s.getAssists());
         values.put(BASKETBALL_STATS_JUMPS, s.getJumps());
-        db.insert(TABLE_BASKETBALL_PLAYERS, BASKETBALL_PLAYER_NAME, values);
+        db.insert(TABLE_BASKETBALL_PLAYERS, BASKETBALL_STATS_ASSISTS, values);
         db.close();
     }
 
@@ -204,7 +204,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
         Cursor c = db.query(TABLE_BASKETBALL_PLAYERS,
                 new String[]{BASKETBALL_PLAYER_ID,
                         BASKETBALL_PLAYER_NAME,
-                        BASKETBALL_PLAYER_POSITION},
+                        BASKETBALL_PLAYER_NICKNAME},
                 BASKETBALL_PLAYER_ID + "=?", args,
                 null, null, null);
 
@@ -213,6 +213,47 @@ public class GameDBHelper extends SQLiteOpenHelper {
         }
         db.close();
         return p;
+    }
+
+
+    public long getGameID(String team1, String team2, Date datum)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] args = new String[]{team1, team2, Long.toString(datum.getTime())};
+        Cursor c = db.query(TABLE_BASKETBALL_GAMES,
+                new String[]{BASKETBALL_GAME_ID},
+                BASKETBALL_TEAM1 + "=? AND " + BASKETBALL_TEAM2 + "=? AND " + BASKETBALL_DATUM + "=?",
+                args,
+                null, null, null);
+
+        if (c.moveToFirst())
+        {
+            return c.getLong(0);
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    public long getPlayerID(String nickname)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] args = new String[]{nickname};
+        Cursor c = db.query(TABLE_BASKETBALL_PLAYERS,
+                new String[]{BASKETBALL_GAME_ID},
+                BASKETBALL_PLAYER_NICKNAME + "=?",
+                args,
+                null, null, null);
+
+        if (c.moveToFirst()) {
+            return c.getLong(0);
+        }
+        else {
+            return -1;
+        }
     }
 }
 

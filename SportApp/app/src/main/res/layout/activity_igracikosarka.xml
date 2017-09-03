@@ -19,6 +19,15 @@
         android:layout_alignParentStart="true"
         android:textStyle="bold" />
     <EditText
+        android:id="@+id/nadimakkosarkasa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nadimak"
+        android:textStyle="bold"
+        android:layout_below="@+id/imekosarkasa"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
         android:id="@+id/poeni"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,34 +42,58 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="Asistencije"
-    android:layout_marginTop="37dp"
-    android:layout_below="@+id/poeni"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_below="@+id/poeni"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/skokovi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Skokovi"
-        android:layout_marginTop="37dp"
+        android:textStyle="bold"
         android:layout_below="@+id/asistencije"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textStyle="bold" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dodaj igrača"
         android:id="@+id/dodajigraca"
-        android:layout_below="@+id/skokovi"
-        android:layout_marginTop="50dp"
+        android:textStyle="bold"
+        android:onClick="dodajIgraca"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:text="Spremi" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/skokovi"
-        android:layout_alignEnd="@+id/skokovi"
-        android:textStyle="bold" />
+        android:layout_below="@+id/skokovi"
+        android:orientation="horizontal"
+        android:layout_above="@+id/dodajigraca"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <ListView
+            android:id="@+id/listaIgraca"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 </RelativeLayout>

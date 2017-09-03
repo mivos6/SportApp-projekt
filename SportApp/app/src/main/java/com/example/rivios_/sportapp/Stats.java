@@ -1,9 +1,12 @@
 package com.example.rivios_.sportapp;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by admin on 3.6.2016..
  */
-public class Stats {
+public class Stats implements Parcelable {
     private long playerId;
     private long gameId;
     private int points;
@@ -25,6 +28,26 @@ public class Stats {
         this.assists = assists;
         this.jumps = jumps;
     }
+
+    protected Stats(Parcel in) {
+        playerId = in.readLong();
+        gameId = in.readLong();
+        points = in.readInt();
+        assists = in.readInt();
+        jumps = in.readInt();
+    }
+
+    public static final Creator<Stats> CREATOR = new Creator<Stats>() {
+        @Override
+        public Stats createFromParcel(Parcel in) {
+            return new Stats(in);
+        }
+
+        @Override
+        public Stats[] newArray(int size) {
+            return new Stats[size];
+        }
+    };
 
     public long getPlayerId() {
         return playerId;
@@ -64,5 +87,19 @@ public class Stats {
 
     public void setJumps(int jumps) {
         this.jumps = jumps;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(playerId);
+        parcel.writeLong(gameId);
+        parcel.writeInt(points);
+        parcel.writeInt(assists);
+        parcel.writeInt(jumps);
     }
 }
