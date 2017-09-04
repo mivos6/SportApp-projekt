@@ -48,7 +48,9 @@
         android:layout_below="@+id/rezultat"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:clickable="true"
+        android:onClick="birajDatum"/>
 
     <TextView
         android:layout_width="wrap_content"

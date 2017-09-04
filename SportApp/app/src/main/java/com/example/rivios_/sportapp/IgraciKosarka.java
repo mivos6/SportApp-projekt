@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -36,6 +37,13 @@ public class IgraciKosarka extends AppCompatActivity {
 
         ArrayAdapter<PlayerStats> plAdapter = new ArrayAdapter<PlayerStats>(this, android.R.layout.simple_list_item_1, pst);
         lvPlayers.setAdapter(plAdapter);
+        lvPlayers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                pst.remove(i);
+                return true;
+            }
+        });
     }
 
     public void dodajIgraca (View v)
@@ -52,8 +60,22 @@ public class IgraciKosarka extends AppCompatActivity {
             Toast.makeText(this, "Nije upisano ime ili nadimak.", Toast.LENGTH_SHORT).show();
             return;
         }
+        for (PlayerStats s : pst)
+        {
+            if (s.getPlayer().getNickname().equals(nadimak))
+            {
+                Toast.makeText(this, "Igrč već dodan.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
 
         pst.add(new PlayerStats(new Player(0, ime, nadimak), new Stats(0, 0, poeni, asistencije, skokovi)));
+
+        etIme.setText("");
+        etNadimak.setText("");
+        etPoeni.setText("");
+        etAsistencije.setText("");
+        etSkokovi.setText("");
     }
 
     public void spremi (View v)

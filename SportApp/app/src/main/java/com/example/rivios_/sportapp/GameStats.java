@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 public class GameStats extends AppCompatActivity {
 
-    private Game trenutnaUtakmica;
-    private ArrayList<Player> trenutniIgraci;
-    private ArrayList<Stats> trenutneStatistike;
+    private Game trenutnaUtakmica = new Game();
+    private ArrayList<Player> trenutniIgraci = new ArrayList<Player>();
+    private ArrayList<Stats> trenutneStatistike = new ArrayList<Stats>();
 
     EditText etTeam1;
     EditText etTeam2;
