@@ -57,8 +57,30 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dodaj igrača"
+        android:id="@+id/dodajigraca"
+        android:textStyle="bold"
+        android:onClick="dodajIgraca"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/spremi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:text="Spremi"
+        android:onClick="spremi"/>
+
     <LinearLayout
-        android:id="@+id/kontejnerListe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
@@ -74,30 +96,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dodaj igrača"
-        android:id="@+id/dodajigraca"
-        android:textStyle="bold"
-        android:onClick="dodajIgraca"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/kontejnerListe"/>
-
-    <Button
-        android:id="@+id/spremi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:text="Spremi"
-        android:onClick="spremi"
-        android:layout_below="@id/kontejnerListe"/>
 
 </RelativeLayout>
