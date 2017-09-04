@@ -34,9 +34,4 @@ public class ArhivaIgracaActivity extends AppCompatActivity {
 
         lvplayerStats.setAdapter(adapter);
     }
-
-    void fillDBPlayers() {
-        dbHelper.addPlayer(new Player(0, "Marko", "Zadnji bezvezni"));
-        dbHelper.addStats(new Stats(0, gameId, 10, 10, 10));
-    }
 }

@@ -25,6 +25,7 @@ public class ArhivaKosarka extends AppCompatActivity {
         //fillDB();
 
         lvGameStats = (ListView) findViewById(R.id.lvGameStats);
+        dbHelper = GameDBHelper.getInstance(this);
 
         games = dbHelper.getGames();
 

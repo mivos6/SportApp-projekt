@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class IgraciKosarka extends AppCompatActivity {
@@ -22,6 +23,8 @@ public class IgraciKosarka extends AppCompatActivity {
     EditText etAsistencije;
     EditText etSkokovi;
     ListView lvPlayers;
+
+    ArrayAdapter<PlayerStats> plAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +38,13 @@ public class IgraciKosarka extends AppCompatActivity {
         etSkokovi = (EditText) findViewById(R.id.skokovi);
         lvPlayers = (ListView) findViewById(R.id.listaIgraca);
 
-        ArrayAdapter<PlayerStats> plAdapter = new ArrayAdapter<PlayerStats>(this, android.R.layout.simple_list_item_1, pst);
+        plAdapter = new ArrayAdapter<PlayerStats>(this, android.R.layout.simple_list_item_1, pst);
         lvPlayers.setAdapter(plAdapter);
         lvPlayers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 pst.remove(i);
+                plAdapter.notifyDataSetChanged();
                 return true;
             }
         });
@@ -51,9 +55,19 @@ public class IgraciKosarka extends AppCompatActivity {
         String ime = etIme.getText().toString();
         String nadimak = etNadimak.getText().toString();
 
-        int poeni = Integer.parseInt(etPoeni.getText().toString());
-        int asistencije = Integer.parseInt(etAsistencije.getText().toString());
-        int skokovi = Integer.parseInt(etSkokovi.getText().toString());
+        int poeni;
+        int asistencije;
+        int skokovi;
+
+        try {
+            poeni = Integer.parseInt(etPoeni.getText().toString());
+            asistencije = Integer.parseInt(etAsistencije.getText().toString());
+            skokovi = Integer.parseInt(etSkokovi.getText().toString());
+        }
+        catch (NumberFormatException e) {
+            Toast.makeText(this, "Nepravilni podaci.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (ime.equals("") || nadimak.equals(""))
         {
@@ -70,6 +84,7 @@ public class IgraciKosarka extends AppCompatActivity {
         }
 
         pst.add(new PlayerStats(new Player(0, ime, nadimak), new Stats(0, 0, poeni, asistencije, skokovi)));
+        plAdapter.notifyDataSetChanged();
 
         etIme.setText("");
         etNadimak.setText("");
