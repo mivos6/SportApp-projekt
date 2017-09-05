@@ -7,10 +7,12 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/kosarka"
     tools:context=".ArhivaKosarka">
 
     <ListView
+        android:id="@+id/lvGameStats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lvGameStats" />
+        android:background="@color/kosarka" />
 </RelativeLayout>

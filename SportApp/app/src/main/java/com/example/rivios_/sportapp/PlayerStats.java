@@ -28,7 +28,7 @@ public class PlayerStats {
 
     public String toString()
     {
-        return player.getNickname() + " " + stats.getPoints() + " PTS " + stats.getAssists() + " AST " + stats.getJumps() + " RBD";
+        return player.getNickname() + "                 " + stats.getPoints() + " PTS   " + stats.getAssists() + " AST   " + stats.getJumps() + " RBD";
     }
 
 

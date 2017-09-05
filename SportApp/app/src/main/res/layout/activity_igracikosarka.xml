@@ -7,66 +7,77 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/kosarka"
     tools:context=".IgraciKosarka">
 
     <EditText
         android:id="@+id/imekosarkasa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ime"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:hint="Ime"
+        android:textAlignment="center"
         android:textStyle="bold" />
+
     <EditText
         android:id="@+id/nadimakkosarkasa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nadimak"
-        android:textStyle="bold"
-        android:layout_below="@+id/imekosarkasa"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imekosarkasa"
+        android:hint="Nadimak"
+        android:textAlignment="center"
+        android:textStyle="bold" />
+
     <EditText
         android:id="@+id/poeni"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Poeni"
-        android:layout_marginTop="37dp"
-        android:layout_below="@+id/imekosarkasa"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/imekosarkasa"
+        android:layout_marginTop="37dp"
+        android:hint="Poeni"
+        android:textAlignment="center"
         android:textStyle="bold" />
+
     <EditText
-    android:id="@+id/asistencije"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="Asistencije"
-        android:textStyle="bold"
-        android:layout_below="@+id/poeni"
+        android:id="@+id/asistencije"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/poeni"
+        android:hint="Asistencije"
+        android:textAlignment="center"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/skokovi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Skokovi"
-        android:textStyle="bold"
-        android:layout_below="@+id/asistencije"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/asistencije"
+        android:hint="Skokovi"
+        android:textAlignment="center"
+        android:textStyle="bold" />
 
     <Button
+        android:id="@+id/dodajigraca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dodaj igrača"
-        android:id="@+id/dodajigraca"
-        android:textStyle="bold"
-        android:onClick="dodajIgraca"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="dodajIgraca"
+        android:text="Dodaj igrača"
+        android:textAllCaps="false"
+        android:textColor="@color/kosarka"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/spremi"
@@ -75,10 +86,12 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:text="Spremi"
-        android:onClick="spremi"/>
+        android:elevation="0dp"
+        android:onClick="spremi"
+        android:text="Spremi igrača"
+        android:textAllCaps="false"
+        android:textColor="@color/kosarka"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"

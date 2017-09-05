@@ -7,62 +7,67 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.rivios_.sportapp.MainActivity">
+    tools:context="com.example.rivios_.sportapp.MainActivity"
+    android:background="@color/colorPrimary">
+
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="120dp"
-        android:text="@string/kosarka"
         android:id="@+id/kosarka"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textStyle="bold"
-        android:textColor="#f07918"
-        android:textSize="@android:dimen/app_icon_size"
-        android:onClick="newactivity"/>
-
-    <Button
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="120dp"
-        android:text="@string/nogomet"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:onClick="newactivity"
+        android:text="@string/kosarka"
+        android:textColor="#c23f06"
+        android:textSize="@android:dimen/app_icon_size"
+        android:textStyle="bold" />
+
+    <Button
         android:id="@+id/nogomet"
-        android:layout_below="@+id/kosarka"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_alignEnd="@+id/kosarka"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/kosarka"
-        android:layout_alignEnd="@+id/kosarka"
-        android:textStyle="bold"
-        android:textColor="#59ee14"
-        android:textSize="@android:dimen/app_icon_size" />
+        android:layout_below="@+id/kosarka"
+        android:text="@string/nogomet"
+        android:textColor="#32b423"
+        android:textSize="@android:dimen/app_icon_size"
+        android:textStyle="bold" />
 
     <Button
+        android:id="@+id/tenis"
         android:layout_width="wrap_content"
         android:layout_height="120dp"
-        android:text="@string/tenis"
-        android:id="@+id/tenis"
-        android:layout_below="@+id/nogomet"
+        android:layout_alignEnd="@+id/nogomet"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/nogomet"
-        android:layout_alignEnd="@+id/nogomet"
-        android:textStyle="bold"
-        android:textColor="#f3df2f"
-        android:textSize="@android:dimen/app_icon_size" />
+        android:layout_below="@+id/nogomet"
+        android:text="@string/tenis"
+        android:textColor="#d1c024"
+        android:textSize="@android:dimen/app_icon_size"
+        android:textStyle="bold" />
 
     <Button
+        android:id="@+id/trcanje"
         android:layout_width="wrap_content"
         android:layout_height="120dp"
-        android:text="@string/trcanje"
-        android:id="@+id/trcanje"
-        android:layout_below="@+id/tenis"
+        android:layout_alignEnd="@+id/tenis"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/tenis"
-        android:layout_alignEnd="@+id/tenis"
-        android:textStyle="bold"
-        android:textColor="#1d35e7"
-        android:textSize="@android:dimen/app_icon_size" />
+        android:layout_below="@+id/tenis"
+        android:text="@string/trcanje"
+        android:textColor="#37b3ae"
+        android:textSize="@android:dimen/app_icon_size"
+        android:textStyle="bold" />
+
 </RelativeLayout>
+

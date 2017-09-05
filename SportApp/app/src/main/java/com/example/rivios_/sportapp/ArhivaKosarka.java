@@ -44,34 +44,4 @@ public class ArhivaKosarka extends AppCompatActivity {
         });
     }
 
-    void fillDB() {
-        dbHelper = GameDBHelper.getInstance(this);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
-
-        try {
-            dbHelper.addGame(new Game(0,
-                    "ABC",
-                    "DEF",
-                    2,
-                    860,
-                    sdf.parse("01.10.2017."),
-                    "ABC"));
-            dbHelper.addGame(new Game(0,
-                    "ABC",
-                    "DEF",
-                    2,
-                    860,
-                    sdf.parse("01.10.2017."),
-                    "DEF"));
-            dbHelper.addGame(new Game(0,
-                    "ABC",
-                    "DEF",
-                    2,
-                    860,
-                    sdf.parse("01.10.2017."),
-                    "ABC"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
 }
