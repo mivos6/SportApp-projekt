@@ -16,7 +16,7 @@ import java.util.Date;
 public class GameDBHelper extends SQLiteOpenHelper {
 
     private static final String DTATBASE_NAME = "sportStatsDB";
-    private static final int SCHEMA = 6;
+    private static final int SCHEMA = 7;
 
     private static GameDBHelper instance;
 
@@ -129,15 +129,12 @@ public class GameDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        Log.d("PERO", "Spremljena statistika: utakmica "
-                + s.getGameId() + ", igrac " + s.getPlayerId());
-
-        values.put(BASKETBALL_GAME_ID, s.getGameId());
-        values.put(BASKETBALL_PLAYER_ID, s.getPlayerId());
+        values.put(BASKETBALL_STATS_GAME_ID, s.getGameId());
+        values.put(BASKETBALL_STATS_PLAYER_ID, s.getPlayerId());
         values.put(BASKETBALL_STATS_POINTS, s.getPoints());
         values.put(BASKETBALL_STATS_ASSISTS, s.getAssists());
         values.put(BASKETBALL_STATS_JUMPS, s.getJumps());
-        db.insert(TABLE_BASKETBALL_PLAYERS, BASKETBALL_STATS_ASSISTS, values);
+        db.insert(TABLE_BASKETBALL_STATS, BASKETBALL_STATS_GAME_ID, values);
         db.close();
     }
 
