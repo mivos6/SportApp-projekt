@@ -3,6 +3,7 @@ package com.example.rivios_.sportapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -102,6 +103,7 @@ public class IgraciKosarka extends AppCompatActivity {
         {
             igraci.add(p.getPlayer());
             statistike.add(p.getStats());
+            Log.d("PERO", "Dodan igrac " + p.getPlayer().getNickname());
         }
 
         Intent i = new Intent();

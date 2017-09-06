@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +16,7 @@ import java.util.Date;
 public class GameDBHelper extends SQLiteOpenHelper {
 
     private static final String DTATBASE_NAME = "sportStatsDB";
-    private static final int SCHEMA = 2;
+    private static final int SCHEMA = 6;
 
     private static GameDBHelper instance;
 
@@ -54,7 +55,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         final String CREATE_TABLE_BASKETBALL_GAMES =
                 "CREATE TABLE " + TABLE_BASKETBALL_GAMES +
-                        " (" + BASKETBALL_GAME_ID + " INTEGER AUTO_INCREMENT PRIMARY KEY," +
+                        " (" + BASKETBALL_GAME_ID + " INTEGER PRIMARY KEY," +
                         BASKETBALL_TEAM1 + " TEXT," +
                         BASKETBALL_TEAM2 + " TEXT," +
                         BASKETBALL_RESULT1 + " INTEGER," +
@@ -64,7 +65,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
 
         final String CREATE_TABLE_BASKETBALL_PLAYERS =
                 "CREATE TABLE " + TABLE_BASKETBALL_PLAYERS +
-                        " (" + BASKETBALL_PLAYER_ID + " INTEGER AUTO_INCREMENT PRIMARY KEY," +
+                        " (" + BASKETBALL_PLAYER_ID + " INTEGER PRIMARY KEY," +
                         BASKETBALL_PLAYER_NAME + " TEXT," +
                         BASKETBALL_PLAYER_NICKNAME + " TEXT);";
 
@@ -75,7 +76,9 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         BASKETBALL_STATS_POINTS + " INTEGER," +
                         BASKETBALL_STATS_ASSISTS + " INTEGER," +
                         BASKETBALL_STATS_JUMPS + " INTEGER," +
-                        "CONSTRAINT pk PRIMARY KEY(" + BASKETBALL_STATS_GAME_ID + "," + BASKETBALL_STATS_PLAYER_ID + "));";
+                        //"PRIMARY KEY(" + BASKETBALL_STATS_GAME_ID + "," + BASKETBALL_STATS_PLAYER_ID + ")," +
+                        "FOREIGN KEY(" + BASKETBALL_STATS_GAME_ID + ") REFERENCES " + TABLE_BASKETBALL_GAMES + "(" + BASKETBALL_GAME_ID + ")," +
+                        "FOREIGN KEY(" + BASKETBALL_STATS_PLAYER_ID + ") REFERENCES " + TABLE_BASKETBALL_PLAYERS + "(" + BASKETBALL_PLAYER_ID + "));";
 
         db.execSQL(CREATE_TABLE_BASKETBALL_GAMES);
         db.execSQL(CREATE_TABLE_BASKETBALL_PLAYERS);
@@ -126,8 +129,11 @@ public class GameDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(BASKETBALL_PLAYER_ID, s.getPlayerId());
+        Log.d("PERO", "Spremljena statistika: utakmica "
+                + s.getGameId() + ", igrac " + s.getPlayerId());
+
         values.put(BASKETBALL_GAME_ID, s.getGameId());
+        values.put(BASKETBALL_PLAYER_ID, s.getPlayerId());
         values.put(BASKETBALL_STATS_POINTS, s.getPoints());
         values.put(BASKETBALL_STATS_ASSISTS, s.getAssists());
         values.put(BASKETBALL_STATS_JUMPS, s.getJumps());
@@ -182,6 +188,8 @@ public class GameDBHelper extends SQLiteOpenHelper {
                 null, null, null);
 
         if (c.moveToFirst()) {
+            Log.d("PERO", "Nadjene statistike " + gameId);
+
             do {
                 stats.add(new Stats(c.getLong(1),
                         c.getLong(0),
@@ -190,6 +198,10 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         c.getInt(4))
                 );
             } while (c.moveToNext());
+        }
+        else
+        {
+            Log.d("PERO", "Nisu nadjene statistike " + gameId);
         }
         db.close();
         return stats;

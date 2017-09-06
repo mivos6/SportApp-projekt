@@ -3,6 +3,7 @@ package com.example.rivios_.sportapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class ArhivaIgracaActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         gameId = i.getLongExtra("GAME_ID", 0);
+
+        Log.d("PERO", "Arhiva igraca, utakmica: " + gameId);
 
         lvplayerStats = (ListView) findViewById(R.id.lvPlayerStats);
 

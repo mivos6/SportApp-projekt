@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -108,7 +109,10 @@ public class GameStats extends AppCompatActivity {
         GameDBHelper dbHelper = GameDBHelper.getInstance(this);
 
         dbHelper.addGame(trenutnaUtakmica);
-        trenutnaUtakmica.setId(dbHelper.getGameID(trenutnaUtakmica.getTeam1(), trenutnaUtakmica.getTeam2(), trenutnaUtakmica.getDatum()));
+        long gid = dbHelper.getGameID(trenutnaUtakmica.getTeam1(), trenutnaUtakmica.getTeam2(), trenutnaUtakmica.getDatum());
+        trenutnaUtakmica.setId(gid);
+
+        Log.d("PERO", "Spremljena utakmica: " + gid);
 
         if (trenutniIgraci.size() > 0)
         {
@@ -117,7 +121,9 @@ public class GameStats extends AppCompatActivity {
                 if (dbHelper.getPlayerID(igrac.getNickname()) == -1) {
                     dbHelper.addPlayer(igrac);
                 }
-                igrac.setId(dbHelper.getPlayerID(igrac.getNickname()));
+                long pid = dbHelper.getPlayerID(igrac.getNickname());
+                igrac.setId(pid);
+                Log.d("PERO", "Spremljen igrac: " + pid);
             }
         }
 
@@ -128,6 +134,10 @@ public class GameStats extends AppCompatActivity {
                 trenutneStatistike.get(i).setPlayerId(trenutniIgraci.get(i).getId());
 
                 dbHelper.addStats(trenutneStatistike.get(i));
+
+                Log.d("PERO", "Spremljena statistika: utakmica "
+                        + trenutneStatistike.get(i).getGameId()
+                        + ", igrac " + trenutneStatistike.get(i).getPlayerId());
             }
         }
     }
