@@ -53,10 +53,10 @@ public class PlayerStatsAdapter extends BaseAdapter {
         GameDBHelper helper = GameDBHelper.getInstance(convertView.getContext());
         Player p = helper.getPlayer(current.getPlayerId());
 
-        holder.tvNamePos.setText(p.getName() + ", " + p.getNickname());
-        holder.tvStats.setText("PTS: " + current.getPoints() +
-                "AST: " + current.getAssists() +
-                "RBD: " + current.getJumps());
+        holder.tvNamePos.setText(p.getName() + ",  " + p.getNickname());
+        holder.tvStats.setText("PTS:  " + current.getPoints() +
+                "   AST: " + current.getAssists() +
+                "   RBD: " + current.getJumps());
 
         return convertView;
     }
