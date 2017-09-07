@@ -17,6 +17,7 @@ public class PlayerStatsAdapter extends BaseAdapter {
         this.playerStats = playerStats;
     }
 
+
     @Override
     public int getCount() {
         return playerStats.size();
@@ -53,7 +54,7 @@ public class PlayerStatsAdapter extends BaseAdapter {
         GameDBHelper helper = GameDBHelper.getInstance(convertView.getContext());
         Player p = helper.getPlayer(current.getPlayerId());
 
-        holder.tvNamePos.setText(p.getName() + ",  " + p.getNickname());
+        holder.tvNamePos.setText(p.getName() + ",  " + p.getNickname() + ", " + current.getTeam());
         holder.tvStats.setText("PTS:  " + current.getPoints() +
                 "   AST: " + current.getAssists() +
                 "   RBD: " + current.getJumps());

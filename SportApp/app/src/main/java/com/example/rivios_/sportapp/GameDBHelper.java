@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.util.LongSparseArray;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +18,7 @@ import java.util.Date;
 public class GameDBHelper extends SQLiteOpenHelper {
 
     private static final String DTATBASE_NAME = "sportStatsDB";
-    private static final int SCHEMA = 7;
+    private static final int SCHEMA = 8;
 
     private static GameDBHelper instance;
 
@@ -50,6 +52,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
     static final String BASKETBALL_STATS_POINTS = "points";
     static final String BASKETBALL_STATS_ASSISTS = "assists";
     static final String BASKETBALL_STATS_JUMPS = "jumps";
+    static final String BASKETBALL_STATS_TEAM = "team";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -76,6 +79,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         BASKETBALL_STATS_POINTS + " INTEGER," +
                         BASKETBALL_STATS_ASSISTS + " INTEGER," +
                         BASKETBALL_STATS_JUMPS + " INTEGER," +
+                        BASKETBALL_STATS_TEAM + " TEXT," +
                         //"PRIMARY KEY(" + BASKETBALL_STATS_GAME_ID + "," + BASKETBALL_STATS_PLAYER_ID + ")," +
                         "FOREIGN KEY(" + BASKETBALL_STATS_GAME_ID + ") REFERENCES " + TABLE_BASKETBALL_GAMES + "(" + BASKETBALL_GAME_ID + ")," +
                         "FOREIGN KEY(" + BASKETBALL_STATS_PLAYER_ID + ") REFERENCES " + TABLE_BASKETBALL_PLAYERS + "(" + BASKETBALL_PLAYER_ID + "));";
@@ -134,6 +138,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
         values.put(BASKETBALL_STATS_POINTS, s.getPoints());
         values.put(BASKETBALL_STATS_ASSISTS, s.getAssists());
         values.put(BASKETBALL_STATS_JUMPS, s.getJumps());
+        values.put(BASKETBALL_STATS_TEAM, s.getTeam());
         db.insert(TABLE_BASKETBALL_STATS, BASKETBALL_STATS_GAME_ID, values);
         db.close();
     }
@@ -180,25 +185,22 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         BASKETBALL_STATS_PLAYER_ID,
                         BASKETBALL_STATS_POINTS,
                         BASKETBALL_STATS_ASSISTS,
-                        BASKETBALL_STATS_JUMPS},
+                        BASKETBALL_STATS_JUMPS,
+                        BASKETBALL_STATS_TEAM},
                 BASKETBALL_STATS_GAME_ID + "=?", args,
                 null, null, null);
 
         if (c.moveToFirst()) {
-            Log.d("PERO", "Nadjene statistike " + gameId);
 
             do {
                 stats.add(new Stats(c.getLong(1),
                         c.getLong(0),
                         c.getInt(2),
                         c.getInt(3),
-                        c.getInt(4))
+                        c.getInt(4),
+                        c.getString(5))
                 );
             } while (c.moveToNext());
-        }
-        else
-        {
-            Log.d("PERO", "Nisu nadjene statistike " + gameId);
         }
         db.close();
         return stats;
@@ -238,10 +240,12 @@ public class GameDBHelper extends SQLiteOpenHelper {
 
         if (c.moveToFirst())
         {
+            db.close();
             return c.getLong(0);
         }
         else
         {
+            db.close();
             return -1;
         }
     }
@@ -258,11 +262,51 @@ public class GameDBHelper extends SQLiteOpenHelper {
                 null, null, null);
 
         if (c.moveToFirst()) {
+            db.close();
             return c.getLong(0);
         }
         else {
+            db.close();
             return -1;
         }
+    }
+
+    public boolean deleteGame(long gameID)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] args = new String[]{Long.toString(gameID)};
+        if (db.delete(TABLE_BASKETBALL_GAMES, BASKETBALL_GAME_ID + "=?", args) == 0) {
+            return false;
+        }
+
+        db.delete(TABLE_BASKETBALL_STATS, BASKETBALL_STATS_GAME_ID + "=?", args);
+        return true;
+    }
+
+    public boolean deletePlayer(long playerID)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] args = new String[]{Long.toString(playerID)};
+        if (db.delete(TABLE_BASKETBALL_PLAYERS, BASKETBALL_PLAYER_ID + "=?", args) == 0) {
+            return false;
+        }
+
+        db.delete(TABLE_BASKETBALL_STATS, BASKETBALL_STATS_PLAYER_ID + "=?", args);
+        return true;
+    }
+
+    public boolean deleteStats(long gameID, long playerID)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] args = new String[]{Long.toString(gameID), Long.toString(playerID)};
+        if (db.delete(TABLE_BASKETBALL_STATS, BASKETBALL_STATS_GAME_ID + "=? AND " + BASKETBALL_STATS_PLAYER_ID + "=?", args) == 0) {
+            return false;
+        }
+
+        return true;
     }
 }
 

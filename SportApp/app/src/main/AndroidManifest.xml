@@ -18,7 +18,8 @@
         <activity android:name=".GameStats" />
         <activity android:name=".IgraciKosarka" />
         <activity android:name=".ArhivaKosarka" />
-        <activity android:name=".ArhivaIgracaActivity"></activity>
+        <activity android:name=".KosarkaIgraciUtakmice" />
+        <activity android:name=".KosrkaIgraci"></activity>
     </application>
 
 </manifest>

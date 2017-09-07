@@ -12,6 +12,7 @@ public class Stats implements Parcelable {
     private int points;
     private int assists;
     private int jumps;
+    private String team;
 
     public Stats() {
         this.playerId = 0;
@@ -19,14 +20,16 @@ public class Stats implements Parcelable {
         this.points = 0;
         this.assists = 0;
         this.jumps = 0;
+        this.team = null;
     }
 
-    public Stats(long playerId, long gameId, int points, int assists, int jumps) {
+    public Stats(long playerId, long gameId, int points, int assists, int jumps, String team) {
         this.playerId = playerId;
         this.gameId = gameId;
         this.points = points;
         this.assists = assists;
         this.jumps = jumps;
+        this.team = team;
     }
 
     protected Stats(Parcel in) {
@@ -35,6 +38,7 @@ public class Stats implements Parcelable {
         points = in.readInt();
         assists = in.readInt();
         jumps = in.readInt();
+        team = in.readString();
     }
 
     public static final Creator<Stats> CREATOR = new Creator<Stats>() {
@@ -89,6 +93,14 @@ public class Stats implements Parcelable {
         this.jumps = jumps;
     }
 
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -101,5 +113,6 @@ public class Stats implements Parcelable {
         parcel.writeInt(points);
         parcel.writeInt(assists);
         parcel.writeInt(jumps);
+        parcel.writeString(team);
     }
 }

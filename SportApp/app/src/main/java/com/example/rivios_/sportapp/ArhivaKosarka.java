@@ -7,11 +7,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class ArhivaKosarka extends AppCompatActivity {
+public class ArhivaKosarka extends AppCompatActivity implements DeleteDialog.DeleteDialogListener{
     ArrayList<Game> games;
     GameStatsAdapter adapter;
     ListView lvGameStats;
@@ -37,11 +35,27 @@ public class ArhivaKosarka extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent();
-                i.setClass(getApplicationContext(), ArhivaIgracaActivity.class);
+                i.setClass(getApplicationContext(), KosarkaIgraciUtakmice.class);
                 i.putExtra("GAME_ID", id);
                 startActivity(i);
             }
         });
+
+        lvGameStats.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long id) {
+                if (dbHelper.deleteGame(id))
+                {
+                    adapter.notifyDataSetChanged();
+                    return true;
+                }
+                else return false;
+            }
+        });
     }
 
+    @Override
+    public void onDialogClick(boolean yesNo) {
+
+    }
 }

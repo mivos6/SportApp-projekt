@@ -38,9 +38,21 @@ public class GameStats extends AppCompatActivity {
     public void igracikosarka(View v) {
         Intent i = new Intent();
         i.setClass(this, IgraciKosarka.class);
+
+        String team1 = etTeam1.getText().toString();
+        String team2 = etTeam2.getText().toString();
+
+        if (!(team1.equals("") || team2.equals(""))) {
+            i.putExtra(Constants.TEAM1_TAG, team1);
+            i.putExtra(Constants.TEAM2_TAG, team2);
+        }
+        else {
+            Toast.makeText(this, "Nisu upisane ekipe.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         startActivityForResult(i, Constants.PLAYER_RESULT);
     }
-
 
     public void arhivakosarka (View v) {
         Intent i = new Intent();
@@ -89,8 +101,21 @@ public class GameStats extends AppCompatActivity {
                 return;
             }
         }
-        trenutnaUtakmica.setResult1(Integer.parseInt(rezultat.substring(0, indikator)));
-        trenutnaUtakmica.setResult2(Integer.parseInt(rezultat.substring(indikator + 1)));
+
+        int result1;
+        int result2;
+
+        try {
+            result1 = Integer.parseInt(rezultat.substring(0, indikator));
+            result2 = Integer.parseInt(rezultat.substring(indikator + 1));
+        }
+        catch (NumberFormatException e) {
+            Toast.makeText(this, "Neispravno upisan rezultat.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        trenutnaUtakmica.setResult1(result1);
+        trenutnaUtakmica.setResult2(result2);
 
         if (trenutnaUtakmica.getResult1() < trenutnaUtakmica.getResult2()) {
             trenutnaUtakmica.setWinner(team2);

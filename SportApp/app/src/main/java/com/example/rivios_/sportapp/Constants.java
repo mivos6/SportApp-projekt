@@ -11,4 +11,6 @@ public class Constants {
     public static final String PLAYERS = "players";
     public static final String STATS = "stats";
     public static final String DATE_PICKER_TAG = "datePicker";
+    public static final String TEAM1_TAG = "team1";
+    public static final String TEAM2_TAG = "team2";
 }

@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -23,20 +24,24 @@ public class IgraciKosarka extends AppCompatActivity {
     EditText etPoeni;
     EditText etAsistencije;
     EditText etSkokovi;
+    Spinner spTimovi;
     ListView lvPlayers;
 
     ArrayAdapter<PlayerStats> plAdapter;
+    ArrayAdapter<String> spAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_igracikosarka);
+        Intent i = getIntent();
 
         etIme = (EditText) findViewById(R.id.imekosarkasa);
         etNadimak = (EditText) findViewById(R.id.nadimakkosarkasa);
         etPoeni = (EditText) findViewById(R.id.poeni);
         etAsistencije = (EditText) findViewById(R.id.asistencije);
         etSkokovi = (EditText) findViewById(R.id.skokovi);
+        spTimovi = (Spinner) findViewById(R.id.spinner);
         lvPlayers = (ListView) findViewById(R.id.listaIgraca);
 
         plAdapter = new ArrayAdapter<PlayerStats>(this, android.R.layout.simple_list_item_1, pst);
@@ -49,6 +54,14 @@ public class IgraciKosarka extends AppCompatActivity {
                 return true;
             }
         });
+
+        ArrayList<String> teams = new ArrayList<String>();
+        teams.add("Odaberite ekipu");
+        teams.add(i.getStringExtra(Constants.TEAM1_TAG));
+        teams.add(i.getStringExtra(Constants.TEAM2_TAG));
+        spAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, teams);
+        spTimovi.setAdapter(spAdapter);
+        spTimovi.setSelection(0);
     }
 
     public void dodajIgraca (View v)
@@ -59,6 +72,7 @@ public class IgraciKosarka extends AppCompatActivity {
         int poeni;
         int asistencije;
         int skokovi;
+        String ekipa;
 
         try {
             poeni = Integer.parseInt(etPoeni.getText().toString());
@@ -79,12 +93,18 @@ public class IgraciKosarka extends AppCompatActivity {
         {
             if (s.getPlayer().getNickname().equals(nadimak))
             {
-                Toast.makeText(this, "Igrč već dodan.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Igrač već dodan.", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
+        ekipa = spTimovi.getSelectedItem().toString();
+        if (ekipa.equals("Odaberite ekipu"))
+        {
+            Toast.makeText(this, "Ekipa nije odabrana.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        pst.add(new PlayerStats(new Player(0, ime, nadimak), new Stats(0, 0, poeni, asistencije, skokovi)));
+        pst.add(new PlayerStats(new Player(0, ime, nadimak), new Stats(0, 0, poeni, asistencije, skokovi, ekipa), 1));
         plAdapter.notifyDataSetChanged();
 
         etIme.setText("");
@@ -92,6 +112,7 @@ public class IgraciKosarka extends AppCompatActivity {
         etPoeni.setText("");
         etAsistencije.setText("");
         etSkokovi.setText("");
+        spTimovi.setSelection(0);
     }
 
     public void spremi (View v)
