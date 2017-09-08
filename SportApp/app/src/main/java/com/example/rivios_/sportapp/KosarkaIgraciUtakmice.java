@@ -10,17 +10,15 @@ import java.util.ArrayList;
 
 public class KosarkaIgraciUtakmice extends AppCompatActivity {
     long gameId;
-    ArrayList<Stats> playerStats;
+    ArrayList<PlayerStats> playerStats = new ArrayList<>();
     PlayerStatsAdapter adapter;
     ListView lvplayerStats;
-    GameDBHelper dbHelper;
+    GameDBHelper dbHelper = GameDBHelper.getInstance(this);;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arhiva_igraca);
-
-        dbHelper = GameDBHelper.getInstance(this);
 
         //fillDBPlayers();
 
@@ -31,7 +29,14 @@ public class KosarkaIgraciUtakmice extends AppCompatActivity {
 
         lvplayerStats = (ListView) findViewById(R.id.lvPlayerStats);
 
-        playerStats = dbHelper.getPlayerStats(gameId);
+        ArrayList<Stats> stats = dbHelper.getPlayerStats(gameId, false);
+
+        for (Stats st : stats)
+        {
+            playerStats.add(new PlayerStats(dbHelper.getPlayer(st.getPlayerId()), st, 0));
+        }
+
+        //playerStats = dbHelper.getPlayerStats(gameId, false);
 
         adapter = new PlayerStatsAdapter(playerStats);
 

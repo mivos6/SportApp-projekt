@@ -19,7 +19,7 @@
         <activity android:name=".IgraciKosarka" />
         <activity android:name=".ArhivaKosarka" />
         <activity android:name=".KosarkaIgraciUtakmice" />
-        <activity android:name=".KosrkaIgraci"></activity>
+        <activity android:name=".KosarkaIgraci"></activity>
     </application>
 
 </manifest>

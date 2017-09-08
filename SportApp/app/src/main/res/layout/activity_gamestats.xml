@@ -88,21 +88,6 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/arhiva"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/statistike"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:onClick="arhivakosarka"
-        android:singleLine="false"
-        android:text="Pogledaj arhivu"
-        android:textAllCaps="false"
-        android:textColor="@color/kosarka"
-        android:textStyle="bold" />
-
-    <Button
         android:id="@+id/spremi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -118,5 +103,28 @@
         android:textAllCaps="false"
         android:textColor="@color/kosarka"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/arhiva"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:onClick="arhivakosarka"
+        android:singleLine="false"
+        android:text="Pogledaj arhivu"
+        android:textAllCaps="false"
+        android:textColor="@color/kosarka"
+        android:textStyle="bold"
+        android:layout_below="@+id/statistike"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Pogledaj arhivu igrača"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/arhiva"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/arhivaIgraca"
+        android:onClick="arhivaIgracaKosarka"/>
 
 </RelativeLayout>

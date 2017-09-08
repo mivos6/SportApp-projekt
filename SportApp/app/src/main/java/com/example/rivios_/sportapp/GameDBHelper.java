@@ -174,11 +174,11 @@ public class GameDBHelper extends SQLiteOpenHelper {
         return games;
     }
 
-    public ArrayList<Stats> getPlayerStats(long gameId) {
+    public ArrayList<Stats> getPlayerStats(long id, boolean playerOrGame)  {
         ArrayList<Stats> stats = new ArrayList<Stats>();
         SQLiteDatabase db = getReadableDatabase();
 
-        String[] args = new String[]{Long.toString(gameId)};
+        String[] args = new String[]{Long.toString(id)};
 
         Cursor c = db.query(TABLE_BASKETBALL_STATS,
                 new String[]{BASKETBALL_STATS_GAME_ID,
@@ -187,7 +187,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         BASKETBALL_STATS_ASSISTS,
                         BASKETBALL_STATS_JUMPS,
                         BASKETBALL_STATS_TEAM},
-                BASKETBALL_STATS_GAME_ID + "=?", args,
+                (playerOrGame ? BASKETBALL_STATS_PLAYER_ID : BASKETBALL_STATS_GAME_ID) + "=?", args,
                 null, null, null);
 
         if (c.moveToFirst()) {
@@ -224,6 +224,26 @@ public class GameDBHelper extends SQLiteOpenHelper {
         }
         db.close();
         return p;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        ArrayList<Player> players = new ArrayList<Player>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.query(TABLE_BASKETBALL_PLAYERS,
+                new String[]{BASKETBALL_PLAYER_ID,
+                        BASKETBALL_PLAYER_NAME,
+                        BASKETBALL_PLAYER_NICKNAME},
+                null, null, null, null, null);
+
+        if (c.moveToFirst()) {
+            do {
+                players.add(new Player(c.getLong(0), c.getString(1), c.getString(2)));
+            } while (c.moveToNext());
+        }
+
+        return players;
     }
 
 

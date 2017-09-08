@@ -11,12 +11,11 @@ import java.util.ArrayList;
  * Created by admin on 6.6.2016..
  */
 public class PlayerStatsAdapter extends BaseAdapter {
-    ArrayList<Stats> playerStats;
+    ArrayList<PlayerStats> playerStats;
 
-    public PlayerStatsAdapter(ArrayList<Stats> playerStats) {
+    public PlayerStatsAdapter(ArrayList<PlayerStats> playerStats) {
         this.playerStats = playerStats;
     }
-
 
     @Override
     public int getCount() {
@@ -30,7 +29,7 @@ public class PlayerStatsAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return playerStats.get(position).getPlayerId();
+        return playerStats.get(position).getPlayer().getId();
     }
 
     @Override
@@ -49,15 +48,22 @@ public class PlayerStatsAdapter extends BaseAdapter {
             holder = (StatsViewHolder) convertView.getTag();
         }
 
-        Stats current = playerStats.get(position);
+        PlayerStats current = playerStats.get(position);
 
-        GameDBHelper helper = GameDBHelper.getInstance(convertView.getContext());
-        Player p = helper.getPlayer(current.getPlayerId());
+        String str;
+        if (current.getGameCount() == 0)
+        {
+            str = current.getStats().getTeam();
+        }
+        else
+        {
+            str = Integer.toString(current.getGameCount());
+        }
 
-        holder.tvNamePos.setText(p.getName() + ",  " + p.getNickname() + ", " + current.getTeam());
-        holder.tvStats.setText("PTS:  " + current.getPoints() +
-                "   AST: " + current.getAssists() +
-                "   RBD: " + current.getJumps());
+        holder.tvNamePos.setText(current.getPlayer().getName() + ",  " + current.getPlayer().getNickname() + ", " + str);
+        holder.tvStats.setText("PTS:  " + current.getStats().getPoints() +
+                "   AST: " + current.getStats().getAssists() +
+                "   RBD: " + current.getStats().getJumps());
 
         return convertView;
     }

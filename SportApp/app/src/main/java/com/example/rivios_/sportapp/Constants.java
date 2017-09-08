@@ -13,4 +13,5 @@ public class Constants {
     public static final String DATE_PICKER_TAG = "datePicker";
     public static final String TEAM1_TAG = "team1";
     public static final String TEAM2_TAG = "team2";
+    public static final String DELETE_DIALOG_TAG = "delete_dialog";
 }

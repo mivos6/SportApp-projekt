@@ -1,5 +1,6 @@
 package com.example.rivios_.sportapp;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,11 +10,14 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class ArhivaKosarka extends AppCompatActivity implements DeleteDialog.DeleteDialogListener{
+public class ArhivaKosarka extends AppCompatActivity implements DeleteDialog.DeleteDialogListener, AdapterView.OnItemLongClickListener{
     ArrayList<Game> games;
     GameStatsAdapter adapter;
     ListView lvGameStats;
     GameDBHelper dbHelper;
+
+    private int deletePos = -1;
+    private long deleteId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,21 +45,26 @@ public class ArhivaKosarka extends AppCompatActivity implements DeleteDialog.Del
             }
         });
 
-        lvGameStats.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long id) {
-                if (dbHelper.deleteGame(id))
-                {
-                    adapter.notifyDataSetChanged();
-                    return true;
-                }
-                else return false;
-            }
-        });
+        lvGameStats.setOnItemLongClickListener(this);
     }
 
     @Override
-    public void onDialogClick(boolean yesNo) {
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long id) {
+        DeleteDialog delDialog =  new DeleteDialog();
+        delDialog.setListener(this);
+        deletePos = pos;
+        deleteId = id;
+        delDialog.show(getFragmentManager(), Constants.DELETE_DIALOG_TAG);
+        return true;
+    }
 
+    @Override
+    public void onDialogClick(boolean yes) {
+        if (yes) {
+            if (dbHelper.deleteGame(deleteId)) {
+                games.remove(deletePos);
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 }

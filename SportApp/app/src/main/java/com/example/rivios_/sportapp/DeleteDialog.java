@@ -13,7 +13,7 @@ import android.os.Bundle;
 public class DeleteDialog extends DialogFragment {
 
     public interface DeleteDialogListener {
-        public void onDialogClick(boolean yesNo);
+        void onDialogClick(boolean yesNo);
     }
 
     DeleteDialogListener listener;
@@ -21,7 +21,7 @@ public class DeleteDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Želite li obrisati odabeanu stavku?")
+        builder.setMessage("Želite li obrisati odabranu stavku?")
                 .setNegativeButton("Da", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

@@ -60,6 +60,13 @@ public class GameStats extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void arhivaIgracaKosarka (View v)
+    {
+        Intent i = new Intent();
+        i.setClass(this, KosarkaIgraci.class);
+        startActivity(i);
+    }
+
     public void spremiuBazu (View v) {
         String team1 = etTeam1.getText().toString();
         String team2 = etTeam2.getText().toString();
