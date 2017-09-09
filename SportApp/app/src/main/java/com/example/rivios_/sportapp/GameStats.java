@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class GameStats extends AppCompatActivity {
 
     private Game trenutnaUtakmica = new Game();
-    private ArrayList<Player> trenutniIgraci = new ArrayList<Player>();
+    private ArrayList<Athlete> trenutniIgraci = new ArrayList<Athlete>();
     private ArrayList<Stats> trenutneStatistike = new ArrayList<Stats>();
 
     EditText etTeam1;
@@ -148,10 +148,10 @@ public class GameStats extends AppCompatActivity {
 
         if (trenutniIgraci.size() > 0)
         {
-            for (Player igrac : trenutniIgraci)
+            for (Athlete igrac : trenutniIgraci)
             {
                 if (dbHelper.getPlayerID(igrac.getNickname()) == -1) {
-                    dbHelper.addPlayer(igrac);
+                    dbHelper.addAthlete(igrac);
                 }
                 long pid = dbHelper.getPlayerID(igrac.getNickname());
                 igrac.setId(pid);
@@ -180,10 +180,10 @@ public class GameStats extends AppCompatActivity {
         {
             if (resultCode == RESULT_OK)
             {
-                ArrayList<Player> listaDodanih = data.getParcelableArrayListExtra(Constants.PLAYERS);
+                ArrayList<Athlete> listaDodanih = data.getParcelableArrayListExtra(Constants.PLAYERS);
                 ArrayList<Stats> listaStatistika = data.getParcelableArrayListExtra(Constants.STATS);
 
-                for ( Player igrac : listaDodanih) {
+                for ( Athlete igrac : listaDodanih) {
                     trenutniIgraci.add(igrac);
                 }
                 for ( Stats st : listaStatistika) {

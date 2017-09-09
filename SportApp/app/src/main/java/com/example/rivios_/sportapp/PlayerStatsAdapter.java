@@ -29,7 +29,7 @@ public class PlayerStatsAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return playerStats.get(position).getPlayer().getId();
+        return playerStats.get(position).getAthlete().getId();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class PlayerStatsAdapter extends BaseAdapter {
             str = Integer.toString(current.getGameCount());
         }
 
-        holder.tvNamePos.setText(current.getPlayer().getName() + ",  " + current.getPlayer().getNickname() + ", " + str);
+        holder.tvNamePos.setText(current.getAthlete().getName() + ",  " + current.getAthlete().getNickname() + ", " + str);
         holder.tvStats.setText("PTS:  " + current.getStats().getPoints() +
                 "   AST: " + current.getStats().getAssists() +
                 "   RBD: " + current.getStats().getJumps());

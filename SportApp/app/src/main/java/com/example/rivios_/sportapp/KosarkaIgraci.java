@@ -25,15 +25,15 @@ public class KosarkaIgraci extends AppCompatActivity implements DeleteDialog.Del
 
         lvBasketballPlayers = (ListView) findViewById(R.id.lvBasketballPlayers);
 
-        ArrayList<Player> players = dbHelper.getPlayers();
+        ArrayList<Athlete> athletes = dbHelper.getPlayers();
 
-        for (Player pl : players)
+        for (Athlete pl : athletes)
         {
             ArrayList<Stats> stats = dbHelper.getPlayerStats(pl.getId(), true);
 
             PlayerStats ps = new PlayerStats();
 
-            ps.setPlayer(pl);
+            ps.setAthlete(pl);
             ps.setGameCount(stats.size());
 
             Stats sum = new Stats(pl.getId(), (long) 0, 0, 0, 0, "");

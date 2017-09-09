@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -13,7 +12,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 public class IgraciKosarka extends AppCompatActivity {
@@ -91,7 +89,7 @@ public class IgraciKosarka extends AppCompatActivity {
         }
         for (PlayerStats s : pst)
         {
-            if (s.getPlayer().getNickname().equals(nadimak))
+            if (s.getAthlete().getNickname().equals(nadimak))
             {
                 Toast.makeText(this, "Igrač već dodan.", Toast.LENGTH_SHORT).show();
                 return;
@@ -104,7 +102,7 @@ public class IgraciKosarka extends AppCompatActivity {
             return;
         }
 
-        pst.add(new PlayerStats(new Player(0, ime, nadimak), new Stats(0, 0, poeni, asistencije, skokovi, ekipa), 1));
+        pst.add(new PlayerStats(new Athlete(0, ime, nadimak), new Stats(0, 0, poeni, asistencije, skokovi, ekipa), 1));
         plAdapter.notifyDataSetChanged();
 
         etIme.setText("");
@@ -117,14 +115,14 @@ public class IgraciKosarka extends AppCompatActivity {
 
     public void spremi (View v)
     {
-        ArrayList<Player> igraci = new ArrayList<Player>();
+        ArrayList<Athlete> igraci = new ArrayList<Athlete>();
         ArrayList<Stats> statistike = new ArrayList<Stats>();
 
         for (PlayerStats p : pst)
         {
-            igraci.add(p.getPlayer());
+            igraci.add(p.getAthlete());
             statistike.add(p.getStats());
-            Log.d("PERO", "Dodan igrac " + p.getPlayer().getNickname());
+            Log.d("PERO", "Dodan igrac " + p.getAthlete().getNickname());
         }
 
         Intent i = new Intent();
