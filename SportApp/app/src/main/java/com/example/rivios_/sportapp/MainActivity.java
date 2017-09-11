@@ -12,9 +12,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    public void newactivity(View v) {
+    public void basketballgamestats(View v) {
         Intent i = new Intent();
-        i.setClass(this, GameStats.class);
+        i.setClass(this, BasketballGameStatsActivity.class);
+        startActivity(i);
+    }
+    public void footballgamestats(View v) {
+        Intent i = new Intent();
+        i.setClass(this, FootballGameStatsActivity.class);
         startActivity(i);
     }
 

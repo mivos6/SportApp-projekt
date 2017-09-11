@@ -15,11 +15,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameStats" />
+        <activity android:name=".BasketballGameStatsActivity" />
         <activity android:name=".IgraciKosarka" />
         <activity android:name=".ArhivaKosarka" />
         <activity android:name=".KosarkaIgraciUtakmice" />
-        <activity android:name=".KosarkaIgraci"></activity>
+        <activity android:name=".KosarkaIgraci" />
+        <activity android:name=".FootballGameStatsActivity" />
+        <activity android:name=".FootballPlayers"></activity>
     </application>
 
 </manifest>

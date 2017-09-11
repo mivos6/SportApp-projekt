@@ -1,6 +1,5 @@
 package com.example.rivios_.sportapp;
 
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -61,7 +60,7 @@ public class ArhivaKosarka extends AppCompatActivity implements DeleteDialog.Del
     @Override
     public void onDialogClick(boolean yes) {
         if (yes) {
-            if (dbHelper.deleteGame(deleteId)) {
+            if (dbHelper.deleteBasketballGame(deleteId)) {
                 games.remove(deletePos);
                 adapter.notifyDataSetChanged();
             }
