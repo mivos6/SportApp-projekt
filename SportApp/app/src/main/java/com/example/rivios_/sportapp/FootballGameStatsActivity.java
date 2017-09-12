@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 public class FootballGameStatsActivity extends AppCompatActivity {
 
-    private FootballGame currentFootbalGame = new FootballGame();
+    private FootballGame currentFootballGame = new FootballGame();
     private ArrayList<Athlete> trenutniIgraci = new ArrayList<Athlete>();
-    private ArrayList<Stats> trenutneStatistike = new ArrayList<Stats>();
+    private ArrayList<BasketballStats> trenutneStatistike = new ArrayList<BasketballStats>();
 
     EditText etTeam1;
     EditText etTeam2;
@@ -77,6 +77,7 @@ public class FootballGameStatsActivity extends AppCompatActivity {
             return;
         }
 
+        FootballGame currentFootbalGame = new FootballGame();
         currentFootbalGame.setTeam1(team1);
         currentFootbalGame.setTeam2(team2);
 
@@ -109,9 +110,8 @@ public class FootballGameStatsActivity extends AppCompatActivity {
 
         GameDBHelper dbHelper = GameDBHelper.getInstance(this);
 
-        FootballGame currentFootballGame;
         dbHelper.addFootballGame(currentFootballGame);
-        long gid = dbHelper.getGameID(currentFootballGame.getTeam1(), currentFootballGame.getTeam2(), currentFootballGame.getDatum());
+        long gid = dbHelper.getFootballGameID(currentFootballGame.getTeam1(), currentFootballGame.getTeam2(), currentFootballGame.getDatum());
         currentFootballGame.setId(gid);
 
         Log.d("PERO", "Spremljena utakmica: " + gid);
@@ -132,7 +132,7 @@ public class FootballGameStatsActivity extends AppCompatActivity {
         if (trenutneStatistike.size() > 0) {
             for (int i = 0; i < trenutneStatistike.size(); i++)
             {
-                trenutneStatistike.get(i).setGameId(trenutnaUtakmica.getId());
+                trenutneStatistike.get(i).setGameId(currentFootballGame.getId());
                 trenutneStatistike.get(i).setPlayerId(trenutniIgraci.get(i).getId());
 
                 dbHelper.addStats(trenutneStatistike.get(i));

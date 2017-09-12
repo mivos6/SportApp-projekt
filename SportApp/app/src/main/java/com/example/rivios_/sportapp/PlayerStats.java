@@ -6,7 +6,7 @@ package com.example.rivios_.sportapp;
 
 public class PlayerStats {
     private Athlete athlete;
-    private Stats stats;
+    private BasketballStats stats;
     private int gameCount;
 
     public PlayerStats()
@@ -16,7 +16,7 @@ public class PlayerStats {
         gameCount = 0;
     }
 
-    public PlayerStats(Athlete pl, Stats st, int c)
+    public PlayerStats(Athlete pl, BasketballStats st, int c)
     {
         this.athlete = pl;
         this.stats = st;
@@ -24,11 +24,11 @@ public class PlayerStats {
     }
 
     public Athlete getAthlete() { return athlete; }
-    public Stats getStats() { return stats; }
+    public BasketballStats getStats() { return stats; }
     public int getGameCount() { return gameCount; }
 
     public void setAthlete(Athlete pl) { athlete = pl; }
-    public void setStats(Stats st) { stats = st; }
+    public void setStats(BasketballStats st) { stats = st; }
     public void setGameCount(int c) { gameCount = c; }
 
     public String toString()

@@ -23,10 +23,10 @@ public class FootballStats implements Parcelable{
         this.team = null;
     }
 
-    public FootballStats(long playerId, long gameId, int points, int assists, int jumps, String team) {
+    public FootballStats(long playerId, long gameId, int goals, int assists, int jumps, String team) {
         this.playerId = playerId;
         this.gameId = gameId;
-        this.goals = points;
+        this.goals = goals;
         this.assists = assists;
         this.team = team;
     }

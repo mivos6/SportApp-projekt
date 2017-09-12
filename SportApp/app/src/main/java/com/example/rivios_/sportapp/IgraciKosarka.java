@@ -102,7 +102,7 @@ public class IgraciKosarka extends AppCompatActivity {
             return;
         }
 
-        pst.add(new PlayerStats(new Athlete(0, ime, nadimak), new Stats(0, 0, poeni, asistencije, skokovi, ekipa), 1));
+        pst.add(new PlayerStats(new Athlete(0, ime, nadimak), new BasketballStats(0, 0, poeni, asistencije, skokovi, ekipa), 1));
         plAdapter.notifyDataSetChanged();
 
         etIme.setText("");
@@ -116,7 +116,7 @@ public class IgraciKosarka extends AppCompatActivity {
     public void spremi (View v)
     {
         ArrayList<Athlete> igraci = new ArrayList<Athlete>();
-        ArrayList<Stats> statistike = new ArrayList<Stats>();
+        ArrayList<BasketballStats> statistike = new ArrayList<BasketballStats>();
 
         for (PlayerStats p : pst)
         {

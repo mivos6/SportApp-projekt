@@ -17,7 +17,7 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
 
     private Game trenutnaUtakmica = new Game();
     private ArrayList<Athlete> trenutniIgraci = new ArrayList<Athlete>();
-    private ArrayList<Stats> trenutneStatistike = new ArrayList<Stats>();
+    private ArrayList<BasketballStats> trenutneStatistike = new ArrayList<BasketballStats>();
 
     EditText etTeam1;
     EditText etTeam2;
@@ -181,12 +181,12 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK)
             {
                 ArrayList<Athlete> listaDodanih = data.getParcelableArrayListExtra(Constants.PLAYERS);
-                ArrayList<Stats> listaStatistika = data.getParcelableArrayListExtra(Constants.STATS);
+                ArrayList<BasketballStats> listaStatistika = data.getParcelableArrayListExtra(Constants.STATS);
 
                 for ( Athlete igrac : listaDodanih) {
                     trenutniIgraci.add(igrac);
                 }
-                for ( Stats st : listaStatistika) {
+                for ( BasketballStats st : listaStatistika) {
                     trenutneStatistike.add(st);
                 }
             }

@@ -29,9 +29,9 @@ public class KosarkaIgraciUtakmice extends AppCompatActivity {
 
         lvplayerStats = (ListView) findViewById(R.id.lvPlayerStats);
 
-        ArrayList<Stats> stats = dbHelper.getPlayerStats(gameId, false);
+        ArrayList<BasketballStats> stats = dbHelper.getPlayerStats(gameId, false);
 
-        for (Stats st : stats)
+        for (BasketballStats st : stats)
         {
             playerStats.add(new PlayerStats(dbHelper.getPlayer(st.getPlayerId()), st, 0));
         }
