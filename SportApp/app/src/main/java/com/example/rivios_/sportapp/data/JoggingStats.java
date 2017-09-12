@@ -1,4 +1,4 @@
-package com.example.rivios_.sportapp;
+package com.example.rivios_.sportapp.data;
 
 /**
  * Created by Milan on 9.9.2017..

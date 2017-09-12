@@ -1,22 +1,25 @@
-package com.example.rivios_.sportapp;
+package com.example.rivios_.sportapp.data;
+
+import com.example.rivios_.sportapp.data.Athlete;
+import com.example.rivios_.sportapp.data.BasketballStats;
 
 /**
  * Created by Milan on 2.9.2017..
  */
 
-public class PlayerStats {
+public class BasketballPlayerStats {
     private Athlete athlete;
     private BasketballStats stats;
     private int gameCount;
 
-    public PlayerStats()
+    public BasketballPlayerStats()
     {
         athlete = null;
         stats = null;
         gameCount = 0;
     }
 
-    public PlayerStats(Athlete pl, BasketballStats st, int c)
+    public BasketballPlayerStats(Athlete pl, BasketballStats st, int c)
     {
         this.athlete = pl;
         this.stats = st;

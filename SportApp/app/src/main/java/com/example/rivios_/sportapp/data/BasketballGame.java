@@ -1,16 +1,14 @@
-package com.example.rivios_.sportapp;
+package com.example.rivios_.sportapp.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by admin on 26.5.2016..
  */
-public class FootballGame implements Parcelable{
+public class BasketballGame implements Parcelable{
     private long id;
     private String team1;
     private String team2;
@@ -19,7 +17,7 @@ public class FootballGame implements Parcelable{
     private Date datum;
     private String winner;
 
-    public FootballGame() {
+    public BasketballGame() {
         this.id = 0;
         this.team1 = null;
         this.team2 = null;
@@ -29,7 +27,7 @@ public class FootballGame implements Parcelable{
         this.winner = null;
     }
 
-    public FootballGame(long id, String team1, String team2, int result1, int result2, Date datum, String winner) {
+    public BasketballGame(long id, String team1, String team2, int result1, int result2, Date datum, String winner) {
         this.id = id;
         this.team1 = team1;
         this.team2 = team2;
@@ -39,7 +37,7 @@ public class FootballGame implements Parcelable{
         this.winner = winner;
     }
 
-    protected FootballGame(Parcel in) {
+    protected BasketballGame(Parcel in) {
         id = in.readLong();
         team1 = in.readString();
         team2 = in.readString();
@@ -48,15 +46,15 @@ public class FootballGame implements Parcelable{
         winner = in.readString();
     }
 
-    public static final Creator<FootballGame> CREATOR = new Creator<FootballGame>() {
+    public static final Creator<BasketballGame> CREATOR = new Creator<BasketballGame>() {
         @Override
-        public FootballGame createFromParcel(Parcel in) {
-            return new FootballGame(in);
+        public BasketballGame createFromParcel(Parcel in) {
+            return new BasketballGame(in);
         }
 
         @Override
-        public FootballGame[] newArray(int size) {
-            return new FootballGame[size];
+        public BasketballGame[] newArray(int size) {
+            return new BasketballGame[size];
         }
     };
 

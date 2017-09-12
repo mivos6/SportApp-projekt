@@ -6,6 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.rivios_.sportapp.data.Athlete;
+import com.example.rivios_.sportapp.data.BasketballGame;
+import com.example.rivios_.sportapp.data.BasketballStats;
+import com.example.rivios_.sportapp.data.FootballGame;
+import com.example.rivios_.sportapp.data.JoggingRace;
+import com.example.rivios_.sportapp.data.JoggingStats;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -201,7 +208,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addBasketballGame(Game g) {
+    public void addBasketballGame(BasketballGame g) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -253,8 +260,8 @@ public class GameDBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public ArrayList<Game> getGames() {
-        ArrayList<Game> games = new ArrayList<Game>();
+    public ArrayList<BasketballGame> getGames() {
+        ArrayList<BasketballGame> basketballGames = new ArrayList<BasketballGame>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(TABLE_BASKETBALL_GAMES,
                 new String[]{BASKETBALL_GAME_ID,
@@ -270,7 +277,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
 
         if (c.moveToFirst()) {
             do {
-                games.add(new Game(c.getLong(0),
+                basketballGames.add(new BasketballGame(c.getLong(0),
                         c.getString(1),
                         c.getString(2),
                         c.getInt(3),
@@ -281,7 +288,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
             } while (c.moveToNext());
         }
         db.close();
-        return games;
+        return basketballGames;
     }
 
     public ArrayList<BasketballStats> getPlayerStats(long id, boolean playerOrGame)  {

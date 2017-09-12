@@ -5,15 +5,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.rivios_.sportapp.data.BasketballPlayerStats;
+
 import java.util.ArrayList;
 
 /**
  * Created by admin on 6.6.2016..
  */
 public class PlayerStatsAdapter extends BaseAdapter {
-    ArrayList<PlayerStats> playerStats;
+    ArrayList<BasketballPlayerStats> playerStats;
 
-    public PlayerStatsAdapter(ArrayList<PlayerStats> playerStats) {
+    public PlayerStatsAdapter(ArrayList<BasketballPlayerStats> playerStats) {
         this.playerStats = playerStats;
     }
 
@@ -48,7 +50,7 @@ public class PlayerStatsAdapter extends BaseAdapter {
             holder = (StatsViewHolder) convertView.getTag();
         }
 
-        PlayerStats current = playerStats.get(position);
+        BasketballPlayerStats current = playerStats.get(position);
 
         String str;
         if (current.getGameCount() == 0)

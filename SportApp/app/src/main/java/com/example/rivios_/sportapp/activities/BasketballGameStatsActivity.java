@@ -1,4 +1,4 @@
-package com.example.rivios_.sportapp;
+package com.example.rivios_.sportapp.activities;
 
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -9,13 +9,21 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.rivios_.sportapp.Constants;
+import com.example.rivios_.sportapp.DatePickerFragment;
+import com.example.rivios_.sportapp.GameDBHelper;
+import com.example.rivios_.sportapp.R;
+import com.example.rivios_.sportapp.data.Athlete;
+import com.example.rivios_.sportapp.data.BasketballGame;
+import com.example.rivios_.sportapp.data.BasketballStats;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class BasketballGameStatsActivity extends AppCompatActivity {
 
-    private Game trenutnaUtakmica = new Game();
+    private BasketballGame trenutnaUtakmica = new BasketballGame();
     private ArrayList<Athlete> trenutniIgraci = new ArrayList<Athlete>();
     private ArrayList<BasketballStats> trenutneStatistike = new ArrayList<BasketballStats>();
 

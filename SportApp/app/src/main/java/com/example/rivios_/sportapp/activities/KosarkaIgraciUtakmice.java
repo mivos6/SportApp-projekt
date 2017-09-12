@@ -1,4 +1,4 @@
-package com.example.rivios_.sportapp;
+package com.example.rivios_.sportapp.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,11 +6,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.example.rivios_.sportapp.GameDBHelper;
+import com.example.rivios_.sportapp.PlayerStatsAdapter;
+import com.example.rivios_.sportapp.R;
+import com.example.rivios_.sportapp.data.BasketballPlayerStats;
+import com.example.rivios_.sportapp.data.BasketballStats;
+
 import java.util.ArrayList;
 
 public class KosarkaIgraciUtakmice extends AppCompatActivity {
     long gameId;
-    ArrayList<PlayerStats> playerStats = new ArrayList<>();
+    ArrayList<BasketballPlayerStats> playerStats = new ArrayList<>();
     PlayerStatsAdapter adapter;
     ListView lvplayerStats;
     GameDBHelper dbHelper = GameDBHelper.getInstance(this);;
@@ -33,10 +39,10 @@ public class KosarkaIgraciUtakmice extends AppCompatActivity {
 
         for (BasketballStats st : stats)
         {
-            playerStats.add(new PlayerStats(dbHelper.getPlayer(st.getPlayerId()), st, 0));
+            playerStats.add(new BasketballPlayerStats(dbHelper.getPlayer(st.getPlayerId()), st, 0));
         }
 
-        //playerStats = dbHelper.getPlayerStats(gameId, false);
+        //basketballPlayerStats = dbHelper.getPlayerStats(gameId, false);
 
         adapter = new PlayerStatsAdapter(playerStats);
 

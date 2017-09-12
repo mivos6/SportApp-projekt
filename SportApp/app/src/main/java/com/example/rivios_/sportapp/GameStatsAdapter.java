@@ -5,6 +5,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.rivios_.sportapp.data.BasketballGame;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -12,9 +14,9 @@ import java.util.ArrayList;
  * Created by admin on 26.5.2016..
  */
 public class GameStatsAdapter extends BaseAdapter{
-    ArrayList<Game> games;
+    ArrayList<BasketballGame> games;
 
-    public GameStatsAdapter(ArrayList<Game> games) {
+    public GameStatsAdapter(ArrayList<BasketballGame> games) {
         this.games = games;
     }
 
@@ -52,7 +54,7 @@ public class GameStatsAdapter extends BaseAdapter{
             holder = (GameViewHolder) convertView.getTag();
         }
 
-        Game current = games.get(position);
+        BasketballGame current = games.get(position);
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
 
         holder.tvTeam1.setText(current.getTeam1());

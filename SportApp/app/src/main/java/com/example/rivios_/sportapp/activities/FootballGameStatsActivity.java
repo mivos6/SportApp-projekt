@@ -1,4 +1,4 @@
-package com.example.rivios_.sportapp;
+package com.example.rivios_.sportapp.activities;
 
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -8,6 +8,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.rivios_.sportapp.Constants;
+import com.example.rivios_.sportapp.DatePickerFragment;
+import com.example.rivios_.sportapp.GameDBHelper;
+import com.example.rivios_.sportapp.R;
+import com.example.rivios_.sportapp.data.Athlete;
+import com.example.rivios_.sportapp.data.BasketballStats;
+import com.example.rivios_.sportapp.data.FootballGame;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

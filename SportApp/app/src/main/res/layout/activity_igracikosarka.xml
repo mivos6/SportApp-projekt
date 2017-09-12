@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/kosarka"
-    tools:context=".IgraciKosarka">
+    tools:context=".activities.IgraciKosarka">
 
     <EditText
         android:id="@+id/imekosarkasa"

@@ -1,4 +1,4 @@
-package com.example.rivios_.sportapp;
+package com.example.rivios_.sportapp.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,14 +6,23 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.rivios_.sportapp.Constants;
+import com.example.rivios_.sportapp.DeleteDialog;
+import com.example.rivios_.sportapp.GameDBHelper;
+import com.example.rivios_.sportapp.PlayerStatsAdapter;
+import com.example.rivios_.sportapp.R;
+import com.example.rivios_.sportapp.data.Athlete;
+import com.example.rivios_.sportapp.data.BasketballPlayerStats;
+import com.example.rivios_.sportapp.data.BasketballStats;
+
 import java.util.ArrayList;
 
 public class KosarkaIgraci extends AppCompatActivity implements DeleteDialog.DeleteDialogListener, AdapterView.OnItemLongClickListener{
     ListView lvBasketballPlayers;
 
     GameDBHelper dbHelper = GameDBHelper.getInstance(this);
-    ArrayList<PlayerStats> playerStats = new ArrayList<>();
-    PlayerStatsAdapter adapter = new PlayerStatsAdapter(playerStats);
+    ArrayList<BasketballPlayerStats> basketballPlayerStats = new ArrayList<>();
+    PlayerStatsAdapter adapter = new PlayerStatsAdapter(basketballPlayerStats);
 
     private int deletePos = -1;
     private long deleteId = -1;
@@ -31,7 +40,7 @@ public class KosarkaIgraci extends AppCompatActivity implements DeleteDialog.Del
         {
             ArrayList<BasketballStats> stats = dbHelper.getPlayerStats(pl.getId(), true);
 
-            PlayerStats ps = new PlayerStats();
+            BasketballPlayerStats ps = new BasketballPlayerStats();
 
             ps.setAthlete(pl);
             ps.setGameCount(stats.size());
@@ -46,7 +55,7 @@ public class KosarkaIgraci extends AppCompatActivity implements DeleteDialog.Del
             }
             ps.setStats(sum);
 
-            playerStats.add(ps);
+            basketballPlayerStats.add(ps);
         }
 
         lvBasketballPlayers.setOnItemLongClickListener(this);
@@ -67,7 +76,7 @@ public class KosarkaIgraci extends AppCompatActivity implements DeleteDialog.Del
     public void onDialogClick(boolean yes) {
         if (yes) {
             if (dbHelper.deletePlayer(deleteId)) {
-                playerStats.remove(deletePos);
+                basketballPlayerStats.remove(deletePos);
                 adapter.notifyDataSetChanged();
             }
         }

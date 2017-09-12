@@ -1,7 +1,9 @@
-package com.example.rivios_.sportapp;
+package com.example.rivios_.sportapp.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.rivios_.sportapp.R;
 
 public class FootballPlayers extends AppCompatActivity {
 
