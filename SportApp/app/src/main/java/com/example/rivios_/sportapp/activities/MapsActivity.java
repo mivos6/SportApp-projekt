@@ -56,11 +56,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         LatLng bezveze = new LatLng(-34, 149);
-        mMap.addMarker(new MarkerOptions().position(convert(sydney)).title("Marker in Sydney"));
+        //mMap.addMarker(new MarkerOptions().position(convert(sydney)).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(convert(sydney)));
+        //mMap.addMarker(new MarkerOptions().position(convert(bezveze)).title("Marker in Bezveze"));
 
         geoCtx = new GeoApiContext.Builder()
-                .apiKey(getString(R.string.google_maps_key))
+                .apiKey(getString(R.string.google_directions_key))
                 .queryRateLimit(3)
                 .connectTimeout(1, TimeUnit.SECONDS)
                 .readTimeout(1, TimeUnit.SECONDS)
@@ -81,17 +82,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         catch (Exception e)
         {
             Log.d("PERO", "Nesto ne valja s mapom.");
+            Log.d("PERO", e.toString());
             return;
         }
 
-        mMap.addMarker(new MarkerOptions().position(convert(new LatLng(results.routes[0].legs[0].startLocation.lat,results.routes[0].legs[0].startLocation.lng))));//.title(results.routes[0].legs[0].startAddress));
-        mMap.addMarker(new MarkerOptions().position(convert(new LatLng(results.routes[0].legs[0].endLocation.lat,results.routes[0].legs[0].endLocation.lng))));//.title(results.routes[0].legs[0].startAddress).snippet(getEndLocationTitle(results)));
+        mMap.addMarker(new MarkerOptions().position(convert(new LatLng(results.routes[0].legs[0].startLocation.lat,results.routes[0].legs[0].startLocation.lng))).title("start"));
+        mMap.addMarker(new MarkerOptions().position(convert(new LatLng(results.routes[0].legs[0].endLocation.lat,results.routes[0].legs[0].endLocation.lng))).title("end"));
 
         ArrayList<com.google.android.gms.maps.model.LatLng> decodedPath = new ArrayList<>();
         for (LatLng ll : results.routes[0].overviewPolyline.decodePath())
         {
             decodedPath.add(convert(ll));
         }
+
+        Log.d("PERO", "Broj tocaka " + decodedPath.size());
 
         mMap.addPolyline(new PolylineOptions().addAll(decodedPath));
     }
