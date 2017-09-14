@@ -20,9 +20,11 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:onClick="addRoute"
         android:text="Dodaj rutu"
         android:textAllCaps="false"
-        android:onClick="addRoute"/>
+        android:textColor="@color/jogging" />
 
     <EditText
         android:id="@+id/start"
@@ -54,9 +56,11 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/finish"
         android:layout_marginTop="36dp"
-        android:text="Dodaj natjecatelje"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:onClick="runnersactivity"
-        android:textAllCaps="false" />
+        android:text="Dodaj natjecatelje"
+        android:textAllCaps="false"
+        android:textColor="@color/jogging" />
 
     <Button
         android:id="@+id/archive"
@@ -68,8 +72,10 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/addRunner"
         android:layout_marginTop="83dp"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:text="Pogledaj arhivu utrka"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:textColor="@color/jogging" />
 
     <Button
         android:id="@+id/saveRace"
@@ -80,8 +86,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:text="Spremi utrku"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:textColor="@color/jogging" />
 
 
 </RelativeLayout>

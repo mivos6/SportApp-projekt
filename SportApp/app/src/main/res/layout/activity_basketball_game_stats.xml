@@ -131,6 +131,7 @@
         android:onClick="arhivaIgracaKosarka"
         android:text="Pogledaj arhivu igrača"
         android:textAllCaps="false"
-        android:textColor="@color/kosarka" />
+        android:textColor="@color/kosarka"
+        android:textStyle="bold" />
 
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.rivios_.sportapp.R;
+import com.example.rivios_.sportapp.TennisGame;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,13 +27,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void joggingracestats(View v) {
+    public void tennisActivity(View v) {
         Intent i = new Intent();
-        i.setClass(this, MapsActivity.class);
+        i.setClass(this, TennisGameActivity.class);
         startActivity(i);
     }
 
-    public void joggingrace(View v) {
+    public void joggingRace(View v) {
         Intent i = new Intent();
         i.setClass(this, JoggingActivity.class);
         startActivity(i);

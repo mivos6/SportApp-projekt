@@ -70,7 +70,7 @@
         android:textColor="@color/jogging"
         android:textSize="@android:dimen/app_icon_size"
         android:textStyle="bold"
-        android:onClick="joggingrace"/>
+        android:onClick="joggingRace"/>
 
 </RelativeLayout>
 

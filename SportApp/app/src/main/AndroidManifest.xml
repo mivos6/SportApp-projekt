@@ -44,6 +44,7 @@
         <activity android:name=".activities.TennisGameActivity" />
         <activity android:name=".activities.JoggingActivity" />
         <activity android:name=".activities.RunnersActivity"></activity>
+        <activity android:name=".activities.MapsActivity"></activity>
     </application>
 
 </manifest>

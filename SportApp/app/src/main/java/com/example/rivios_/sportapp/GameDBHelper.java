@@ -22,7 +22,7 @@ import java.util.Date;
 public class GameDBHelper extends SQLiteOpenHelper {
 
     private static final String DTATBASE_NAME = "sportStatsDB";
-    private static final int SCHEMA = 8;
+    private static final int SCHEMA = 9;
 
     private static GameDBHelper instance;
 
@@ -59,13 +59,13 @@ public class GameDBHelper extends SQLiteOpenHelper {
     static final String TENNIS_PLAYER1 = "player1";
     static final String TENNIS_PLAYER2 = "player2";
     static final String TENNIS_RESULT1 = "result1";
-    static final String TENNIS_RESULT2 = "result1";
+    static final String TENNIS_RESULT2 = "result2";
     static final String TENNIS_WINNER = "winner";
     static final String TENNIS_DATUM = "datum";
     static final String TENNIS_SET1 = "set1";
     static final String TENNIS_SET2 = "set2";
     static final String TENNIS_SET3 = "set3";
-    static final String TENNIS_SET4 = "set";
+    static final String TENNIS_SET4 = "set4";
     static final String TENNIS_SET5 = "set5";
 
 
@@ -205,7 +205,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
                 "DROP TABLE IF EXISTS " + TABLE_FOOTBALL_GAMES;
         final String DROP_TABLE_TENNIS_GAMES =
                 "DROP TABLE IF EXISTS " + TABLE_TENNIS_GAMES;
-        final String DROP_TABLE_BASKETBALL_PLAYERS =
+        final String DROP_TABLE_ATHLETES =
                 "DROP TABLE IF EXISTS " + TABLE_ATHLETES;
         final String DROP_TABLE_BASKETBALL_STATS =
                 "DROP TABLE IF EXISTS " + TABLE_BASKETBALL_STATS;
@@ -220,7 +220,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
         db.execSQL(DROP_TABLE_BASKETBALL_GAMES);
         db.execSQL(DROP_TABLE_FOOTBALL_GAMES);
         db.execSQL(DROP_TABLE_TENNIS_GAMES);
-        db.execSQL(DROP_TABLE_BASKETBALL_PLAYERS);
+        db.execSQL(DROP_TABLE_ATHLETES);
         db.execSQL(DROP_TABLE_BASKETBALL_STATS);
         db.execSQL(DROP_TABLE_FOOTBALL_STATS);
         db.execSQL(DROP_TABLE_JOGGING_RACES);
