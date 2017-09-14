@@ -23,7 +23,7 @@
         android:layout_alignParentTop="true"
         android:onClick="basketballgamestats"
         android:text="@string/kosarka"
-        android:textColor="#c23f06"
+        android:textColor="@color/kosarka"
         android:textSize="@android:dimen/app_icon_size"
         android:textStyle="bold" />
 
@@ -37,7 +37,7 @@
         android:layout_alignRight="@+id/kosarka"
         android:layout_below="@+id/kosarka"
         android:text="@string/nogomet"
-        android:textColor="#32b423"
+        android:textColor="@color/football"
         android:textSize="@android:dimen/app_icon_size"
         android:textStyle="bold"
         android:onClick="footballgamestats"/>
@@ -52,8 +52,9 @@
         android:layout_alignRight="@+id/nogomet"
         android:layout_below="@+id/nogomet"
         android:text="@string/tenis"
-        android:textColor="#d1c024"
+        android:textColor="@color/tennis"
         android:textSize="@android:dimen/app_icon_size"
+        android:onClick="tennisActivity"
         android:textStyle="bold" />
 
     <Button
@@ -66,10 +67,10 @@
         android:layout_alignRight="@+id/tenis"
         android:layout_below="@+id/tenis"
         android:text="@string/trcanje"
-        android:textColor="#37b3ae"
+        android:textColor="@color/jogging"
         android:textSize="@android:dimen/app_icon_size"
         android:textStyle="bold"
-        android:onClick="joggingracestats"/>
+        android:onClick="joggingrace"/>
 
 </RelativeLayout>
 

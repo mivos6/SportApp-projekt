@@ -1,8 +1,11 @@
 package com.example.rivios_.sportapp.activities;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 
 import com.example.rivios_.sportapp.R;
@@ -87,7 +90,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         mMap.addMarker(new MarkerOptions().position(convert(new LatLng(results.routes[0].legs[0].startLocation.lat,results.routes[0].legs[0].startLocation.lng))).title("start"));
-        mMap.addMarker(new MarkerOptions().position(convert(new LatLng(results.routes[0].legs[0].endLocation.lat,results.routes[0].legs[0].endLocation.lng))).title("end"));
+        mMap.addMarker(new MarkerOptions().position(convert(new LatLng(results.routes[0].legs[0].endLocation.lat,results.routes[0].legs[0].endLocation.lng))).title("finish"));
 
         ArrayList<com.google.android.gms.maps.model.LatLng> decodedPath = new ArrayList<>();
         for (LatLng ll : results.routes[0].overviewPolyline.decodePath())
@@ -104,4 +107,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     {
         return new com.google.android.gms.maps.model.LatLng(ll.lat, ll.lng);
     }
+
 }

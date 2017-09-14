@@ -130,6 +130,7 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:onClick="arhivaIgracaKosarka"
         android:text="Pogledaj arhivu igrača"
+        android:textAllCaps="false"
         android:textColor="@color/kosarka" />
 
 </RelativeLayout>

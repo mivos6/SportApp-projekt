@@ -31,4 +31,10 @@ public class MainActivity extends AppCompatActivity {
         i.setClass(this, MapsActivity.class);
         startActivity(i);
     }
+
+    public void joggingrace(View v) {
+        Intent i = new Intent();
+        i.setClass(this, JoggingActivity.class);
+        startActivity(i);
+    }
 }

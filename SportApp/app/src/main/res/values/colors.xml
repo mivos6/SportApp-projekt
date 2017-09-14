@@ -5,5 +5,7 @@
     <color name="colorAccent">#060606</color>
     <color name="kosarka">#f17139</color>
     <color name="football">#32b423</color>
+    <color name="tennis">#d1c024</color>
+    <color name="jogging">#37b3ae</color>
 
 </resources>
