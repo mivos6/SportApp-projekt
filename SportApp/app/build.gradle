@@ -6,10 +6,11 @@ android {
 
     defaultConfig {
         applicationId "com.example.rivios_.sportapp"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -27,4 +28,5 @@ dependencies {
     compile 'com.google.android.gms:play-services:11.0.4'
     androidTestCompile 'junit:junit:4.12'
     compile 'com.google.maps:google-maps-services:0.2.2'
+    compile 'com.quicklib:quicklib-multidex:1.0.1'
 }
