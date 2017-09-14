@@ -123,7 +123,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         FOOTBALL_TEAM2 + " TEXT," +
                         FOOTBALL_RESULT1 + " INTEGER," +
                         FOOTBALL_RESULT2 + " INTEGER," +
-                        FOOTBALL_DATUM + " INTEGER;";
+                        FOOTBALL_DATUM + " INTEGER);";
 
         final String CREATE_TABLE_TENNIS_GAMES =
                 "CREATE TABLE " + TABLE_TENNIS_GAMES +
@@ -138,7 +138,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         TENNIS_SET2 + " INTEGER," +
                         TENNIS_SET3 + " INTEGER," +
                         TENNIS_SET5 + " INTEGER," +
-                        TENNIS_SET4 + " INTEGER;";
+                        TENNIS_SET4 + " INTEGER);";
 
         final String CREATE_TABLE_ATHLETES =
                 "CREATE TABLE " + TABLE_ATHLETES +
