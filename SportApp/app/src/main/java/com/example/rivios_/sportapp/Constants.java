@@ -6,6 +6,7 @@ package com.example.rivios_.sportapp;
 
 public class Constants {
     public static final int PLAYER_RESULT = 1;
+    public static final int ROUTE_RESULT = 2;
 
     public static final String GAME = "game";
     public static final String PLAYERS = "players";
@@ -14,4 +15,8 @@ public class Constants {
     public static final String TEAM1_TAG = "team1";
     public static final String TEAM2_TAG = "team2";
     public static final String DELETE_DIALOG_TAG = "delete_dialog";
+    public static final String ROUTE_TAG = "route";
+    public static final String DIST_TAG = "distance";
+    public static final String START_TAG = "start";
+    public static final String FINISH_TAG = "finish";
 }

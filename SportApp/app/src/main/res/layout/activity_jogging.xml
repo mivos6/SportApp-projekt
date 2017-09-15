@@ -34,7 +34,8 @@
         android:hint="Start"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:inputType="none" />
 
     <EditText
         android:id="@+id/finish"
@@ -44,7 +45,8 @@
         android:hint="Cilj"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:inputType="none" />
 
     <Button
         android:id="@+id/addRunner"
@@ -57,7 +59,7 @@
         android:layout_below="@+id/finish"
         android:layout_marginTop="36dp"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:onClick="runnersactivity"
+        android:onClick="runnersActivity"
         android:text="Dodaj natjecatelje"
         android:textAllCaps="false"
         android:textColor="@color/jogging" />
@@ -89,7 +91,8 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:text="Spremi utrku"
         android:textAllCaps="false"
-        android:textColor="@color/jogging" />
+        android:textColor="@color/jogging"
+        android:onClick="saveToDB" />
 
 
 </RelativeLayout>

@@ -6,33 +6,29 @@ package com.example.rivios_.sportapp.data;
 
 public class JoggingRace {
     private long raceId;
-    private String name;
     private String start;
     private String finish;
     private int distance;
+    private String encodedRoute;
 
     public JoggingRace() {
         this.raceId = 0;
-        this.name = null;
         this.start = null;
         this.finish = null;
         this.distance = 0;
+        this.encodedRoute = null;
     }
 
-    public JoggingRace(long raceId, String name, String start, String finish, int distance) {
+    public JoggingRace(long raceId, String start, String finish, int distance) {
         this.raceId = raceId;
-        this.name = name;
         this.start = start;
         this.finish = finish;
         this.distance = distance;
+        this.encodedRoute = null;
     }
 
     public long getRaceId() {
         return raceId;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getStart() {
@@ -51,10 +47,6 @@ public class JoggingRace {
         this.raceId = raceId;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setStart(String start) {
         this.start = start;
     }
@@ -66,4 +58,13 @@ public class JoggingRace {
     public void setDistance(int distance) {
         this.distance = distance;
     }
+
+    public String getEncodedRoute() {
+        return encodedRoute;
+    }
+
+    public void setEncodedRoute(String encodedRoute) {
+        this.encodedRoute = encodedRoute;
+    }
+
 }

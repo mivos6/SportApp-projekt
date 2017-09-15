@@ -504,11 +504,11 @@ public class GameDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(JOGGING_RACE_NAME, r.getName());
+        //values.put(JOGGING_RACE_NAME, r.getName());
         values.put(JOGGING_RACE_START, r.getStart());
         values.put(JOGGING_RACE_FINISH, r.getFinish());
         values.put(JOGGING_RACE_DISTANCE, r.getDistance());
-        db.insert(TABLE_JOGGING_RACES, JOGGING_RACE_NAME, values);
+        db.insert(TABLE_JOGGING_RACES, JOGGING_RACE_START, values);
         db.close();
     }
 
