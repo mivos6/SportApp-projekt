@@ -13,73 +13,114 @@
 
     <EditText
         android:id="@+id/player1Name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:hint="Ime igrača"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/firstSet"
+        android:layout_toEndOf="@+id/firstSet" />
 
     <EditText
         android:id="@+id/player1Nickname"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Nadimak igrača"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:layout_below="@+id/player1Name"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView" />
 
     <EditText
         android:id="@+id/player2Name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Ime igrača"
         android:textAlignment="center"
         android:textStyle="bold"
         android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/player1Name"
+        android:layout_alignStart="@+id/player1Name" />
 
     <EditText
         android:id="@+id/player2Nickname"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Nadimak igrača"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:layout_below="@+id/player2Name"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/textView"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/result"
+        android:id="@+id/tennisresult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Rezultat"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/player2Name"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="19dp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/firstSet"
+        android:layout_below="@id/tennisresult"
+        android:hint="1. set"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/secondSet"
+        android:hint="2. set"
+        android:layout_below="@+id/tennisresult"
+        android:layout_alignLeft="@+id/player2Name"
+        android:layout_alignStart="@+id/player2Name"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/thirdSet"
+        android:hint="3. set"
+        android:layout_below="@+id/tennisresult"
+        android:layout_toRightOf="@+id/player2Name"
+        android:layout_toEndOf="@+id/player2Name" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fourthSet"
+        android:hint="4. set"
+        android:layout_below="@+id/tennisresult"
+        android:layout_alignRight="@+id/button4"
+        android:layout_alignEnd="@+id/button4" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fifthSet"
+        android:hint="5. set"
+        android:layout_below="@+id/tennisresult"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:id="@+id/datum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/result"
-        android:layout_marginTop="20dp"
         android:clickable="true"
         android:hint="Datum"
         android:onClick="birajDatum"
         android:textAlignment="center"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/firstSet"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -101,7 +142,8 @@
         android:textColor="@color/tennis"
         android:textStyle="bold"
         android:layout_below="@+id/datum"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp" />
 
     <Button
         android:id="@+id/button3"
@@ -127,9 +169,10 @@
         android:textAllCaps="false"
         android:textColor="@color/tennis"
         android:textStyle="bold"
+        android:layout_marginTop="17dp"
         android:layout_below="@+id/button2"
-        android:layout_alignRight="@+id/button2"
-        android:layout_alignEnd="@+id/button2" />
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignStart="@+id/button2" />
 
 </RelativeLayout>
 
