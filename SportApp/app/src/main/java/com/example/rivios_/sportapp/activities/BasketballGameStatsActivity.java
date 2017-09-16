@@ -78,7 +78,7 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
     public void spremiuBazu (View v) {
         String team1 = etTeam1.getText().toString();
         String team2 = etTeam2.getText().toString();
-        String rezultat = etResult.getText().toString();
+        String result = etResult.getText().toString();
         String datum = etDatum.getText().toString();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -90,7 +90,7 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
             Toast.makeText(this, "Nije unešena ekipa.", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (rezultat.equals("")) {
+        if (result.equals("")) {
             Toast.makeText(this, "Nije upisan rezultat.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -102,14 +102,14 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
         trenutnaUtakmica.setTeam1(team1);
         trenutnaUtakmica.setTeam2(team2);
 
-        int indikator = rezultat.indexOf(":");
-        if ((indikator <= 0) || (indikator == rezultat.length() - 1)) {
+        int indikator = result.indexOf(":");
+        if ((indikator <= 0) || (indikator == result.length() - 1)) {
             Toast.makeText(this, "Neispravno upisan rezultat.", Toast.LENGTH_SHORT).show();
             return;
         }
         int brDvotocke = 0;
-        for (int i = 0; i < rezultat.length(); i++) {
-            if (rezultat.charAt(i) == ':')
+        for (int i = 0; i < result.length(); i++) {
+            if (result.charAt(i) == ':')
                 brDvotocke++;
             if (brDvotocke > 1) {
                 Toast.makeText(this, "Neispravno upisan rezultat.", Toast.LENGTH_SHORT).show();
@@ -121,8 +121,8 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
         int result2;
 
         try {
-            result1 = Integer.parseInt(rezultat.substring(0, indikator));
-            result2 = Integer.parseInt(rezultat.substring(indikator + 1));
+            result1 = Integer.parseInt(result.substring(0, indikator));
+            result2 = Integer.parseInt(result.substring(indikator + 1));
         }
         catch (NumberFormatException e) {
             Toast.makeText(this, "Neispravno upisan rezultat.", Toast.LENGTH_SHORT).show();
