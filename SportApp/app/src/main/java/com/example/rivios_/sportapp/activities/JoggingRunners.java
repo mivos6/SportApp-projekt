@@ -43,7 +43,7 @@ public class JoggingRunners extends AppCompatActivity {
         etRunnerTime = (EditText) findViewById(R.id.runnerTime);
         lvAddRunners = (ListView) findViewById(R.id.addRunnersList);
 
-        adapter = new ArrayAdapter<JoggingRunnerStats>(this, android.R.layout.simple_list_item_1);
+        adapter = new ArrayAdapter<JoggingRunnerStats>(this, android.R.layout.simple_list_item_1, rs);
         lvAddRunners.setAdapter(adapter);
         lvAddRunners.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
