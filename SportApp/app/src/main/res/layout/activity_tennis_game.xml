@@ -158,7 +158,8 @@
         android:text="Spremi"
         android:textAllCaps="false"
         android:textColor="@color/tennis"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:onClick="saveTennisGame"/>
 
     <Button
         android:id="@+id/button4"

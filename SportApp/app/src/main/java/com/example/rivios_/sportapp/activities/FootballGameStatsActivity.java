@@ -46,12 +46,12 @@ public class FootballGameStatsActivity extends AppCompatActivity {
         Intent i = new Intent();
         i.setClass(this, FootballAddPlayers.class);
 
-        String footballteam1 = etTeam1.getText().toString();
-        String footballteam2 = etTeam2.getText().toString();
+        String team1 = etTeam1.getText().toString();
+        String team2 = etTeam2.getText().toString();
 
-        if (!(footballteam1.equals("") || footballteam2.equals(""))) {
-            i.putExtra(Constants.TEAM1_TAG, footballteam1);
-            i.putExtra(Constants.TEAM2_TAG, footballteam2);
+        if (!(team1.equals("") || team2.equals(""))) {
+            i.putExtra(Constants.TEAM1_TAG, team1);
+            i.putExtra(Constants.TEAM2_TAG, team2);
         }
         else {
             Toast.makeText(this, "Nisu upisane ekipe.", Toast.LENGTH_SHORT).show();
@@ -64,7 +64,7 @@ public class FootballGameStatsActivity extends AppCompatActivity {
     public void spremiuBazu (View v) {
         String team1 = etTeam1.getText().toString();
         String team2 = etTeam2.getText().toString();
-        String footballresult = etResult.getText().toString();
+        String result = etResult.getText().toString();
         String datum = etDatum.getText().toString();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -76,7 +76,7 @@ public class FootballGameStatsActivity extends AppCompatActivity {
             Toast.makeText(this, "Nije upisan tim.", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (footballresult.equals("")) {
+        if (result.equals("")) {
             Toast.makeText(this, "Nije upisan rezultat.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -89,14 +89,14 @@ public class FootballGameStatsActivity extends AppCompatActivity {
         currentFootbalGame.setTeam1(team1);
         currentFootbalGame.setTeam2(team2);
 
-        int indikator = footballresult.indexOf(":");
-        if ((indikator <= 0) || (indikator == footballresult.length() - 1)) {
+        int indikator = result.indexOf(":");
+        if ((indikator <= 0) || (indikator == result.length() - 1)) {
             Toast.makeText(this, "Neispravno upisan rezultat.", Toast.LENGTH_SHORT).show();
             return;
         }
         int brDvotocke = 0;
-        for (int i = 0; i < footballresult.length(); i++) {
-            if (footballresult.charAt(i) == ':')
+        for (int i = 0; i < result.length(); i++) {
+            if (result.charAt(i) == ':')
                 brDvotocke++;
             if (brDvotocke > 1) {
                 Toast.makeText(this, "Neispravno upisan rezultat.", Toast.LENGTH_SHORT).show();
@@ -108,8 +108,8 @@ public class FootballGameStatsActivity extends AppCompatActivity {
         int result2;
 
         try {
-            result1 = Integer.parseInt(footballresult.substring(0, indikator));
-            result2 = Integer.parseInt(footballresult.substring(indikator + 1));
+            result1 = Integer.parseInt(result.substring(0, indikator));
+            result2 = Integer.parseInt(result.substring(indikator + 1));
         }
         catch (NumberFormatException e) {
             Toast.makeText(this, "Neispravno upisan rezultat.", Toast.LENGTH_SHORT).show();
