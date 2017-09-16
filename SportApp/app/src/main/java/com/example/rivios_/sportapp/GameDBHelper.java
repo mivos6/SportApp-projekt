@@ -22,7 +22,7 @@ import java.util.Date;
 public class GameDBHelper extends SQLiteOpenHelper {
 
     private static final String DTATBASE_NAME = "sportStatsDB";
-    private static final int SCHEMA = 9;
+    private static final int SCHEMA = 11;
 
     private static GameDBHelper instance;
 
@@ -69,7 +69,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
     static final String TENNIS_SET5 = "set5";
 
 
-    static final String TABLE_ATHLETES = "basketball_players";
+    static final String TABLE_ATHLETES = "athletes";
     static final String ATHLETE_ID = "id";
     static final String ATHLETE_NAME = "name";
     static final String ATHLETE_NICKNAME = "nickname";
@@ -145,7 +145,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         " (" + ATHLETE_ID + " INTEGER PRIMARY KEY," +
                         ATHLETE_NAME + " TEXT," +
                         ATHLETE_NICKNAME + " TEXT,"  +
-                        ATHLETE_DISCIPLINE + "TEXT);";
+                        ATHLETE_DISCIPLINE + " TEXT);";
 
         final String CREATE_TABLE_BASKETBALL_STATS =
                 "CREATE TABLE " + TABLE_BASKETBALL_STATS +
@@ -331,7 +331,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
         return basketballGames;
     }
 
-    public ArrayList<BasketballStats> getPlayerStats(long id, boolean playerOrGame)  {
+    public ArrayList<BasketballStats> getBasketballPlayerStats(long id, boolean playerOrGame)  {
         ArrayList<BasketballStats> stats = new ArrayList<BasketballStats>();
         SQLiteDatabase db = getReadableDatabase();
 
@@ -363,7 +363,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
         return stats;
     }
 
-    public Athlete getPlayer(long playerId) {
+    public Athlete getAthlete(long playerId) {
         Athlete p = null;
         SQLiteDatabase db = getReadableDatabase();
 
@@ -377,26 +377,27 @@ public class GameDBHelper extends SQLiteOpenHelper {
                 null, null, null);
 
         if (c.moveToFirst()) {
-            p = new Athlete(c.getLong(0), c.getString(1), c.getString(2));
+            p = new Athlete(c.getLong(0), c.getString(1), c.getString(2), Constants.DISCIPLINE_BASKETBALL);
         }
         db.close();
         return p;
     }
 
-    public ArrayList<Athlete> getPlayers() {
+    public ArrayList<Athlete> getAthletes(String discipline) {
         ArrayList<Athlete> athletes = new ArrayList<Athlete>();
 
         SQLiteDatabase db = getReadableDatabase();
 
+        String[] args = new String[]{discipline};
         Cursor c = db.query(TABLE_ATHLETES,
                 new String[]{ATHLETE_ID,
                         ATHLETE_NAME,
                         ATHLETE_NICKNAME},
-                null, null, null, null, null);
+                ATHLETE_DISCIPLINE + "=?", args, null, null, null);
 
         if (c.moveToFirst()) {
             do {
-                athletes.add(new Athlete(c.getLong(0), c.getString(1), c.getString(2)));
+                athletes.add(new Athlete(c.getLong(0), c.getString(1), c.getString(2), c.getString(3)));
             } while (c.moveToNext());
         }
 

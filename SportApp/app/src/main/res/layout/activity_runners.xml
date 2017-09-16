@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.rivios_.sportapp.activities.RunnersActivity"
+    tools:context="com.example.rivios_.sportapp.activities.JoggingRunners"
     android:background="@color/jogging"
     android:contextClickable="false">
 
@@ -40,6 +40,24 @@
         android:textAllCaps="false"
         android:textStyle="bold" />
 
+    <LinearLayout
+        android:id="@+id/linlayRunner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/runnerTime"
+        android:layout_above="@id/addSingleRunner"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <ListView
+            android:id="@+id/addRunnersList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/addSingleRunner"
         android:layout_width="wrap_content"
@@ -47,7 +65,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/linlay"
         android:backgroundTint="@color/colorPrimaryDark"
         android:text="Dodaj trkača"
         android:textAllCaps="false"
@@ -61,7 +78,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/linlay"
         android:backgroundTint="@color/colorPrimaryDark"
         android:elevation="0dp"
         android:text="Spremi trkača"

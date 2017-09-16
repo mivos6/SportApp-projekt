@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.example.rivios_.sportapp.R;
 
-public class FootballPlayers extends AppCompatActivity {
+public class FootballAddPlayers extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

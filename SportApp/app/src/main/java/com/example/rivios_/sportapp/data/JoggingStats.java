@@ -1,13 +1,16 @@
 package com.example.rivios_.sportapp.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Milan on 9.9.2017..
  */
 
-public class JoggingStats {
+public class JoggingStats implements Parcelable{
     private long raceId;
     private long runnerId;
-    private int time;
+    private long time;
     private int place;
 
     public JoggingStats() {
@@ -17,12 +20,31 @@ public class JoggingStats {
         this.place = 0;
     }
 
-    public JoggingStats(long raceId, long runnerId, int time, int place) {
+    public JoggingStats(long raceId, long runnerId, long time, int place) {
         this.raceId = raceId;
         this.runnerId = runnerId;
         this.time = time;
         this.place = place;
     }
+
+    protected JoggingStats(Parcel in) {
+        raceId = in.readLong();
+        runnerId = in.readLong();
+        time = in.readLong();
+        place = in.readInt();
+    }
+
+    public static final Creator<JoggingStats> CREATOR = new Creator<JoggingStats>() {
+        @Override
+        public JoggingStats createFromParcel(Parcel in) {
+            return new JoggingStats(in);
+        }
+
+        @Override
+        public JoggingStats[] newArray(int size) {
+            return new JoggingStats[size];
+        }
+    };
 
     public long getRaceId() {
         return raceId;
@@ -40,7 +62,7 @@ public class JoggingStats {
         this.runnerId = runnerId;
     }
 
-    public int getTime() {
+    public long getTime() {
         return time;
     }
 
@@ -54,5 +76,18 @@ public class JoggingStats {
 
     public void setPlace(int place) {
         this.place = place;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(raceId);
+        parcel.writeLong(runnerId);
+        parcel.writeLong(time);
+        parcel.writeInt(place);
     }
 }

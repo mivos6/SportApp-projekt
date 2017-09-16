@@ -45,7 +45,7 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
 
     public void igracikosarka(View v) {
         Intent i = new Intent();
-        i.setClass(this, IgraciKosarka.class);
+        i.setClass(this, BasketballAddPlayers.class);
 
         String team1 = etTeam1.getText().toString();
         String team2 = etTeam2.getText().toString();
@@ -64,14 +64,14 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
 
     public void arhivakosarka (View v) {
         Intent i = new Intent();
-        i.setClass(this, ArhivaKosarka.class);
+        i.setClass(this, BasketballGameList.class);
         startActivity(i);
     }
 
     public void arhivaIgracaKosarka (View v)
     {
         Intent i = new Intent();
-        i.setClass(this, KosarkaIgraci.class);
+        i.setClass(this, BasketballPlayerList.class);
         startActivity(i);
     }
 
@@ -168,8 +168,7 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
         }
 
         if (trenutneStatistike.size() > 0) {
-            for (int i = 0; i < trenutneStatistike.size(); i++)
-            {
+            for (int i = 0; i < trenutneStatistike.size(); i++) {
                 trenutneStatistike.get(i).setGameId(trenutnaUtakmica.getId());
                 trenutneStatistike.get(i).setPlayerId(trenutniIgraci.get(i).getId());
 
@@ -180,6 +179,12 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
                         + ", igrač " + trenutneStatistike.get(i).getPlayerId());
             }
         }
+
+        etTeam1.setText("");
+        etTeam2.setText("");
+        etResult.setText("");
+        etDatum.setText("");
+        Toast.makeText(this, "Utakmica uspješno spremljena.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

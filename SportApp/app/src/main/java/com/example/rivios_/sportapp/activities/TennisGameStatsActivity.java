@@ -13,7 +13,7 @@ import com.example.rivios_.sportapp.R;
 /**
  * Created by rivios_ on 9/14/2017.
  */
-public class TennisGameActivity extends AppCompatActivity {
+public class TennisGameStatsActivity extends AppCompatActivity {
 
 
     EditText etplayer1Name;

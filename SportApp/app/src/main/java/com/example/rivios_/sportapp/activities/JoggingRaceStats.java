@@ -19,7 +19,7 @@ import java.util.ArrayList;
 /**
  * Created by rivios_ on 9/14/2017.
  */
-public class JoggingActivity extends AppCompatActivity {
+public class JoggingRaceStats extends AppCompatActivity {
     private JoggingRace newRace = null;
     private ArrayList<Athlete> runners;
     private ArrayList<JoggingStats> stats;
@@ -44,8 +44,8 @@ public class JoggingActivity extends AppCompatActivity {
         }
 
         Intent i = new Intent();
-        i.setClass(this, RunnersActivity.class);
-        startActivity(i);
+        i.setClass(this, JoggingRunners.class);
+        startActivityForResult(i, Constants.PLAYER_RESULT);
     }
 
     public void addRoute(View v) {
@@ -81,6 +81,10 @@ public class JoggingActivity extends AppCompatActivity {
                 etSart.setText(newRace.getStart());
                 etFinish.setText(newRace.getFinish());
             }
+        }
+        else if (requestCode == Constants.PLAYER_RESULT)
+        {
+
         }
     }
 }

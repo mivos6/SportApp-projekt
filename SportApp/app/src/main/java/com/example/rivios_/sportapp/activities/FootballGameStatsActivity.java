@@ -44,7 +44,7 @@ public class FootballGameStatsActivity extends AppCompatActivity {
 
     public void footballplayers(View v) {
         Intent i = new Intent();
-        i.setClass(this, FootballPlayers.class);
+        i.setClass(this, FootballAddPlayers.class);
 
         String footballteam1 = etTeam1.getText().toString();
         String footballteam2 = etTeam2.getText().toString();

@@ -14,7 +14,7 @@ import com.example.rivios_.sportapp.data.BasketballStats;
 
 import java.util.ArrayList;
 
-public class KosarkaIgraciUtakmice extends AppCompatActivity {
+public class BaskerballGamePlayers extends AppCompatActivity {
     long gameId;
     ArrayList<BasketballPlayerStats> playerStats = new ArrayList<>();
     PlayerStatsAdapter adapter;
@@ -35,14 +35,14 @@ public class KosarkaIgraciUtakmice extends AppCompatActivity {
 
         lvplayerStats = (ListView) findViewById(R.id.lvPlayerStats);
 
-        ArrayList<BasketballStats> stats = dbHelper.getPlayerStats(gameId, false);
+        ArrayList<BasketballStats> stats = dbHelper.getBasketballPlayerStats(gameId, false);
 
         for (BasketballStats st : stats)
         {
-            playerStats.add(new BasketballPlayerStats(dbHelper.getPlayer(st.getPlayerId()), st, 0));
+            playerStats.add(new BasketballPlayerStats(dbHelper.getAthlete(st.getPlayerId()), st, 0));
         }
 
-        //basketballPlayerStats = dbHelper.getPlayerStats(gameId, false);
+        //basketballPlayerStats = dbHelper.getBasketballPlayerStats(gameId, false);
 
         adapter = new PlayerStatsAdapter(playerStats);
 

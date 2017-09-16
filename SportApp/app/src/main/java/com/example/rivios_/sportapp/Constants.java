@@ -19,4 +19,9 @@ public class Constants {
     public static final String DIST_TAG = "distance";
     public static final String START_TAG = "start";
     public static final String FINISH_TAG = "finish";
+
+    public static final String DISCIPLINE_BASKETBALL = "bsketball";
+    public static final String DISCIPLINE_FOOTBALL = "football";
+    public static final String DISCIPLINE_TENNIS = "tennis";
+    public static final String DISCIPLINE_JOGGING = "jogging";
 }

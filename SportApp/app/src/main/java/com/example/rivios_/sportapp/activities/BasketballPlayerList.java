@@ -17,7 +17,7 @@ import com.example.rivios_.sportapp.data.BasketballStats;
 
 import java.util.ArrayList;
 
-public class KosarkaIgraci extends AppCompatActivity implements DeleteDialog.DeleteDialogListener, AdapterView.OnItemLongClickListener{
+public class BasketballPlayerList extends AppCompatActivity implements DeleteDialog.DeleteDialogListener, AdapterView.OnItemLongClickListener{
     ListView lvBasketballPlayers;
 
     GameDBHelper dbHelper = GameDBHelper.getInstance(this);
@@ -34,11 +34,11 @@ public class KosarkaIgraci extends AppCompatActivity implements DeleteDialog.Del
 
         lvBasketballPlayers = (ListView) findViewById(R.id.lvBasketballPlayers);
 
-        ArrayList<Athlete> athletes = dbHelper.getPlayers();
+        ArrayList<Athlete> athletes = dbHelper.getAthletes(Constants.DISCIPLINE_BASKETBALL);
 
         for (Athlete pl : athletes)
         {
-            ArrayList<BasketballStats> stats = dbHelper.getPlayerStats(pl.getId(), true);
+            ArrayList<BasketballStats> stats = dbHelper.getBasketballPlayerStats(pl.getId(), true);
 
             BasketballPlayerStats ps = new BasketballPlayerStats();
 

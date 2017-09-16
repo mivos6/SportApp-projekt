@@ -23,12 +23,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.BasketballGameStatsActivity" />
-        <activity android:name=".activities.IgraciKosarka" />
-        <activity android:name=".activities.ArhivaKosarka" />
-        <activity android:name=".activities.KosarkaIgraciUtakmice" />
-        <activity android:name=".activities.KosarkaIgraci" />
+        <activity android:name=".activities.BasketballAddPlayers" />
+        <activity android:name=".activities.BasketballGameList" />
+        <activity android:name=".activities.BaskerballGamePlayers" />
+        <activity android:name=".activities.BasketballPlayerList" />
         <activity android:name=".activities.FootballGameStatsActivity" />
-        <activity android:name=".activities.FootballPlayers" />
+        <activity android:name=".activities.FootballAddPlayers" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -41,9 +41,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".activities.TennisGameActivity" />
-        <activity android:name=".activities.JoggingActivity" />
-        <activity android:name=".activities.RunnersActivity"></activity>
+        <activity android:name=".activities.TennisGameStatsActivity" />
+        <activity android:name=".activities.JoggingRaceStats" />
+        <activity android:name=".activities.JoggingRunners"></activity>
         <activity android:name=".activities.MapsActivity"></activity>
     </application>
 

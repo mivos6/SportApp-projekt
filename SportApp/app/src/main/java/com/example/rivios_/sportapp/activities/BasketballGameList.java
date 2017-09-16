@@ -16,7 +16,7 @@ import com.example.rivios_.sportapp.data.BasketballGame;
 
 import java.util.ArrayList;
 
-public class ArhivaKosarka extends AppCompatActivity implements DeleteDialog.DeleteDialogListener, AdapterView.OnItemLongClickListener{
+public class BasketballGameList extends AppCompatActivity implements DeleteDialog.DeleteDialogListener, AdapterView.OnItemLongClickListener{
     ArrayList<BasketballGame> basketballGames;
     GameStatsAdapter adapter;
     ListView lvGameStats;
@@ -45,7 +45,7 @@ public class ArhivaKosarka extends AppCompatActivity implements DeleteDialog.Del
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent();
-                i.setClass(getApplicationContext(), KosarkaIgraciUtakmice.class);
+                i.setClass(getApplicationContext(), BaskerballGamePlayers.class);
                 i.putExtra("GAME_ID", id);
                 startActivity(i);
             }

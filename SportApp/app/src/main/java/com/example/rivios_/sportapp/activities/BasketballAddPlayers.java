@@ -20,7 +20,9 @@ import com.example.rivios_.sportapp.data.BasketballStats;
 
 import java.util.ArrayList;
 
-public class IgraciKosarka extends AppCompatActivity {
+import static com.example.rivios_.sportapp.R.color.jogging;
+
+public class BasketballAddPlayers extends AppCompatActivity {
     ArrayList<BasketballPlayerStats> pst = new ArrayList<BasketballPlayerStats>();
 
     EditText etIme;
@@ -108,7 +110,7 @@ public class IgraciKosarka extends AppCompatActivity {
             return;
         }
 
-        pst.add(new BasketballPlayerStats(new Athlete(0, ime, nadimak), new BasketballStats(0, 0, poeni, asistencije, skokovi, ekipa), 1));
+        pst.add(new BasketballPlayerStats(new Athlete(0, ime, nadimak, Constants.DISCIPLINE_BASKETBALL), new BasketballStats(0, 0, poeni, asistencije, skokovi, ekipa), 1));
         plAdapter.notifyDataSetChanged();
 
         etIme.setText("");

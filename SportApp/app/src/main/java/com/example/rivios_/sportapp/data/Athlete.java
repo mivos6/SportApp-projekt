@@ -16,18 +16,21 @@ public class Athlete implements Parcelable{
         this.id = 0;
         this.name = null;
         this.nickname = null;
+        this.discipline = null;
     }
 
-    public Athlete(long id, String name, String nickname) {
+    public Athlete(long id, String name, String nickname, String discipline) {
         this.id = id;
         this.name = name;
         this.nickname = nickname;
+        this.discipline = discipline;
     }
 
     protected Athlete(Parcel in) {
         id = in.readLong();
         name = in.readString();
         nickname = in.readString();
+        discipline = in.readString();
     }
 
     public static final Creator<Athlete> CREATOR = new Creator<Athlete>() {
@@ -84,5 +87,6 @@ public class Athlete implements Parcelable{
         parcel.writeLong(id);
         parcel.writeString(name);
         parcel.writeString(nickname);
+        parcel.writeString(discipline);
     }
 }
