@@ -2,6 +2,7 @@ package com.example.rivios_.sportapp.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 /**
  * Created by Milan on 9.9.2017..

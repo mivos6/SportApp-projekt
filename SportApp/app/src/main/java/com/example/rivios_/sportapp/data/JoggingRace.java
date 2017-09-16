@@ -1,5 +1,7 @@
 package com.example.rivios_.sportapp.data;
 
+import java.util.Date;
+
 /**
  * Created by Milan on 9.9.2017..
  */
@@ -8,6 +10,7 @@ public class JoggingRace {
     private long raceId;
     private String start;
     private String finish;
+    private Date date;
     private int distance;
     private String encodedRoute;
 
@@ -19,10 +22,11 @@ public class JoggingRace {
         this.encodedRoute = null;
     }
 
-    public JoggingRace(long raceId, String start, String finish, int distance) {
+    public JoggingRace(long raceId, String start, String finish, Date date, int distance) {
         this.raceId = raceId;
         this.start = start;
         this.finish = finish;
+        this.date = date;
         this.distance = distance;
         this.encodedRoute = null;
     }
@@ -67,4 +71,11 @@ public class JoggingRace {
         this.encodedRoute = encodedRoute;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }

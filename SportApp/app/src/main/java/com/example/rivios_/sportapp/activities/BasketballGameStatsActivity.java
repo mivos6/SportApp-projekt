@@ -180,6 +180,9 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
             }
         }
 
+        trenutnaUtakmica = new BasketballGame();
+        trenutniIgraci.clear();
+        trenutneStatistike.clear();
         etTeam1.setText("");
         etTeam2.setText("");
         etResult.setText("");

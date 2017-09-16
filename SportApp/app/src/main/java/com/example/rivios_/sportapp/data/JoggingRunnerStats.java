@@ -1,12 +1,14 @@
 package com.example.rivios_.sportapp.data;
 
+import android.support.annotation.NonNull;
+
 import java.util.Date;
 
 /**
  * Created by Milan on 16.9.2017..
  */
 
-public class JoggingRunnerStats {
+public class JoggingRunnerStats implements Comparable {
     private Athlete runner;
     private JoggingStats stats;
 
@@ -39,5 +41,11 @@ public class JoggingRunnerStats {
                 Integer.toString(d.getHours()) + ":" +
                 Integer.toString(d.getMinutes()) + ":" +
                 Integer.toString(d.getSeconds());
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        JoggingRunnerStats rs = (JoggingRunnerStats) o;
+        return (int) (this.getStats().getTime() - rs.getStats().getTime());
     }
 }

@@ -24,4 +24,7 @@ public class Constants {
     public static final String DISCIPLINE_FOOTBALL = "football";
     public static final String DISCIPLINE_TENNIS = "tennis";
     public static final String DISCIPLINE_JOGGING = "jogging";
+
+    public static final String ATHLETE_TAG = "athlete";
+    public static final String STATS_TAG = "stats";
 }

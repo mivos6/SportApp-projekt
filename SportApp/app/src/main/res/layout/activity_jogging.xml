@@ -48,6 +48,16 @@
         android:textStyle="bold"
         android:inputType="none" />
 
+    <EditText
+        android:id="@+id/datum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/finish"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:hint="Datum"/>
+
     <Button
         android:id="@+id/addRunner"
         android:layout_width="wrap_content"

@@ -1,5 +1,6 @@
 package com.example.rivios_.sportapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.example.rivios_.sportapp.data.JoggingStats;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 /**
@@ -76,6 +78,11 @@ public class JoggingRunners extends AppCompatActivity {
         long secs = time.getTime();
 
         rs.add(new JoggingRunnerStats(new Athlete(0, name, nickname, Constants.DISCIPLINE_JOGGING), new JoggingStats(0, 0, secs, 0)));
+        Collections.sort(rs);
+        for (int i = 0; i < rs.size(); i++)
+        {
+            rs.get(i).getStats().setPlace(i + 1);
+        }
         adapter.notifyDataSetChanged();
 
         etRunnerName.setText("");
@@ -85,6 +92,20 @@ public class JoggingRunners extends AppCompatActivity {
 
     public void saveRunners(View v)
     {
+        Intent resultIntent = new Intent();
+        ArrayList<Athlete> addedRunners = new ArrayList<Athlete>();
+        ArrayList<JoggingStats> addedStats = new ArrayList<JoggingStats>();
 
+        for (JoggingRunnerStats added : rs)
+        {
+            addedRunners.add(added.getRunner());
+            addedStats.add(added.getStats());
+        }
+
+        resultIntent.putExtra(Constants.ATHLETE_TAG, addedRunners);
+        resultIntent.putExtra(Constants.STATS_TAG, addedStats);
+
+        setResult(RESULT_OK);
+        finish();
     }
 }

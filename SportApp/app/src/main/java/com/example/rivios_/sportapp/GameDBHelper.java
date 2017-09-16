@@ -22,7 +22,7 @@ import java.util.Date;
 public class GameDBHelper extends SQLiteOpenHelper {
 
     private static final String DTATBASE_NAME = "sportStatsDB";
-    private static final int SCHEMA = 11;
+    private static final int SCHEMA = 12;
 
     private static GameDBHelper instance;
 
@@ -92,10 +92,11 @@ public class GameDBHelper extends SQLiteOpenHelper {
 
     static final String TABLE_JOGGING_RACES = "table_jogging_races";
     static final String JOGGING_RACE_ID = "id";
-    static final String JOGGING_RACE_NAME = "name";
     static final String JOGGING_RACE_START = "start";
     static final String JOGGING_RACE_FINISH = "finish";
+    static final String JOGGING_RACE_DATE = "date";
     static final String JOGGING_RACE_DISTANCE = "distance";
+    static final String JOGGING_RACE_ROUTE = "route";
 
     static final String TABLE_JOGGING_STATS = "jogging_stats";
     static final String JOGGING_STATS_RACE_ID = "race_id";
@@ -155,9 +156,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         BASKETBALL_STATS_ASSISTS + " INTEGER," +
                         BASKETBALL_STATS_JUMPS + " INTEGER," +
                         BASKETBALL_STATS_TEAM + " TEXT," +
-                        //"PRIMARY KEY(" + BASKETBALL_STATS_GAME_ID + "," + BASKETBALL_STATS_PLAYER_ID + ")," +
-                        "FOREIGN KEY(" + BASKETBALL_STATS_GAME_ID + ") REFERENCES " + TABLE_BASKETBALL_GAMES + "(" + BASKETBALL_GAME_ID + ")," +
-                        "FOREIGN KEY(" + BASKETBALL_STATS_PLAYER_ID + ") REFERENCES " + TABLE_ATHLETES + "(" + ATHLETE_ID + "));";
+                        "PRIMARY KEY(" + BASKETBALL_STATS_GAME_ID + "," + BASKETBALL_STATS_PLAYER_ID + "));";
 
         final String CREATE_TABLE_FOOTBALL_STATS =
                 "CREATE TABLE " + TABLE_FOOTBALL_STATS +
@@ -166,16 +165,15 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         FOOTBALL_STATS_GOALS + " INTEGER," +
                         FOOTBALL_STATS_ASSISTS + " INTEGER," +
                         FOOTBALL_STATS_TEAM + " TEXT," +
-                        //"PRIMARY KEY(" + BASKETBALL_STATS_GAME_ID + "," + BASKETBALL_STATS_PLAYER_ID + ")," +
-                        "FOREIGN KEY(" + BASKETBALL_STATS_GAME_ID + ") REFERENCES " + TABLE_BASKETBALL_GAMES + "(" + BASKETBALL_GAME_ID + ")," +
-                        "FOREIGN KEY(" + BASKETBALL_STATS_PLAYER_ID + ") REFERENCES " + TABLE_ATHLETES + "(" + ATHLETE_ID + "));";
+                        "PRIMARY KEY(" + FOOTBALL_STATS_GAME_ID + "," + FOOTBALL_STATS_PLAYER_ID + "));";
 
         final String CREATE_TABLE_JOGGING_RACES =
                 "CREATE TABLE " + TABLE_JOGGING_RACES +
                         " (" + JOGGING_RACE_ID + " INTEGGER PRIMARY KEY,"  +
-                        JOGGING_RACE_NAME  + " TEXT," +
                         JOGGING_RACE_START + " TEXT," +
                         JOGGING_RACE_FINISH + " TEXT," +
+                        JOGGING_RACE_DATE + " INTEGER," +
+                        JOGGING_RACE_ROUTE + " TEXT," +
                         JOGGING_RACE_DISTANCE + " INTEGER);";
 
         final String CREATE_TABLE_JOGGING_STATS =
@@ -183,7 +181,8 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         " (" + JOGGING_STATS_RACE_ID + " INTEGGER,"  +
                         JOGGING_STATS_RUNNER_ID  + " INTEGER," +
                         JOGGING_STATS_TIME + " INTEGER," +
-                        JOGGING_STATS_PLACE + " INTEGER);";
+                        JOGGING_STATS_PLACE + " INTEGER)," +
+                        "PRIMARY KEY(" + JOGGING_STATS_RACE_ID + "," + JOGGING_STATS_RUNNER_ID + "));";
 
         db.execSQL(CREATE_TABLE_BASKETBALL_GAMES);
         db.execSQL(CREATE_TABLE_FOOTBALL_GAMES);
@@ -392,7 +391,8 @@ public class GameDBHelper extends SQLiteOpenHelper {
         Cursor c = db.query(TABLE_ATHLETES,
                 new String[]{ATHLETE_ID,
                         ATHLETE_NAME,
-                        ATHLETE_NICKNAME},
+                        ATHLETE_NICKNAME,
+                        ATHLETE_DISCIPLINE},
                 ATHLETE_DISCIPLINE + "=?", args, null, null, null);
 
         if (c.moveToFirst()) {
@@ -505,10 +505,10 @@ public class GameDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         ContentValues values = new ContentValues();
 
-        //values.put(JOGGING_RACE_NAME, r.getName());
         values.put(JOGGING_RACE_START, r.getStart());
         values.put(JOGGING_RACE_FINISH, r.getFinish());
         values.put(JOGGING_RACE_DISTANCE, r.getDistance());
+        values.put(JOGGING_RACE_ROUTE, r.getEncodedRoute());
         db.insert(TABLE_JOGGING_RACES, JOGGING_RACE_START, values);
         db.close();
     }
@@ -535,7 +535,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
         values.put(JOGGING_STATS_RUNNER_ID, st.getRunnerId());
         values.put(JOGGING_STATS_TIME, st.getTime());
         values.put(JOGGING_STATS_PLACE, st.getPlace());
-        db.insert(TABLE_JOGGING_RACES, JOGGING_RACE_NAME, values);
+        db.insert(TABLE_JOGGING_RACES, JOGGING_STATS_RACE_ID, values);
         db.close();
     }
 
@@ -547,6 +547,29 @@ public class GameDBHelper extends SQLiteOpenHelper {
         Cursor c = db.query(TABLE_FOOTBALL_GAMES,
                 new String[]{FOOTBALL_GAME_ID},
                 FOOTBALL_TEAM1 + "=? AND " + FOOTBALL_TEAM2 + "=? AND " + FOOTBALL_DATUM + "=?",
+                args,
+                null, null, null);
+
+        if (c.moveToFirst())
+        {
+            db.close();
+            return c.getLong(0);
+        }
+        else
+        {
+            db.close();
+            return -1;
+        }
+    }
+
+    public long getJoggingRaceID(String start, String finish, Date datum) {
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] args = new String[]{start, finish, Long.toString(datum.getTime())};
+        Cursor c = db.query(TABLE_JOGGING_RACES,
+                new String[]{JOGGING_RACE_ID},
+                JOGGING_RACE_START + "=? AND " + JOGGING_RACE_FINISH + "=? AND " + JOGGING_RACE_DATE + "=?",
                 args,
                 null, null, null);
 
