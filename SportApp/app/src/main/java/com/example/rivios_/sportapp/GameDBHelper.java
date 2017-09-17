@@ -261,10 +261,10 @@ public class GameDBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(TENNIS_PLAYER1, g.getPlayer1());
-        values.put(FOOTBALL_TEAM2, g.getPlayer2());
-        values.put(FOOTBALL_RESULT1, g.getResult1());
-        values.put(FOOTBALL_RESULT2, g.getResult2());
-        values.put(FOOTBALL_DATUM, g.getDatum().getTime());
+        values.put(TENNIS_PLAYER2, g.getPlayer2());
+        values.put(TENNIS_RESULT1, g.getResult1());
+        values.put(TENNIS_RESULT2, g.getResult2());
+        values.put(TENNIS_DATUM, g.getDatum().getTime());
         values.put(TENNIS_WINNER, g.getWinner());
         values.put(TENNIS_SET1, g.getSet1());
         values.put(TENNIS_SET2, g.getSet2());
