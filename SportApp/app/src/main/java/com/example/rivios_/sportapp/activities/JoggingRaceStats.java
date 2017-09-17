@@ -97,6 +97,14 @@ public class JoggingRaceStats extends AppCompatActivity {
                         + ", igrač " + stats.get(i).getRunnerId());
             }
         }
+
+        etSart.setText("");
+        etFinish.setText("");
+        etRaceDate.setText("");
+
+        newRace = null;
+        runners.clear();
+        stats.clear();
     }
 
     @Override

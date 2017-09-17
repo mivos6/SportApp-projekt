@@ -90,6 +90,22 @@
         android:textColor="@color/jogging" />
 
     <Button
+        android:id="@+id/archiveRunners"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/archive"
+        android:layout_marginTop="3dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:text="Pogledaj arhivu trkača"
+        android:textAllCaps="false"
+        android:textColor="@color/jogging" />
+
+
+    <Button
         android:id="@+id/saveRace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

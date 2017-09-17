@@ -10,7 +10,7 @@ import android.widget.ListView;
 import com.example.rivios_.sportapp.Constants;
 import com.example.rivios_.sportapp.DeleteDialog;
 import com.example.rivios_.sportapp.GameDBHelper;
-import com.example.rivios_.sportapp.GameStatsAdapter;
+import com.example.rivios_.sportapp.adapters.BasketballGameStatsAdapter;
 import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.data.BasketballGame;
 
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class BasketballGameList extends AppCompatActivity implements DeleteDialog.DeleteDialogListener, AdapterView.OnItemLongClickListener{
     ArrayList<BasketballGame> basketballGames;
-    GameStatsAdapter adapter;
+    BasketballGameStatsAdapter adapter;
     ListView lvGameStats;
     GameDBHelper dbHelper;
 
@@ -37,7 +37,7 @@ public class BasketballGameList extends AppCompatActivity implements DeleteDialo
 
         basketballGames = dbHelper.getGames();
 
-        adapter = new GameStatsAdapter(basketballGames);
+        adapter = new BasketballGameStatsAdapter(basketballGames);
 
         lvGameStats.setAdapter(adapter);
 
