@@ -182,7 +182,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         " (" + JOGGING_STATS_RACE_ID + " INTEGER,"  +
                         JOGGING_STATS_RUNNER_ID  + " INTEGER," +
                         JOGGING_STATS_TIME + " INTEGER," +
-                        JOGGING_STATS_PLACE + " INTEGER)," +
+                        JOGGING_STATS_PLACE + " INTEGER," +
                         "PRIMARY KEY(" + JOGGING_STATS_RACE_ID + "," + JOGGING_STATS_RUNNER_ID + "));";
 
         db.execSQL(CREATE_TABLE_BASKETBALL_GAMES);
