@@ -23,8 +23,8 @@ import java.util.ArrayList;
 public class FootballGameStatsActivity extends AppCompatActivity {
 
     private FootballGame currentFootballGame = new FootballGame();
-    private ArrayList<Athlete> trenutniIgraci = new ArrayList<Athlete>();
-    private ArrayList<BasketballStats> trenutneStatistike = new ArrayList<BasketballStats>();
+    private ArrayList<Athlete> currentFootballPlayers = new ArrayList<Athlete>();
+    private ArrayList<BasketballStats> currentFootballStats = new ArrayList<BasketballStats>();
 
     EditText etTeam1;
     EditText etTeam2;
@@ -124,9 +124,9 @@ public class FootballGameStatsActivity extends AppCompatActivity {
 
         Log.d("PERO", "Spremljena utakmica: " + gid);
 
-        if (trenutniIgraci.size() > 0)
+        if (currentFootballPlayers.size() > 0)
         {
-            for (Athlete igrac : trenutniIgraci)
+            for (Athlete igrac : currentFootballPlayers)
             {
                 if (dbHelper.getPlayerID(igrac.getNickname()) == -1) {
                     dbHelper.addAthlete(igrac);
@@ -137,17 +137,17 @@ public class FootballGameStatsActivity extends AppCompatActivity {
             }
         }
 
-        if (trenutneStatistike.size() > 0) {
-            for (int i = 0; i < trenutneStatistike.size(); i++)
+        if (currentFootballStats.size() > 0) {
+            for (int i = 0; i < currentFootballStats.size(); i++)
             {
-                trenutneStatistike.get(i).setGameId(currentFootballGame.getId());
-                trenutneStatistike.get(i).setPlayerId(trenutniIgraci.get(i).getId());
+                currentFootballStats.get(i).setGameId(currentFootballGame.getId());
+                currentFootballStats.get(i).setPlayerId(currentFootballPlayers.get(i).getId());
 
-                dbHelper.addStats(trenutneStatistike.get(i));
+                dbHelper.addStats(currentFootballStats.get(i));
 
                 Log.d("PERO", "Spremljena statistika: utakmica "
-                        + trenutneStatistike.get(i).getGameId()
-                        + ", igrač " + trenutneStatistike.get(i).getPlayerId());
+                        + currentFootballStats.get(i).getGameId()
+                        + ", igrač " + currentFootballStats.get(i).getPlayerId());
             }
         }
     }

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class TennisGameStatsActivity extends AppCompatActivity {
 
     private TennisGame currentTennisgame = new TennisGame();
-    private ArrayList<Athlete> currentPlayers = new ArrayList<Athlete>();
+    private ArrayList<Athlete> currentTennisPlayers = new ArrayList<Athlete>();
 
 
     EditText etplayer1Name;
@@ -152,6 +152,27 @@ public class TennisGameStatsActivity extends AppCompatActivity {
         } catch (ParseException e) {
             Toast.makeText(this, "Neispravno upisan datum.", Toast.LENGTH_SHORT).show();
             return;
+        }
+
+        GameDBHelper dbHelper = GameDBHelper.getInstance(this);
+
+        dbHelper.addTennisGame(currentTennisgame);
+        long gid = dbHelper.getGameID(currentTennisgame.getPlayer1(), currentTennisgame.getPlayer2(), currentTennisgame.getDatum());
+        currentTennisgame.setId(gid);
+
+        Log.d("PERO", "Spremljena utakmica: " + gid);
+
+        if (currentTennisPlayers.size() > 0)
+        {
+            for (Athlete player : currentTennisPlayers)
+            {
+                if (dbHelper.getPlayerID(player.getNickname()) == -1) {
+                    dbHelper.addAthlete(player);
+                }
+                long pid = dbHelper.getPlayerID(player.getNickname());
+                player.setId(pid);
+                Log.d("PERO", "Spremljen igrač: " + pid);
+            }
         }
 
 

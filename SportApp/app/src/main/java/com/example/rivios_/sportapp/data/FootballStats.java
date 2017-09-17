@@ -60,4 +60,42 @@ public class FootballStats implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
     }
+
+    public long getGameId() {
+        return gameId;
+    }
+    public void setGameId(long gameId) {
+        this.gameId = gameId;
+    }
+
+    public long getPlayerId() {
+        return playerId;
+    }
+    public void setPlayerId(long playerId) {
+        this.playerId = playerId;
+    }
+
+    public int getGoals() {
+        return goals;
+    }
+    public void setGoals(int goals) {
+        this.goals = goals;
+    }
+
+    public int getAssists() {
+        return assists;
+    }
+    public void setAssists(int assists) {
+        this.assists = assists;
+    }
+
+
+    public String getTeam() {
+        return team;
+    }
+    public void setTeam(String team) {
+        this.team = team;
+    }
+
+
 }

@@ -10,6 +10,7 @@ import com.example.rivios_.sportapp.data.Athlete;
 import com.example.rivios_.sportapp.data.BasketballGame;
 import com.example.rivios_.sportapp.data.BasketballStats;
 import com.example.rivios_.sportapp.data.FootballGame;
+import com.example.rivios_.sportapp.data.FootballStats;
 import com.example.rivios_.sportapp.data.JoggingRace;
 import com.example.rivios_.sportapp.data.JoggingStats;
 
@@ -169,7 +170,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
 
         final String CREATE_TABLE_JOGGING_RACES =
                 "CREATE TABLE " + TABLE_JOGGING_RACES +
-                        " (" + JOGGING_RACE_ID + " INTEGGER PRIMARY KEY,"  +
+                        " (" + JOGGING_RACE_ID + " INTEGER PRIMARY KEY,"  +
                         JOGGING_RACE_START + " TEXT," +
                         JOGGING_RACE_FINISH + " TEXT," +
                         JOGGING_RACE_DATE + " INTEGER," +
@@ -178,7 +179,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
 
         final String CREATE_TABLE_JOGGING_STATS =
                 "CREATE TABLE " + TABLE_JOGGING_STATS +
-                        " (" + JOGGING_STATS_RACE_ID + " INTEGGER,"  +
+                        " (" + JOGGING_STATS_RACE_ID + " INTEGER,"  +
                         JOGGING_STATS_RUNNER_ID  + " INTEGER," +
                         JOGGING_STATS_TIME + " INTEGER," +
                         JOGGING_STATS_PLACE + " INTEGER)," +
@@ -296,6 +297,19 @@ public class GameDBHelper extends SQLiteOpenHelper {
         values.put(BASKETBALL_STATS_JUMPS, s.getJumps());
         values.put(BASKETBALL_STATS_TEAM, s.getTeam());
         db.insert(TABLE_BASKETBALL_STATS, BASKETBALL_STATS_GAME_ID, values);
+        db.close();
+    }
+
+    public void addFootballStats(FootballStats s) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(FOOTBALL_STATS_GAME_ID, s.getGameId());
+        values.put(FOOTBALL_STATS_PLAYER_ID, s.getPlayerId());
+        values.put(FOOTBALL_STATS_GOALS, s.getGoals());
+        values.put(FOOTBALL_STATS_ASSISTS, s.getAssists());
+        values.put(FOOTBALL_STATS_TEAM, s.getTeam());
+        db.insert(TABLE_FOOTBALL_STATS, FOOTBALL_STATS_GAME_ID, values);
         db.close();
     }
 

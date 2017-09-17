@@ -36,7 +36,7 @@ public class BasketballPlayerStats {
 
     public String toString()
     {
-        return athlete.getNickname() + "                 " + stats.getPoints() + " PTS   " + stats.getAssists() + " AST   " + stats.getJumps() + " RBD";
+        return athlete.getNickname() + "       " + stats.getPoints() + " PTS  " + stats.getAssists() + " AST  " + stats.getJumps() + " RBD";
     }
 
 
