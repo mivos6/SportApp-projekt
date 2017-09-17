@@ -76,10 +76,10 @@ public class JoggingRaceStats extends AppCompatActivity {
         {
             for (Athlete runner : runners)
             {
-                if (dbHelper.getPlayerID(runner.getNickname()) == -1) {
+                if (dbHelper.getAthleteID(runner.getNickname()) == -1) {
                     dbHelper.addAthlete(runner);
                 }
-                long pid = dbHelper.getPlayerID(runner.getNickname());
+                long pid = dbHelper.getAthleteID(runner.getNickname());
                 runner.setId(pid);
                 Log.d("PERO", "Spremljen igrač: " + pid);
             }

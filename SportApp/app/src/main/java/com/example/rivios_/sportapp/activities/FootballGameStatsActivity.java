@@ -128,10 +128,10 @@ public class FootballGameStatsActivity extends AppCompatActivity {
         {
             for (Athlete igrac : currentFootballPlayers)
             {
-                if (dbHelper.getPlayerID(igrac.getNickname()) == -1) {
+                if (dbHelper.getAthleteID(igrac.getNickname()) == -1) {
                     dbHelper.addAthlete(igrac);
                 }
-                long pid = dbHelper.getPlayerID(igrac.getNickname());
+                long pid = dbHelper.getAthleteID(igrac.getNickname());
                 igrac.setId(pid);
                 Log.d("PERO", "Spremljen igrač: " + pid);
             }

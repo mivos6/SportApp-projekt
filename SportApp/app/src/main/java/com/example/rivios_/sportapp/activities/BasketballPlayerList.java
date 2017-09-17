@@ -75,7 +75,7 @@ public class BasketballPlayerList extends AppCompatActivity implements DeleteDia
     @Override
     public void onDialogClick(boolean yes) {
         if (yes) {
-            if (dbHelper.deletePlayer(deleteId)) {
+            if (dbHelper.deleteAthlete(deleteId)) {
                 basketballPlayerStats.remove(deletePos);
                 adapter.notifyDataSetChanged();
             }

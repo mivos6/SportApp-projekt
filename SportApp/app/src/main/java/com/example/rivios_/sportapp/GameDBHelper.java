@@ -419,7 +419,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
     }
 
 
-    public long getGameID(String team1, String team2, Date datum)
+    public long getBasketballGameID(String team1, String team2, Date datum)
     {
         SQLiteDatabase db = getReadableDatabase();
 
@@ -442,13 +442,18 @@ public class GameDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public long getPlayerID(String nickname)
+    public long getTennisGameID(String player1, String player2, Date datum)
+    {
+        return 0;
+    }
+
+    public long getAthleteID(String nickname)
     {
         SQLiteDatabase db = getReadableDatabase();
 
         String[] args = new String[]{nickname};
         Cursor c = db.query(TABLE_ATHLETES,
-                new String[]{BASKETBALL_GAME_ID},
+                new String[]{ATHLETE_ID},
                 ATHLETE_NICKNAME + "=?",
                 args,
                 null, null, null);
@@ -489,7 +494,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean deletePlayer(long playerID)
+    public boolean deleteAthlete(long playerID)
     {
         SQLiteDatabase db = getReadableDatabase();
 

@@ -1,7 +1,6 @@
 package com.example.rivios_.sportapp.activities;
 
 import android.app.DialogFragment;
-import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -157,7 +156,7 @@ public class TennisGameStatsActivity extends AppCompatActivity {
         GameDBHelper dbHelper = GameDBHelper.getInstance(this);
 
         dbHelper.addTennisGame(currentTennisgame);
-        long gid = dbHelper.getGameID(currentTennisgame.getPlayer1(), currentTennisgame.getPlayer2(), currentTennisgame.getDatum());
+        long gid = dbHelper.getBasketballGameID(currentTennisgame.getPlayer1(), currentTennisgame.getPlayer2(), currentTennisgame.getDatum());
         currentTennisgame.setId(gid);
 
         Log.d("PERO", "Spremljena utakmica: " + gid);
@@ -166,10 +165,10 @@ public class TennisGameStatsActivity extends AppCompatActivity {
         {
             for (Athlete player : currentTennisPlayers)
             {
-                if (dbHelper.getPlayerID(player.getNickname()) == -1) {
+                if (dbHelper.getAthleteID(player.getNickname()) == -1) {
                     dbHelper.addAthlete(player);
                 }
-                long pid = dbHelper.getPlayerID(player.getNickname());
+                long pid = dbHelper.getAthleteID(player.getNickname());
                 player.setId(pid);
                 Log.d("PERO", "Spremljen igrač: " + pid);
             }

@@ -149,7 +149,7 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
         GameDBHelper dbHelper = GameDBHelper.getInstance(this);
 
         dbHelper.addBasketballGame(trenutnaUtakmica);
-        long gid = dbHelper.getGameID(trenutnaUtakmica.getTeam1(), trenutnaUtakmica.getTeam2(), trenutnaUtakmica.getDatum());
+        long gid = dbHelper.getBasketballGameID(trenutnaUtakmica.getTeam1(), trenutnaUtakmica.getTeam2(), trenutnaUtakmica.getDatum());
         trenutnaUtakmica.setId(gid);
 
         Log.d("PERO", "Spremljena utakmica: " + gid);
@@ -158,10 +158,10 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
         {
             for (Athlete igrac : trenutniIgraci)
             {
-                if (dbHelper.getPlayerID(igrac.getNickname()) == -1) {
+                if (dbHelper.getAthleteID(igrac.getNickname()) == -1) {
                     dbHelper.addAthlete(igrac);
                 }
-                long pid = dbHelper.getPlayerID(igrac.getNickname());
+                long pid = dbHelper.getAthleteID(igrac.getNickname());
                 igrac.setId(pid);
                 Log.d("PERO", "Spremljen igrač: " + pid);
             }
