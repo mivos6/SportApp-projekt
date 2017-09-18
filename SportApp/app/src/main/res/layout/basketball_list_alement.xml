@@ -20,7 +20,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="VS"
         android:layout_marginRight="5dp"
-        android:layout_toRightOf="@id/tvStart"/>
+        android:layout_toRightOf="@id/tvTeam1"/>
 
     <TextView
         android:layout_width="wrap_content"
