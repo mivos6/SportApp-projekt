@@ -13,6 +13,7 @@ import com.example.rivios_.sportapp.data.FootballGame;
 import com.example.rivios_.sportapp.data.FootballStats;
 import com.example.rivios_.sportapp.data.JoggingRace;
 import com.example.rivios_.sportapp.data.JoggingStats;
+import com.example.rivios_.sportapp.data.TennisGame;
 import com.example.rivios_.sportapp.data.TennisStats;
 
 import java.util.ArrayList;
@@ -146,8 +147,8 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         TENNIS_SET1 + " INTEGER," +
                         TENNIS_SET2 + " INTEGER," +
                         TENNIS_SET3 + " INTEGER," +
-                        TENNIS_SET5 + " INTEGER," +
-                        TENNIS_SET4 + " INTEGER);";
+                        TENNIS_SET4 + " INTEGER," +
+                        TENNIS_SET5 + " INTEGER);";
 
         final String CREATE_TABLE_TENNIS_STATS =
                 "CREATE TABLE " + TABLE_TENNIS_STATS +

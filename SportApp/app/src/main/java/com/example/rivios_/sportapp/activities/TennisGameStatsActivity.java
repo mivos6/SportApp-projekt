@@ -12,7 +12,7 @@ import com.example.rivios_.sportapp.Constants;
 import com.example.rivios_.sportapp.DatePickerFragment;
 import com.example.rivios_.sportapp.GameDBHelper;
 import com.example.rivios_.sportapp.R;
-import com.example.rivios_.sportapp.TennisGame;
+import com.example.rivios_.sportapp.data.TennisGame;
 import com.example.rivios_.sportapp.data.Athlete;
 
 import java.text.ParseException;

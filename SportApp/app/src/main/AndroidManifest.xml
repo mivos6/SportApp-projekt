@@ -51,7 +51,8 @@
         <activity android:name=".activities.jogging.JoggingRunnerList" />
         <activity
             android:name=".activities.jogging.JoggingRaceDetails"
-            android:label="@string/title_activity_jogging_race_details"></activity>
+            android:label="@string/title_activity_jogging_race_details" />
+        <activity android:name=".activities.TennisGameList"></activity>
     </application>
 
 </manifest>
