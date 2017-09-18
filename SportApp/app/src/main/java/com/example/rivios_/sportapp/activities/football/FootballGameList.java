@@ -11,7 +11,6 @@ import android.widget.ListView;
 import com.example.rivios_.sportapp.Constants;
 import com.example.rivios_.sportapp.DeleteDialog;
 import com.example.rivios_.sportapp.GameDBHelper;
-import com.example.rivios_.sportapp.activities.basketball.BasketballGamePlayers;
 import com.example.rivios_.sportapp.adapters.FootballGameStatsAdapter;
 import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.data.FootballGame;
@@ -30,7 +29,7 @@ public class FootballGameList extends AppCompatActivity implements DeleteDialog.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_arhivanogomet);
+        setContentView(R.layout.activity_football_archive);
 
         //fillDB();
 

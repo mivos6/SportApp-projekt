@@ -7,11 +7,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/football"
-    tools:context=".activities.football.FootballAddPlayers">
+    android:background="@color/basketball"
+    tools:context=".activities.basketball.BasketballAddPlayers">
 
     <EditText
-        android:id="@+id/playername"
+        android:id="@+id/imekosarkasa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -22,36 +22,47 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/playernickname"
+        android:id="@+id/nadimakkosarkasa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/playername"
+        android:layout_below="@+id/imekosarkasa"
         android:hint="Nadimak"
         android:textAlignment="center"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/goals"
+        android:id="@+id/poeni"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/playername"
+        android:layout_below="@+id/imekosarkasa"
         android:layout_marginTop="37dp"
-        android:hint="Golovi"
+        android:hint="Poeni"
         android:textAlignment="center"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/assists"
+        android:id="@+id/asistencije"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/goals"
+        android:layout_below="@+id/poeni"
         android:hint="Asistencije"
+        android:textAlignment="center"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/skokovi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/asistencije"
+        android:hint="Skokovi"
         android:textAlignment="center"
         android:textStyle="bold" />
 
@@ -59,8 +70,8 @@
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/assists"
-        android:popupBackground="@color/football"
+        android:layout_below="@id/skokovi"
+        android:popupBackground="@color/basketball"
         android:textStyle="bold"/>
 
     <LinearLayout
@@ -84,11 +95,12 @@
         android:id="@+id/dodajigraca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="addFootballPlayer"
+        android:onClick="dodajIgraca"
         android:text="Dodaj igrača"
         android:textAllCaps="false"
-        android:textColor="@color/football"
+        android:textColor="@color/basketball"
         android:textStyle="bold"
+        android:layout_below="@id/linlay"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -97,15 +109,15 @@
         android:id="@+id/spremi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/linlay"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:elevation="0dp"
-        android:onClick="saveFootballPlayer"
+        android:onClick="spremi"
         android:text="Spremi igrača"
         android:textAllCaps="false"
-        android:textColor="@color/football"
-        android:textStyle="bold"
-        android:layout_alignTop="@+id/dodajigraca" />
+        android:textColor="@color/basketball"
+        android:textStyle="bold" />
 
 </RelativeLayout>

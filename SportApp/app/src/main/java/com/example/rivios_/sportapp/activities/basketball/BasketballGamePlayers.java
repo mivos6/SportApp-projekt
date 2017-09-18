@@ -24,7 +24,7 @@ public class BasketballGamePlayers extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_arhiva_igraca);
+        setContentView(R.layout.activity_basketball_archive);
 
         //fillDBPlayers();
 

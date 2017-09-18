@@ -23,7 +23,7 @@
         android:layout_alignParentTop="true"
         android:onClick="basketballgamestats"
         android:text="@string/kosarka"
-        android:textColor="@color/kosarka"
+        android:textColor="@color/basketball"
         android:textSize="@android:dimen/app_icon_size"
         android:textStyle="bold" />
 

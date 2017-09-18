@@ -20,8 +20,6 @@ import com.example.rivios_.sportapp.data.BasketballStats;
 
 import java.util.ArrayList;
 
-import static com.example.rivios_.sportapp.R.color.jogging;
-
 public class BasketballAddPlayers extends AppCompatActivity {
     ArrayList<BasketballPlayerStats> pst = new ArrayList<BasketballPlayerStats>();
 
@@ -39,7 +37,7 @@ public class BasketballAddPlayers extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_igracikosarka);
+        setContentView(R.layout.activity_basketball_players);
         Intent i = getIntent();
 
         etIme = (EditText) findViewById(R.id.imekosarkasa);

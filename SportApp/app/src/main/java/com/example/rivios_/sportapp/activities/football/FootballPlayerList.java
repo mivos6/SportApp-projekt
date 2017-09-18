@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.example.rivios_.sportapp.Constants;
-import com.example.rivios_.sportapp.FootballPlayerStatsAdapter;
+import com.example.rivios_.sportapp.adapters.FootballPlayerStatsAdapter;
 import com.example.rivios_.sportapp.GameDBHelper;
 import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.data.Athlete;

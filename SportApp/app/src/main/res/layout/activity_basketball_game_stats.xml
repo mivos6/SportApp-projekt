@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".activities.basketball.BasketballGameStatsActivity"
-    android:background="@color/kosarka"
+    android:background="@color/basketball"
     android:contextClickable="false">
 
     <EditText
@@ -84,7 +84,7 @@
         android:singleLine="false"
         android:text="Dodaj statistike igrača"
         android:textAllCaps="false"
-        android:textColor="@color/kosarka"
+        android:textColor="@color/basketball"
         android:textStyle="bold" />
 
     <Button
@@ -102,7 +102,7 @@
         android:singleLine="false"
         android:text="Spremi"
         android:textAllCaps="false"
-        android:textColor="@color/kosarka"
+        android:textColor="@color/basketball"
         android:textStyle="bold" />
 
     <Button
@@ -117,7 +117,7 @@
         android:singleLine="false"
         android:text="Pogledaj arhivu"
         android:textAllCaps="false"
-        android:textColor="@color/kosarka"
+        android:textColor="@color/basketball"
         android:textStyle="bold" />
 
     <Button
@@ -131,7 +131,7 @@
         android:onClick="arhivaIgracaKosarka"
         android:text="Pogledaj arhivu igrača"
         android:textAllCaps="false"
-        android:textColor="@color/kosarka"
+        android:textColor="@color/basketball"
         android:textStyle="bold" />
 
 </RelativeLayout>

@@ -1,10 +1,11 @@
-package com.example.rivios_.sportapp;
+package com.example.rivios_.sportapp.adapters;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.data.FootballPlayersStats;
 
 import java.util.ArrayList;
@@ -56,14 +57,14 @@ public class FootballPlayerStatsAdapter extends BaseAdapter {
         String str;
         if (current.getGameCount() == 0)
         {
-            str = current.getStats().getTeam();
+            str = "Ekipa: " + current.getStats().getTeam();
         }
         else
         {
-            str = Integer.toString(current.getGameCount());
+            str = "Odg. utakmice: " +  Integer.toString(current.getGameCount());
         }
 
-        holder.tvNamePos.setText(current.getAthlete().getName() + ",  " + current.getAthlete().getNickname() + ", " + str);
+        holder.tvNamePos.setText(current.getAthlete().getName() + "  " + current.getAthlete().getNickname() + " " + str);
         holder.tvStats.setText("GOALS:  " + current.getStats().getGoals() +
                 "   AST: " + current.getStats().getAssists());
 

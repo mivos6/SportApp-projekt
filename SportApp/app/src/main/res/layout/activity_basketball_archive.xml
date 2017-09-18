@@ -14,5 +14,5 @@
         android:background="@color/basketball"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lvBasketballPlayers" />
+        android:id="@+id/lvPlayerStats" />
 </RelativeLayout>
