@@ -3,6 +3,7 @@ package com.example.rivios_.sportapp.activities.football;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -38,6 +39,8 @@ public class FootballGameList extends AppCompatActivity implements DeleteDialog.
 
         footballGames = dbHelper.getFootballGames();
 
+        Log.d("PERO" , "BR " + Integer.toString(footballGames.size()));
+
         adapter = new FootballGameStatsAdapter(footballGames);
 
         lvGameStats.setAdapter(adapter);
@@ -68,7 +71,7 @@ public class FootballGameList extends AppCompatActivity implements DeleteDialog.
     @Override
     public void onDialogClick(boolean yes) {
         if (yes) {
-            if (dbHelper.deleteBasketballGame(deleteId)) {
+            if (dbHelper.deleteFoottballGame(deleteId)) {
                 footballGames.remove(deletePos);
                 adapter.notifyDataSetChanged();
             }

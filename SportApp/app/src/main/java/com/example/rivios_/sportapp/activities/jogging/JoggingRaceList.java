@@ -3,6 +3,7 @@ package com.example.rivios_.sportapp.activities.jogging;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -31,10 +32,11 @@ public class JoggingRaceList extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        lvRaces = (ListView) findViewById(R.id.lvRaces);
+        lvRaces = (ListView) findViewById(R.id.lvStats);
         lvRaces.setBackground(getResources().getDrawable(R.color.jogging));
 
         races = dbHelper.getJoggingRaces();
+        Log.d("PERO", "Num races " + races.size());
         adapter = new JoggingRaceAdapter(races);
         lvRaces.setAdapter(adapter);
 
@@ -42,7 +44,7 @@ public class JoggingRaceList extends AppCompatActivity implements AdapterView.On
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent();
-                i.setClass(getApplicationContext(), JoggingRunnerList.class);
+                i.setClass(getApplicationContext(), JoggingRaceDetails.class);
                 i.putExtra("RACE", races.get(position));
                 startActivity(i);
             }

@@ -32,7 +32,7 @@ public class BasketballGameList extends AppCompatActivity implements DeleteDialo
 
         //fillDB();
 
-        lvGameStats = (ListView) findViewById(R.id.lvGameStats);
+        lvGameStats = (ListView) findViewById(R.id.lvStats);
         lvGameStats.setBackground(getResources().getDrawable(R.color.kosarka));
 
         dbHelper = GameDBHelper.getInstance(this);

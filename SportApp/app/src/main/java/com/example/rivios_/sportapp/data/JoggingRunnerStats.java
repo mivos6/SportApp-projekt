@@ -37,7 +37,7 @@ public class JoggingRunnerStats implements Comparable {
     {
         Date d = new Date(stats.getTime());
         return stats.getPlace() + " " + runner.getNickname() + "                 " +
-                " TIME   " +
+                " VRIJEME   " +
                 Integer.toString(d.getHours()) + ":" +
                 Integer.toString(d.getMinutes()) + ":" +
                 Integer.toString(d.getSeconds());

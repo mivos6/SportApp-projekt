@@ -56,7 +56,8 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textStyle="bold"
-        android:hint="Datum"/>
+        android:hint="Datum"
+        android:onClick="setDate"/>
 
     <Button
         android:id="@+id/addRunner"
@@ -87,7 +88,8 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:text="Pogledaj arhivu utrka"
         android:textAllCaps="false"
-        android:textColor="@color/jogging" />
+        android:textColor="@color/jogging"
+        android:onClick="openRaces"/>
 
     <Button
         android:id="@+id/archiveRunners"
@@ -102,7 +104,8 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:text="Pogledaj arhivu trkača"
         android:textAllCaps="false"
-        android:textColor="@color/jogging" />
+        android:textColor="@color/jogging"
+        android:onClick="openRunners"/>
 
 
     <Button

@@ -18,6 +18,8 @@ import com.example.rivios_.sportapp.data.Athlete;
 import com.example.rivios_.sportapp.data.JoggingRace;
 import com.example.rivios_.sportapp.data.JoggingStats;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -66,9 +68,18 @@ public class JoggingRaceStats extends AppCompatActivity {
             Toast.makeText(this, "Nije postavljena utrka", Toast.LENGTH_SHORT).show();
             return;
         }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        try
+        {
+            newRace.setDate(sdf.parse(etRaceDate.getText().toString()));
+        }
+        catch(ParseException e)
+        {
+            Toast.makeText(this, "Nije upisan datum.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         GameDBHelper dbHelper = GameDBHelper.getInstance(this);
-
         dbHelper.addJoggingRace(newRace);
         long rid = dbHelper.getJoggingRaceID(newRace.getStart(), newRace.getFinish(), newRace.getDate());
         newRace.setRaceId(rid);
@@ -119,8 +130,10 @@ public class JoggingRaceStats extends AppCompatActivity {
 
                 newRace.setStart(data.getStringExtra(Constants.START_TAG));
                 newRace.setFinish(data.getStringExtra(Constants.FINISH_TAG));
-                newRace.setDistance(data.getIntExtra(Constants.DIST_TAG, 0));
+                newRace.setDistance((int)data.getLongExtra(Constants.DIST_TAG, 0));
                 newRace.setEncodedRoute(data.getStringExtra(Constants.ROUTE_TAG));
+
+                Log.d("PERO", "Dist: " + newRace.getDistance());
 
                 etSart.setText(newRace.getStart());
                 etFinish.setText(newRace.getFinish());
@@ -133,6 +146,8 @@ public class JoggingRaceStats extends AppCompatActivity {
                 Log.d("PERO", "RESULT_OK");
                 runners = data.getParcelableArrayListExtra(Constants.ATHLETE_TAG);
                 stats = data.getParcelableArrayListExtra(Constants.STATS_TAG);
+
+                newRace.setWinner(runners.get(0).getNickname());
             }
         }
     }
@@ -141,5 +156,19 @@ public class JoggingRaceStats extends AppCompatActivity {
     {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), Constants.DATE_PICKER_TAG);
+    }
+
+    public void openRaces(View v)
+    {
+        Intent i = new Intent();
+        i.setClass(this, JoggingRaceList.class);
+        startActivity(i);
+    }
+
+    public void openRunners(View v)
+    {
+        Intent i = new Intent();
+        i.setClass(this, JoggingRunnerList.class);
+        startActivity(i);
     }
 }

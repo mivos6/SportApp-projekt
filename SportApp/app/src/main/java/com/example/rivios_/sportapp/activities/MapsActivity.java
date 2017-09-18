@@ -130,6 +130,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             routeDistance += results.routes[0].legs[0].distance.inMeters;
             routeEncoded += results.routes[0].overviewPolyline.getEncodedPath();
 
+            Log.d("PERO", "Dist " + Long.toString(routeDistance));
+
             Polyline newPart = map.addPolyline(new PolylineOptions().addAll(decodedPath));
             parts.add(newPart);
         }
@@ -161,6 +163,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         String start = checkpoints.get(0).getSnippet();
         String finish = checkpoints.get(checkpoints.size() - 1).getSnippet();
+
+        Log.d("PERO", "Dist " + Long.toString(routeDistance));
 
         Intent resultIntent = new Intent();
         resultIntent.putExtra(Constants.ROUTE_TAG, routeEncoded);

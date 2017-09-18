@@ -105,7 +105,7 @@ public class JoggingRunners extends AppCompatActivity {
         resultIntent.putExtra(Constants.ATHLETE_TAG, addedRunners);
         resultIntent.putExtra(Constants.STATS_TAG, addedStats);
 
-        setResult(RESULT_OK);
+        setResult(RESULT_OK, resultIntent);
         finish();
     }
 }

@@ -367,7 +367,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
         values.put(JOGGING_STATS_RUNNER_ID, st.getRunnerId());
         values.put(JOGGING_STATS_TIME, st.getTime());
         values.put(JOGGING_STATS_PLACE, st.getPlace());
-        db.insert(TABLE_JOGGING_RACES, JOGGING_STATS_RACE_ID, values);
+        db.insert(TABLE_JOGGING_STATS, JOGGING_STATS_RACE_ID, values);
         db.close();
     }
 
@@ -589,8 +589,8 @@ public class GameDBHelper extends SQLiteOpenHelper {
             do {
                 stats.add(new JoggingStats(c.getLong(0),
                         c.getLong(1),
-                        c.getInt(2),
-                        c.getInt(3))
+                        c.getLong(3),
+                        c.getInt(2))
                 );
             } while (c.moveToNext());
         }

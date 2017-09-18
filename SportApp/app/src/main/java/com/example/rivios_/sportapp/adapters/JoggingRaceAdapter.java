@@ -61,7 +61,7 @@ public class JoggingRaceAdapter extends BaseAdapter {
 
         holder.tvStart.setText(current.getStart());
         holder.tvFinish.setText(current.getFinish());
-        holder.tvDistance.setText(current.getDistance());
+        holder.tvDistance.setText(Double.toString(current.getDistance() / 1000.0) + " km");
         holder.tvDate.setText(sdf.format(current.getDate()));
 
         return convertView;

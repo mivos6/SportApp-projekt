@@ -18,6 +18,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 //import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -30,7 +32,7 @@ import java.util.List;
 public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private ArrayList<JoggingRunnerStats> rs;
+    private ArrayList<JoggingRunnerStats> rs = new ArrayList<JoggingRunnerStats>();
 
     ListView lvRunners;
     ArrayAdapter<JoggingRunnerStats> adapter;
@@ -74,11 +76,6 @@ public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         
         if (race != null)
         {
@@ -91,6 +88,17 @@ public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCa
             }
 
             mMap.addPolyline(new PolylineOptions().addAll(points));
+
+            Marker m1 = mMap.addMarker(new MarkerOptions().position(points.get(0))
+                    .title("Start")
+                    .snippet(race.getStart()));
+
+            Marker m2 = mMap.addMarker(new MarkerOptions().position(points.get(points.size() - 1))
+                    .title("Cilj")
+                    .snippet(race.getFinish()));
+
+            LatLngBounds b = new LatLngBounds(m1.getPosition(), m2.getPosition());
+            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(b, 0));
         }
     }
 
