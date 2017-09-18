@@ -143,7 +143,7 @@ public class FootballGameStatsActivity extends AppCompatActivity {
                 currentFootballStats.get(i).setGameId(currentFootballGame.getId());
                 currentFootballStats.get(i).setPlayerId(currentFootballPlayers.get(i).getId());
 
-                dbHelper.addStats(currentFootballStats.get(i));
+                dbHelper.addBasketballStats(currentFootballStats.get(i));
 
                 Log.d("PERO", "Spremljena statistika: utakmica "
                         + currentFootballStats.get(i).getGameId()

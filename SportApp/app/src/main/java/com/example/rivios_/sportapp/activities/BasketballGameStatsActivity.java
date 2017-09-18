@@ -172,7 +172,7 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
                 trenutneStatistike.get(i).setGameId(trenutnaUtakmica.getId());
                 trenutneStatistike.get(i).setPlayerId(trenutniIgraci.get(i).getId());
 
-                dbHelper.addStats(trenutneStatistike.get(i));
+                dbHelper.addBasketballStats(trenutneStatistike.get(i));
 
                 Log.d("PERO", "Spremljena statistika: utakmica "
                         + trenutneStatistike.get(i).getGameId()

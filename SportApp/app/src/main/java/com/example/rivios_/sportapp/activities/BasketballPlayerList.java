@@ -17,15 +17,12 @@ import com.example.rivios_.sportapp.data.BasketballStats;
 
 import java.util.ArrayList;
 
-public class BasketballPlayerList extends AppCompatActivity implements DeleteDialog.DeleteDialogListener, AdapterView.OnItemLongClickListener{
+public class BasketballPlayerList extends AppCompatActivity{
     ListView lvBasketballPlayers;
 
     GameDBHelper dbHelper = GameDBHelper.getInstance(this);
     ArrayList<BasketballPlayerStats> basketballPlayerStats = new ArrayList<>();
     PlayerStatsAdapter adapter = new PlayerStatsAdapter(basketballPlayerStats);
-
-    private int deletePos = -1;
-    private long deleteId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,27 +55,7 @@ public class BasketballPlayerList extends AppCompatActivity implements DeleteDia
             basketballPlayerStats.add(ps);
         }
 
-        lvBasketballPlayers.setOnItemLongClickListener(this);
         lvBasketballPlayers.setAdapter(adapter);
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long id) {
-        DeleteDialog delDialog =  new DeleteDialog();
-        delDialog.setListener(this);
-        deletePos = pos;
-        deleteId = id;
-        delDialog.show(getFragmentManager(), Constants.DELETE_DIALOG_TAG);
-        return true;
-    }
-
-    @Override
-    public void onDialogClick(boolean yes) {
-        if (yes) {
-            if (dbHelper.deleteAthlete(deleteId)) {
-                basketballPlayerStats.remove(deletePos);
-                adapter.notifyDataSetChanged();
-            }
-        }
-    }
 }
