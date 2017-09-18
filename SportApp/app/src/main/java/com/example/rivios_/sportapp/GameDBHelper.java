@@ -561,8 +561,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         c.getLong(0),
                         c.getInt(2),
                         c.getInt(3),
-                        c.getInt(4),
-                        c.getString(5))
+                        c.getString(4))
                 );
             } while (c.moveToNext());
         }

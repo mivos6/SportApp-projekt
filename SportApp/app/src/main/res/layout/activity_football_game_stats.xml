@@ -121,7 +121,7 @@
         android:layout_below="@+id/arhiva"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:onClick="arhivaIgracaKosarka"
+        android:onClick="footballPlayerList"
         android:text="Pogledaj arhivu igrača"
         android:textAllCaps="false"
         android:textColor="@color/football"

@@ -15,7 +15,6 @@ import com.example.rivios_.sportapp.data.FootballStats;
 import java.util.ArrayList;
 
 public class FootballPlayerList extends AppCompatActivity {
-
     ListView lvFootballPlayers;
 
     GameDBHelper dbHelper = GameDBHelper.getInstance(this);
@@ -25,12 +24,13 @@ public class FootballPlayerList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_football_player_list);
+        setContentView(R.layout.activity_list);
 
 
-        lvFootballPlayers = (ListView) findViewById(R.id.lvFootballPlayers);
+        lvFootballPlayers = (ListView) findViewById(R.id.lvStats);
+        lvFootballPlayers.setBackground(getResources().getDrawable(R.color.football));
 
-        ArrayList<Athlete> athletes = dbHelper.getAthletes(Constants.DISCIPLINE_BASKETBALL);
+        ArrayList<Athlete> athletes = dbHelper.getAthletes(Constants.DISCIPLINE_FOOTBALL);
 
         for (Athlete pl : athletes)
         {
@@ -41,7 +41,7 @@ public class FootballPlayerList extends AppCompatActivity {
             ps.setAthlete(pl);
             ps.setGameCount(stats.size());
 
-            FootballStats sum = new FootballStats(pl.getId(), (long) 0, 0, 0, 0,  "");
+            FootballStats sum = new FootballStats(pl.getId(), 0, 0, 0, "");
 
             for (FootballStats st : stats)
             {

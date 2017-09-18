@@ -39,7 +39,6 @@ public class FootballStats implements Parcelable{
         team = in.readString();
     }
 
-
     public static final Creator<FootballStats> CREATOR = new Creator<FootballStats>() {
         @Override
         public FootballStats createFromParcel(Parcel in) {
@@ -51,15 +50,6 @@ public class FootballStats implements Parcelable{
             return new FootballStats[size];
         }
     };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-    }
 
     public long getGameId() {
         return gameId;
@@ -98,4 +88,17 @@ public class FootballStats implements Parcelable{
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(playerId);
+        parcel.writeLong(gameId);
+        parcel.writeInt(goals);
+        parcel.writeInt(assists);
+        parcel.writeString(team);
+    }
 }

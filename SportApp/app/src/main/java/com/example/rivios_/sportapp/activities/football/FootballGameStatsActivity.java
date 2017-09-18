@@ -204,6 +204,13 @@ public class FootballGameStatsActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void footballPlayerList (View v) {
+        Intent i = new Intent();
+        i.setClass(this, FootballPlayerList.class);
+        startActivity(i);
+    }
+
+
     public void birajDatum (View v)
     {
         DialogFragment newFragment = new DatePickerFragment();

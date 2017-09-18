@@ -50,7 +50,7 @@ public class FootballGameList extends AppCompatActivity implements DeleteDialog.
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent();
-                i.setClass(getApplicationContext(), BasketballGamePlayers.class);
+                i.setClass(getApplicationContext(), FootballGamePlayers.class);
                 i.putExtra("GAME_ID", id);
                 startActivity(i);
             }
