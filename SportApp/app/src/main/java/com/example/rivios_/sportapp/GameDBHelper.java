@@ -25,7 +25,7 @@ import java.util.Date;
 public class GameDBHelper extends SQLiteOpenHelper {
 
     private static final String DTATBASE_NAME = "sportStatsDB";
-    private static final int SCHEMA = 17;
+    private static final int SCHEMA = 18;
 
     private static GameDBHelper instance;
 
