@@ -35,11 +35,12 @@ public class FootballGameList extends AppCompatActivity implements DeleteDialog.
         //fillDB();
 
         lvGameStats = (ListView) findViewById(R.id.lvFootballGameStats);
+
         dbHelper = GameDBHelper.getInstance(this);
 
         footballGames = dbHelper.getFootballGames();
 
-        Log.d("PERO" , "BR " + Integer.toString(footballGames.size()));
+        Log.d("PERO", "BR " + Integer.toString(footballGames.size()));
 
         adapter = new FootballGameStatsAdapter(footballGames);
 

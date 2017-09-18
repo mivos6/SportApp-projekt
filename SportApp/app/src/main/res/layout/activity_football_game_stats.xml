@@ -73,7 +73,6 @@
 
     <Button
         android:id="@+id/footballstats"
-        style="@android:style/Widget.Material.Light.Button.Toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/footballresult"
@@ -88,7 +87,6 @@
 
     <Button
         android:id="@+id/spremi"
-        style="@android:style/Widget.Material.Light.Button.Toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/footballteam2"
@@ -105,7 +103,6 @@
 
     <Button
         android:id="@+id/arhiva"
-        style="@android:style/Widget.Material.Light.Button.Toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/footballstats"
@@ -119,7 +116,6 @@
 
     <Button
         android:id="@+id/arhivaIgraca"
-        style="@android:style/Widget.Material.Light.Button.Toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/arhiva"

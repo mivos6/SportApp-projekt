@@ -24,17 +24,17 @@ public class FootballGameStatsAdapter  extends BaseAdapter{
     }
     @Override
     public int getCount() {
-        return 0;
+        return games.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return games.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return games.get(i).getId();
     }
 
     @Override
