@@ -1,5 +1,7 @@
 package com.example.rivios_.sportapp.data;
 
+import android.support.annotation.NonNull;
+
 import com.example.rivios_.sportapp.data.Athlete;
 import com.example.rivios_.sportapp.data.BasketballStats;
 
@@ -7,7 +9,7 @@ import com.example.rivios_.sportapp.data.BasketballStats;
  * Created by Milan on 2.9.2017..
  */
 
-public class BasketballPlayerStats {
+public class BasketballPlayerStats implements Comparable{
     private Athlete athlete;
     private BasketballStats stats;
     private int gameCount;
@@ -40,4 +42,10 @@ public class BasketballPlayerStats {
     }
 
 
+    @Override
+    public int compareTo(@NonNull Object o) {
+        BasketballPlayerStats ps = (BasketballPlayerStats) o;
+
+        return stats.getPoints() - ps.getStats().getPoints();
+    }
 }

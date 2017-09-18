@@ -19,11 +19,11 @@ public class TennisGame implements Parcelable {
     private int result2;
     private Date datum;
     private String winner;
-    private int set1;
-    private int set2;
-    private int set3;
-    private int set4;
-    private int set5;
+    private String set1;
+    private String set2;
+    private String set3;
+    private String set4;
+    private String set5;
 
     public TennisGame() {
         this.id = 0;
@@ -33,14 +33,14 @@ public class TennisGame implements Parcelable {
         this.result2 = 0;
         this.datum = null;
         this.winner = null;
-        this.set1 = 0;
-        this.set2 = 0;
-        this.set3 = 0;
-        this.set4 = 0;
-        this.set5 = 0;
+        this.set1 = null;
+        this.set2 = null;
+        this.set3 = null;
+        this.set4 = null;
+        this.set5 = null;
     }
 
-    public TennisGame(long id, String player1, String player2, int result1, int result2, Date datum, String winner, int set1, int set2, int set3, int set4, int set5) {
+    public TennisGame(long id, String player1, String player2, int result1, int result2, Date datum, String winner, String set1, String set2, String set3, String set4, String set5) {
         this.id = id;
         this.player1 = player1;
         this.player2 = player2;
@@ -54,6 +54,32 @@ public class TennisGame implements Parcelable {
         this.set4 = set4;
         this.set5 = set5;
     }
+
+    protected TennisGame(Parcel in) {
+        id = in.readLong();
+        player1 = in.readString();
+        player2 = in.readString();
+        result1 = in.readInt();
+        result2 = in.readInt();
+        winner = in.readString();
+        set1 = in.readString();
+        set2 = in.readString();
+        set3 = in.readString();
+        set4 = in.readString();
+        set5 = in.readString();
+    }
+
+    public static final Creator<TennisGame> CREATOR = new Creator<TennisGame>() {
+        @Override
+        public TennisGame createFromParcel(Parcel in) {
+            return new TennisGame(in);
+        }
+
+        @Override
+        public TennisGame[] newArray(int size) {
+            return new TennisGame[size];
+        }
+    };
 
     public long getId() {
         return id;
@@ -111,64 +137,46 @@ public class TennisGame implements Parcelable {
         this.winner = winner;
     }
 
-    public int getSet1() {
+    public String getSet1() {
         return set1;
     }
 
-    public void setSet1(int set1) {
+    public void setSet1(String set1) {
         this.set1 = set1;
     }
 
-    public int getSet2() {
+    public String getSet2() {
         return set2;
     }
 
-    public void setSet2(int set2) {
+    public void setSet2(String set2) {
         this.set2 = set2;
     }
 
-    public int getSet3() {
+    public String getSet3() {
         return set3;
     }
 
-    public void setSet3(int set3) {
+    public void setSet3(String set3) {
         this.set3 = set3;
     }
 
-    public int getSet4() {
+    public String getSet4() {
         return set4;
     }
 
-    public void setSet4(int set4) {
+    public void setSet4(String set4) {
         this.set4 = set4;
     }
 
-    public int getSet5() {
+    public String getSet5() {
         return set5;
     }
 
-    public void setSet5(int set5) {
+    public void setSet5(String set5) {
         this.set5 = set5;
     }
 
-    public static Creator<TennisGame> getCREATOR() {
-        return CREATOR;
-    }
-
-    protected TennisGame(Parcel in) {
-    }
-
-    public static final Creator<TennisGame> CREATOR = new Creator<TennisGame>() {
-        @Override
-        public TennisGame createFromParcel(Parcel in) {
-            return new TennisGame(in);
-        }
-
-        @Override
-        public TennisGame[] newArray(int size) {
-            return new TennisGame[size];
-        }
-    };
 
     @Override
     public int describeContents() {
@@ -176,6 +184,17 @@ public class TennisGame implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(id);
+        parcel.writeString(player1);
+        parcel.writeString(player2);
+        parcel.writeInt(result1);
+        parcel.writeInt(result2);
+        parcel.writeString(winner);
+        parcel.writeString(set1);
+        parcel.writeString(set2);
+        parcel.writeString(set3);
+        parcel.writeString(set4);
+        parcel.writeString(set5);
     }
 }

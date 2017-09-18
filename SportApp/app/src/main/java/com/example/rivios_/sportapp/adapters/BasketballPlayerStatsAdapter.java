@@ -56,14 +56,14 @@ public class BasketballPlayerStatsAdapter extends BaseAdapter {
         String str;
         if (current.getGameCount() == 0)
         {
-            str = current.getStats().getTeam();
+            str = " Ekipa: " + current.getStats().getTeam();
         }
         else
         {
-            str = Integer.toString(current.getGameCount());
+            str = " Odg. utakmice: " + Integer.toString(current.getGameCount());
         }
 
-        holder.tvNamePos.setText(current.getAthlete().getName() + ",  " + current.getAthlete().getNickname() + ", " + str);
+        holder.tvNamePos.setText(current.getAthlete().getName() + "  " + current.getAthlete().getNickname() + str);
         holder.tvStats.setText("PTS:  " + current.getStats().getPoints() +
                 "   AST: " + current.getStats().getAssists() +
                 "   RBD: " + current.getStats().getJumps());

@@ -41,7 +41,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".activities.TennisGameStatsActivity" />
+        <activity android:name=".activities.tennis.TennisGameStatsActivity" />
         <activity android:name=".activities.jogging.JoggingRaceStats" />
         <activity android:name=".activities.jogging.JoggingRunners" />
         <activity android:name=".activities.MapsActivity" />
@@ -53,7 +53,7 @@
             android:name=".activities.jogging.JoggingRaceDetails"
             android:label="@string/title_activity_jogging_race_details" />
         <activity android:name=".activities.football.FootballGamePlayers"/>
-        <activity android:name=".activities.TennisGameList"></activity>
+        <activity android:name=".activities.tennis.TennisGameList"></activity>
     </application>
 
 </manifest>

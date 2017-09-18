@@ -1,4 +1,4 @@
-package com.example.rivios_.sportapp.activities;
+package com.example.rivios_.sportapp.activities.tennis;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

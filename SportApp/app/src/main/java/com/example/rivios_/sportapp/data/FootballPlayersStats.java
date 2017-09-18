@@ -1,10 +1,12 @@
 package com.example.rivios_.sportapp.data;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by rivios_ on 9/18/2017.
  */
 
-public class FootballPlayersStats {
+public class FootballPlayersStats implements Comparable{
     private Athlete athlete;
     private FootballStats stats;
     private int gameCount;
@@ -37,4 +39,10 @@ public class FootballPlayersStats {
     }
 
 
+    @Override
+    public int compareTo(@NonNull Object o) {
+        FootballPlayersStats ps = (FootballPlayersStats) o;
+
+        return stats.getGoals() - ps.getStats().getGoals();
+    }
 }

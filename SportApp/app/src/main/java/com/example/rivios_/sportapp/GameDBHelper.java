@@ -25,7 +25,7 @@ import java.util.Date;
 public class GameDBHelper extends SQLiteOpenHelper {
 
     private static final String DTATBASE_NAME = "sportStatsDB";
-    private static final int SCHEMA = 16;
+    private static final int SCHEMA = 17;
 
     private static GameDBHelper instance;
 
@@ -144,11 +144,11 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         TENNIS_RESULT2 + " INTEGER," +
                         TENNIS_WINNER + " TEXT," +
                         TENNIS_DATUM + " INTEGER," +
-                        TENNIS_SET1 + " INTEGER," +
-                        TENNIS_SET2 + " INTEGER," +
-                        TENNIS_SET3 + " INTEGER," +
-                        TENNIS_SET4 + " INTEGER," +
-                        TENNIS_SET5 + " INTEGER);";
+                        TENNIS_SET1 + " TEXT," +
+                        TENNIS_SET2 + " TEXT," +
+                        TENNIS_SET3 + " TEXT," +
+                        TENNIS_SET4 + " TEXT," +
+                        TENNIS_SET5 + " TEXT);";
 
         final String CREATE_TABLE_TENNIS_STATS =
                 "CREATE TABLE " + TABLE_TENNIS_STATS +
@@ -465,11 +465,11 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         c.getInt(4),
                         new Date(c.getLong(5)),
                         c.getString(6),
-                        c.getInt(7),
-                        c.getInt(8),
-                        c.getInt(9),
-                        c.getInt(10),
-                        c.getInt(11)
+                        c.getString(7),
+                        c.getString(8),
+                        c.getString(9),
+                        c.getString(10),
+                        c.getString(11)
                 ));
             } while (c.moveToNext());
         }

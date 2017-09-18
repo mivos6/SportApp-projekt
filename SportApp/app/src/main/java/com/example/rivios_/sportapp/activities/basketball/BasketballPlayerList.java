@@ -13,6 +13,7 @@ import com.example.rivios_.sportapp.data.BasketballPlayerStats;
 import com.example.rivios_.sportapp.data.BasketballStats;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class BasketballPlayerList extends AppCompatActivity{
     ListView lvBasketballPlayers;
@@ -50,9 +51,12 @@ public class BasketballPlayerList extends AppCompatActivity{
             }
             ps.setStats(sum);
 
+
+
             basketballPlayerStats.add(ps);
         }
 
+        Collections.sort(basketballPlayerStats);
         lvBasketballPlayers.setAdapter(adapter);
     }
 

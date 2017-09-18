@@ -48,7 +48,7 @@ public class TennisGameStatsAdapter extends BaseAdapter{
             holder = new GameViewHolder();
             holder.tvTeam1 = (TextView) convertView.findViewById(R.id.tvPlayer1);
             holder.tvTeam2 = (TextView) convertView.findViewById(R.id.tvPlayer2);
-            holder.tvRezultat = (TextView) convertView.findViewById(R.id.tvTextView2);
+            holder.tvRezultat = (TextView) convertView.findViewById(R.id.tvTennisResult);
             holder.tvDatum = (TextView) convertView.findViewById(R.id.tvDatum);
 
             convertView.setTag(holder);
@@ -62,7 +62,8 @@ public class TennisGameStatsAdapter extends BaseAdapter{
 
         holder.tvTeam1.setText(current.getPlayer1());
         holder.tvTeam2.setText(current.getPlayer2());
-        holder.tvRezultat.setText(current.getResult1() + " : " + current.getResult2()+ " : " + current.getSet1());
+        holder.tvRezultat.setText(current.getResult1() + " : " + current.getResult2() +
+                " ( " + current.getSet1() + " " + current.getSet2() + " " + current.getSet3() + " " + current.getSet4() + " " + current.getSet5() + " )");
         holder.tvDatum.setText(sdf.format(current.getDatum()));
 
         return convertView;

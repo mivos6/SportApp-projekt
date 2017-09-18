@@ -1,6 +1,7 @@
-package com.example.rivios_.sportapp.activities;
+package com.example.rivios_.sportapp.activities.tennis;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -138,6 +139,11 @@ public class TennisGameStatsActivity extends AppCompatActivity {
 
         currentTennisgame.setResult1(result1);
         currentTennisgame.setResult2(result2);
+        currentTennisgame.setSet1(set1);
+        currentTennisgame.setSet2(set2);
+        currentTennisgame.setSet3(set3);
+        currentTennisgame.setSet4(set4);
+        currentTennisgame.setSet5(set5);
 
         if (currentTennisgame.getResult1() < currentTennisgame.getResult2()) {
             currentTennisgame.setWinner(player2);
@@ -175,12 +181,19 @@ public class TennisGameStatsActivity extends AppCompatActivity {
         }
 
 
-
     }
+
     public void birajDatum (View v)
     {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), Constants.DATE_PICKER_TAG);
     }
 
+
+    public void tennisArchive (View v)
+    {
+        Intent i = new Intent();
+        i.setClass(this, TennisGameList.class);
+        startActivity(i);
+    }
 }

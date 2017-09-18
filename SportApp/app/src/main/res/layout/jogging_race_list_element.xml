@@ -24,7 +24,7 @@
         android:layout_toEndOf="@+id/tvText3" />
 
     <TextView
-        android:id="@+id/tvTextView2"
+        android:id="@+id/tvResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

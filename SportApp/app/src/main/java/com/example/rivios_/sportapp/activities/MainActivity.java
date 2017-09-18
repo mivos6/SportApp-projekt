@@ -9,6 +9,7 @@ import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.activities.basketball.BasketballGameStatsActivity;
 import com.example.rivios_.sportapp.activities.football.FootballGameStatsActivity;
 import com.example.rivios_.sportapp.activities.jogging.JoggingRaceStats;
+import com.example.rivios_.sportapp.activities.tennis.TennisGameStatsActivity;
 
 public class MainActivity extends AppCompatActivity {
 
