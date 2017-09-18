@@ -1,17 +1,21 @@
 package com.example.rivios_.sportapp.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
 /**
  * Created by Milan on 9.9.2017..
  */
 
-public class JoggingRace {
+public class JoggingRace implements Parcelable{
     private long raceId;
     private String start;
     private String finish;
     private Date date;
     private int distance;
+    private String winner;
     private String encodedRoute;
 
     public JoggingRace() {
@@ -19,17 +23,40 @@ public class JoggingRace {
         this.start = null;
         this.finish = null;
         this.distance = 0;
+        this.winner = null;
         this.encodedRoute = null;
     }
 
-    public JoggingRace(long raceId, String start, String finish, Date date, int distance) {
+    public JoggingRace(long raceId, String start, String finish, Date date, String winner, int distance, String route) {
         this.raceId = raceId;
         this.start = start;
         this.finish = finish;
         this.date = date;
         this.distance = distance;
-        this.encodedRoute = null;
+        this.winner = winner;
+        this.encodedRoute = route;
     }
+
+    protected JoggingRace(Parcel in) {
+        raceId = in.readLong();
+        start = in.readString();
+        finish = in.readString();
+        distance = in.readInt();
+        winner = in.readString();
+        encodedRoute = in.readString();
+    }
+
+    public static final Creator<JoggingRace> CREATOR = new Creator<JoggingRace>() {
+        @Override
+        public JoggingRace createFromParcel(Parcel in) {
+            return new JoggingRace(in);
+        }
+
+        @Override
+        public JoggingRace[] newArray(int size) {
+            return new JoggingRace[size];
+        }
+    };
 
     public long getRaceId() {
         return raceId;
@@ -77,5 +104,28 @@ public class JoggingRace {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getWinner() {
+        return winner;
+    }
+
+    public void setWinner(String winner) {
+        this.winner = winner;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(raceId);
+        dest.writeString(start);
+        dest.writeString(finish);
+        dest.writeInt(distance);
+        dest.writeString(winner);
+        dest.writeString(encodedRoute);
     }
 }

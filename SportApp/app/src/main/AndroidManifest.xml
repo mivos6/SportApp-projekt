@@ -22,13 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.BasketballGameStatsActivity" />
-        <activity android:name=".activities.BasketballAddPlayers" />
-        <activity android:name=".activities.BasketballGameList" />
-        <activity android:name=".activities.BasketballGamePlayers" />
-        <activity android:name=".activities.BasketballPlayerList" />
-        <activity android:name=".activities.FootballGameStatsActivity" />
-        <activity android:name=".activities.FootballAddPlayers" />
+        <activity android:name=".activities.basketball.BasketballGameStatsActivity" />
+        <activity android:name=".activities.basketball.BasketballAddPlayers" />
+        <activity android:name=".activities.basketball.BasketballGameList" />
+        <activity android:name=".activities.basketball.BasketballGamePlayers" />
+        <activity android:name=".activities.basketball.BasketballPlayerList" />
+        <activity android:name=".activities.football.FootballGameStatsActivity" />
+        <activity android:name=".activities.football.FootballAddPlayers" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -42,13 +42,16 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".activities.TennisGameStatsActivity" />
-        <activity android:name=".activities.JoggingRaceStats" />
-        <activity android:name=".activities.JoggingRunners" />
+        <activity android:name=".activities.jogging.JoggingRaceStats" />
+        <activity android:name=".activities.jogging.JoggingRunners" />
         <activity android:name=".activities.MapsActivity" />
-        <activity android:name=".activities.JoggingRaceList" />
-        <activity android:name=".activities.FootballGameList" />
-        <activity android:name=".activities.ArhivaNogometActivity" />
-        <activity android:name=".activities.FootballPlayerList"></activity>
+        <activity android:name=".activities.jogging.JoggingRaceList" />
+        <activity android:name=".activities.football.FootballGameList" />
+        <activity android:name=".activities.football.FootballPlayerList" />
+        <activity android:name=".activities.jogging.JoggingRunnerList" />
+        <activity
+            android:name=".activities.jogging.JoggingRaceDetails"
+            android:label="@string/title_activity_jogging_race_details"></activity>
     </application>
 
 </manifest>

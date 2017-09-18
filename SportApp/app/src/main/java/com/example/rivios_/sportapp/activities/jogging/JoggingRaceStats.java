@@ -1,4 +1,4 @@
-package com.example.rivios_.sportapp.activities;
+package com.example.rivios_.sportapp.activities.jogging;
 
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import com.example.rivios_.sportapp.Constants;
 import com.example.rivios_.sportapp.DatePickerFragment;
 import com.example.rivios_.sportapp.GameDBHelper;
 import com.example.rivios_.sportapp.R;
+import com.example.rivios_.sportapp.activities.MapsActivity;
 import com.example.rivios_.sportapp.data.Athlete;
 import com.example.rivios_.sportapp.data.JoggingRace;
 import com.example.rivios_.sportapp.data.JoggingStats;

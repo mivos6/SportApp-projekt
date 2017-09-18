@@ -1,4 +1,4 @@
-package com.example.rivios_.sportapp.activities;
+package com.example.rivios_.sportapp.activities.football;
 
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -14,18 +14,18 @@ import com.example.rivios_.sportapp.DatePickerFragment;
 import com.example.rivios_.sportapp.GameDBHelper;
 import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.data.Athlete;
-import com.example.rivios_.sportapp.data.BasketballGame;
-import com.example.rivios_.sportapp.data.BasketballStats;
+import com.example.rivios_.sportapp.data.FootballStats;
+import com.example.rivios_.sportapp.data.FootballGame;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class BasketballGameStatsActivity extends AppCompatActivity {
+public class FootballGameStatsActivity extends AppCompatActivity {
 
-    private BasketballGame trenutnaUtakmica = new BasketballGame();
-    private ArrayList<Athlete> trenutniIgraci = new ArrayList<Athlete>();
-    private ArrayList<BasketballStats> trenutneStatistike = new ArrayList<BasketballStats>();
+    private FootballGame currentFootballGame = new FootballGame();
+    private ArrayList<Athlete> currentFootballPlayers = new ArrayList<Athlete>();
+    private ArrayList<FootballStats> currentFootballStats = new ArrayList<FootballStats>();
 
     EditText etTeam1;
     EditText etTeam2;
@@ -35,17 +35,17 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_basketball_game_stats);
+        setContentView(R.layout.activity_football_game_stats);
 
-        etTeam1 = (EditText) findViewById(R.id.team1);
-        etTeam2 = (EditText) findViewById(R.id.team2);
-        etResult = (EditText) findViewById(R.id.rezultat);
+        etTeam1 = (EditText) findViewById(R.id.footballteam1);
+        etTeam2 = (EditText) findViewById(R.id.footballteam2);
+        etResult = (EditText) findViewById(R.id.footballresult);
         etDatum = (EditText) findViewById(R.id.datum);
     }
 
-    public void igracikosarka(View v) {
+    public void footballplayers(View v) {
         Intent i = new Intent();
-        i.setClass(this, BasketballAddPlayers.class);
+        i.setClass(this, FootballAddPlayers.class);
 
         String team1 = etTeam1.getText().toString();
         String team2 = etTeam2.getText().toString();
@@ -62,19 +62,6 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
         startActivityForResult(i, Constants.PLAYER_RESULT);
     }
 
-    public void arhivakosarka (View v) {
-        Intent i = new Intent();
-        i.setClass(this, BasketballGameList.class);
-        startActivity(i);
-    }
-
-    public void arhivaIgracaKosarka (View v)
-    {
-        Intent i = new Intent();
-        i.setClass(this, BasketballPlayerList.class);
-        startActivity(i);
-    }
-
     public void spremiuBazu (View v) {
         String team1 = etTeam1.getText().toString();
         String team2 = etTeam2.getText().toString();
@@ -83,11 +70,11 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
         if (team1.equals("")) {
-            Toast.makeText(this, "Nije unešena ekipa.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Nije upisan tim.", Toast.LENGTH_SHORT).show();
             return;
         }
         if (team2.equals("")) {
-            Toast.makeText(this, "Nije unešena ekipa.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Nije upisan tim.", Toast.LENGTH_SHORT).show();
             return;
         }
         if (result.equals("")) {
@@ -99,8 +86,8 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
             return;
         }
 
-        trenutnaUtakmica.setTeam1(team1);
-        trenutnaUtakmica.setTeam2(team2);
+        currentFootballGame.setTeam1(team1);
+        currentFootballGame.setTeam2(team2);
 
         int indikator = result.indexOf(":");
         if ((indikator <= 0) || (indikator == result.length() - 1)) {
@@ -129,34 +116,35 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
             return;
         }
 
-        trenutnaUtakmica.setResult1(result1);
-        trenutnaUtakmica.setResult2(result2);
-
-        if (trenutnaUtakmica.getResult1() < trenutnaUtakmica.getResult2()) {
-            trenutnaUtakmica.setWinner(team2);
-        } else if (trenutnaUtakmica.getResult1() > trenutnaUtakmica.getResult2()) {
-            trenutnaUtakmica.setWinner(team1);
-        } else {
-            trenutnaUtakmica.setWinner("");
-        }
         try {
-            trenutnaUtakmica.setDatum(dateFormat.parse(datum));
+            currentFootballGame.setDatum(dateFormat.parse(datum));
         } catch (ParseException e) {
             Toast.makeText(this, "Neispravno upisan datum.", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        currentFootballGame.setResult1(result1);
+        currentFootballGame.setResult2(result2);
+
+        if (currentFootballGame.getResult1() < currentFootballGame.getResult2()) {
+            currentFootballGame.setWinner(team2);
+        } else if (currentFootballGame.getResult1() > currentFootballGame.getResult2()) {
+            currentFootballGame.setWinner(team1);
+        } else {
+            currentFootballGame.setWinner("");
+        }
+
         GameDBHelper dbHelper = GameDBHelper.getInstance(this);
 
-        dbHelper.addBasketballGame(trenutnaUtakmica);
-        long gid = dbHelper.getBasketballGameID(trenutnaUtakmica.getTeam1(), trenutnaUtakmica.getTeam2(), trenutnaUtakmica.getDatum());
-        trenutnaUtakmica.setId(gid);
+        dbHelper.addFootballGame(currentFootballGame);
+        long gid = dbHelper.getFootballGameID(currentFootballGame.getTeam1(), currentFootballGame.getTeam2(), currentFootballGame.getDatum());
+        currentFootballGame.setId(gid);
 
         Log.d("PERO", "Spremljena utakmica: " + gid);
 
-        if (trenutniIgraci.size() > 0)
+        if (currentFootballPlayers.size() > 0)
         {
-            for (Athlete igrac : trenutniIgraci)
+            for (Athlete igrac : currentFootballPlayers)
             {
                 if (dbHelper.getAthleteID(igrac.getNickname()) == -1) {
                     dbHelper.addAthlete(igrac);
@@ -167,22 +155,23 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
             }
         }
 
-        if (trenutneStatistike.size() > 0) {
-            for (int i = 0; i < trenutneStatistike.size(); i++) {
-                trenutneStatistike.get(i).setGameId(trenutnaUtakmica.getId());
-                trenutneStatistike.get(i).setPlayerId(trenutniIgraci.get(i).getId());
+        if (currentFootballStats.size() > 0) {
+            for (int i = 0; i < currentFootballStats.size(); i++)
+            {
+                currentFootballStats.get(i).setGameId(currentFootballGame.getId());
+                currentFootballStats.get(i).setPlayerId(currentFootballPlayers.get(i).getId());
 
-                dbHelper.addBasketballStats(trenutneStatistike.get(i));
+                dbHelper.addFootballStats(currentFootballStats.get(i));
 
                 Log.d("PERO", "Spremljena statistika: utakmica "
-                        + trenutneStatistike.get(i).getGameId()
-                        + ", igrač " + trenutneStatistike.get(i).getPlayerId());
+                        + currentFootballStats.get(i).getGameId()
+                        + ", igrač " + currentFootballStats.get(i).getPlayerId());
             }
         }
 
-        trenutnaUtakmica = new BasketballGame();
-        trenutniIgraci.clear();
-        trenutneStatistike.clear();
+        currentFootballGame = new FootballGame();
+        currentFootballPlayers.clear();
+        currentFootballStats.clear();
         etTeam1.setText("");
         etTeam2.setText("");
         etResult.setText("");
@@ -197,16 +186,22 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK)
             {
                 ArrayList<Athlete> listaDodanih = data.getParcelableArrayListExtra(Constants.PLAYERS);
-                ArrayList<BasketballStats> listaStatistika = data.getParcelableArrayListExtra(Constants.STATS);
+                ArrayList<FootballStats> listaStatistika = data.getParcelableArrayListExtra(Constants.STATS);
 
                 for ( Athlete igrac : listaDodanih) {
-                    trenutniIgraci.add(igrac);
+                    currentFootballPlayers.add(igrac);
                 }
-                for ( BasketballStats st : listaStatistika) {
-                    trenutneStatistike.add(st);
+                for ( FootballStats st : listaStatistika) {
+                    currentFootballStats.add(st);
                 }
             }
         }
+    }
+
+    public void footballarchive (View v) {
+        Intent i = new Intent();
+        i.setClass(this, FootballGameList.class);
+        startActivity(i);
     }
 
     public void birajDatum (View v)

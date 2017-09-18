@@ -1,4 +1,4 @@
-package com.example.rivios_.sportapp.activities;
+package com.example.rivios_.sportapp.activities.football;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.example.rivios_.sportapp.Constants;
 import com.example.rivios_.sportapp.DeleteDialog;
 import com.example.rivios_.sportapp.GameDBHelper;
+import com.example.rivios_.sportapp.activities.basketball.BasketballGamePlayers;
 import com.example.rivios_.sportapp.adapters.FootballGameStatsAdapter;
 import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.data.FootballGame;

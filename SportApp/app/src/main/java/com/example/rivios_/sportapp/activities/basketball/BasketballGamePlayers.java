@@ -1,4 +1,4 @@
-package com.example.rivios_.sportapp.activities;
+package com.example.rivios_.sportapp.activities.basketball;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,7 @@ import android.util.Log;
 import android.widget.ListView;
 
 import com.example.rivios_.sportapp.GameDBHelper;
-import com.example.rivios_.sportapp.BasketballPlayerStatsAdapter;
+import com.example.rivios_.sportapp.adapters.BasketballPlayerStatsAdapter;
 import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.data.BasketballPlayerStats;
 import com.example.rivios_.sportapp.data.BasketballStats;

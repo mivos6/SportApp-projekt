@@ -1,4 +1,4 @@
-package com.example.rivios_.sportapp.activities;
+package com.example.rivios_.sportapp.activities.jogging;
 
 import android.content.Intent;
 import android.os.Bundle;

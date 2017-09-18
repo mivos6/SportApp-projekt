@@ -1,4 +1,4 @@
-package com.example.rivios_.sportapp.activities;
+package com.example.rivios_.sportapp.activities.football;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -15,42 +15,40 @@ import android.widget.Toast;
 import com.example.rivios_.sportapp.Constants;
 import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.data.Athlete;
-import com.example.rivios_.sportapp.data.BasketballPlayerStats;
-import com.example.rivios_.sportapp.data.BasketballStats;
+import com.example.rivios_.sportapp.data.FootballPlayersStats;
+import com.example.rivios_.sportapp.data.FootballStats;
 
 import java.util.ArrayList;
 
-import static com.example.rivios_.sportapp.R.color.jogging;
+public class FootballAddPlayers extends AppCompatActivity {
 
-public class BasketballAddPlayers extends AppCompatActivity {
-    ArrayList<BasketballPlayerStats> pst = new ArrayList<BasketballPlayerStats>();
+    ArrayList<FootballPlayersStats> pst = new ArrayList<FootballPlayersStats>();
 
     EditText etIme;
     EditText etNadimak;
-    EditText etPoeni;
+    EditText etGolovi;
     EditText etAsistencije;
-    EditText etSkokovi;
-    Spinner spTimovi;
+    Spinner spEkipe;
     ListView lvPlayers;
 
-    ArrayAdapter<BasketballPlayerStats> plAdapter;
+    ArrayAdapter<FootballPlayersStats> plAdapter;
     ArrayAdapter<String> spAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_igracikosarka);
+        setContentView(R.layout.activity_football_players);
+
         Intent i = getIntent();
 
-        etIme = (EditText) findViewById(R.id.imekosarkasa);
-        etNadimak = (EditText) findViewById(R.id.nadimakkosarkasa);
-        etPoeni = (EditText) findViewById(R.id.poeni);
-        etAsistencije = (EditText) findViewById(R.id.asistencije);
-        etSkokovi = (EditText) findViewById(R.id.skokovi);
-        spTimovi = (Spinner) findViewById(R.id.spinner);
+        etIme = (EditText) findViewById(R.id.playername);
+        etNadimak = (EditText) findViewById(R.id.playernickname);
+        etGolovi = (EditText) findViewById(R.id.goals);
+        etAsistencije = (EditText) findViewById(R.id.assists);
+        spEkipe = (Spinner) findViewById(R.id.spinner);
         lvPlayers = (ListView) findViewById(R.id.listaIgraca);
 
-        plAdapter = new ArrayAdapter<BasketballPlayerStats>(this, android.R.layout.simple_list_item_1, pst);
+        plAdapter = new ArrayAdapter<FootballPlayersStats>(this, android.R.layout.simple_list_item_1, pst);
         lvPlayers.setAdapter(plAdapter);
         lvPlayers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -66,24 +64,22 @@ public class BasketballAddPlayers extends AppCompatActivity {
         teams.add(i.getStringExtra(Constants.TEAM1_TAG));
         teams.add(i.getStringExtra(Constants.TEAM2_TAG));
         spAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, teams);
-        spTimovi.setAdapter(spAdapter);
-        spTimovi.setSelection(0);
+        spEkipe.setAdapter(spAdapter);
+        spEkipe.setSelection(0);
     }
 
-    public void dodajIgraca (View v)
+    public void addFootballPlayer (View v)
     {
         String ime = etIme.getText().toString();
         String nadimak = etNadimak.getText().toString();
 
-        int poeni;
+        int golovi;
         int asistencije;
-        int skokovi;
         String ekipa;
 
         try {
-            poeni = Integer.parseInt(etPoeni.getText().toString());
+            golovi = Integer.parseInt(etGolovi.getText().toString());
             asistencije = Integer.parseInt(etAsistencije.getText().toString());
-            skokovi = Integer.parseInt(etSkokovi.getText().toString());
         }
         catch (NumberFormatException e) {
             Toast.makeText(this, "Nepravilni podaci.", Toast.LENGTH_SHORT).show();
@@ -95,7 +91,7 @@ public class BasketballAddPlayers extends AppCompatActivity {
             Toast.makeText(this, "Nije upisano ime ili nadimak.", Toast.LENGTH_SHORT).show();
             return;
         }
-        for (BasketballPlayerStats s : pst)
+        for (FootballPlayersStats s : pst)
         {
             if (s.getAthlete().getNickname().equals(nadimak))
             {
@@ -103,30 +99,29 @@ public class BasketballAddPlayers extends AppCompatActivity {
                 return;
             }
         }
-        ekipa = spTimovi.getSelectedItem().toString();
+        ekipa = spEkipe.getSelectedItem().toString();
         if (ekipa.equals("Odaberite ekipu"))
         {
             Toast.makeText(this, "Ekipa nije odabrana.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        pst.add(new BasketballPlayerStats(new Athlete(0, ime, nadimak, Constants.DISCIPLINE_BASKETBALL), new BasketballStats(0, 0, poeni, asistencije, skokovi, ekipa), 1));
+        pst.add(new FootballPlayersStats(new Athlete(0, ime, nadimak, Constants.DISCIPLINE_FOOTBALL), new FootballStats(0, 0, golovi, asistencije, ekipa), 1));
         plAdapter.notifyDataSetChanged();
 
         etIme.setText("");
         etNadimak.setText("");
-        etPoeni.setText("");
+        etGolovi.setText("");
         etAsistencije.setText("");
-        etSkokovi.setText("");
-        spTimovi.setSelection(0);
+        spEkipe.setSelection(0);
     }
 
-    public void spremi (View v)
+    public void saveFootballPlayer (View v)
     {
         ArrayList<Athlete> igraci = new ArrayList<Athlete>();
-        ArrayList<BasketballStats> statistike = new ArrayList<BasketballStats>();
+        ArrayList<FootballStats> statistike = new ArrayList<FootballStats>();
 
-        for (BasketballPlayerStats p : pst)
+        for (FootballPlayersStats p : pst)
         {
             igraci.add(p.getAthlete());
             statistike.add(p.getStats());
@@ -139,5 +134,6 @@ public class BasketballAddPlayers extends AppCompatActivity {
         setResult(RESULT_OK, i);
 
         finish();
+
     }
 }

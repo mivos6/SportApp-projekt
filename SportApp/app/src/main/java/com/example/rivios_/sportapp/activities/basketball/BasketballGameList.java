@@ -1,4 +1,4 @@
-package com.example.rivios_.sportapp.activities;
+package com.example.rivios_.sportapp.activities.basketball;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -28,11 +28,13 @@ public class BasketballGameList extends AppCompatActivity implements DeleteDialo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_arhivakosarka);
+        setContentView(R.layout.activity_list);
 
         //fillDB();
 
         lvGameStats = (ListView) findViewById(R.id.lvGameStats);
+        lvGameStats.setBackground(getResources().getDrawable(R.color.kosarka));
+
         dbHelper = GameDBHelper.getInstance(this);
 
         basketballGames = dbHelper.getBasketballGames();

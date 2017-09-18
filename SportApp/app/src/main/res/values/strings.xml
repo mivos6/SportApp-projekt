@@ -5,4 +5,5 @@
     <string name="tenis">TENIS</string>
     <string name="trcanje">TRČANJE</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_jogging_race_details">Map</string>
 </resources>

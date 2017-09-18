@@ -44,9 +44,9 @@ public class BasketballGameStatsAdapter extends BaseAdapter{
             convertView = View.inflate(parent.getContext(), R.layout.basketball_list_alement, null);
 
             holder = new GameViewHolder();
-            holder.tvTeam1 = (TextView) convertView.findViewById(R.id.tvTeam1);
+            holder.tvTeam1 = (TextView) convertView.findViewById(R.id.tvStart);
             holder.tvTeam2 = (TextView) convertView.findViewById(R.id.tvTeam2);
-            holder.tvRezultat = (TextView) convertView.findViewById(R.id.tvRezultat);
+            holder.tvRezultat = (TextView) convertView.findViewById(R.id.tvTextView2);
             holder.tvDatum = (TextView) convertView.findViewById(R.id.tvDatum);
 
             convertView.setTag(holder);

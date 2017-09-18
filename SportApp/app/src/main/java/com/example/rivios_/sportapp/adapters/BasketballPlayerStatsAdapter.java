@@ -1,10 +1,11 @@
-package com.example.rivios_.sportapp;
+package com.example.rivios_.sportapp.adapters;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.data.BasketballPlayerStats;
 
 import java.util.ArrayList;

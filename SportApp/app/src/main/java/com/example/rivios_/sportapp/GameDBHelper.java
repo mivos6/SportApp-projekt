@@ -103,6 +103,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
     static final String JOGGING_RACE_DATE = "date";
     static final String JOGGING_RACE_DISTANCE = "distance";
     static final String JOGGING_RACE_ROUTE = "route";
+    static final String JOGGING_RACE_WINNER = "winner";
 
     static final String TABLE_JOGGING_STATS = "jogging_stats";
     static final String JOGGING_STATS_RACE_ID = "race_id";
@@ -187,6 +188,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         JOGGING_RACE_FINISH + " TEXT," +
                         JOGGING_RACE_DATE + " INTEGER," +
                         JOGGING_RACE_ROUTE + " TEXT," +
+                        JOGGING_RACE_WINNER + " TEXT," +
                         JOGGING_RACE_DISTANCE + " INTEGER);";
 
         final String CREATE_TABLE_JOGGING_STATS =
@@ -299,8 +301,10 @@ public class GameDBHelper extends SQLiteOpenHelper {
 
         values.put(JOGGING_RACE_START, r.getStart());
         values.put(JOGGING_RACE_FINISH, r.getFinish());
-        values.put(JOGGING_RACE_DISTANCE, r.getDistance());
+        values.put(JOGGING_RACE_DATE, r.getDate().getTime());
         values.put(JOGGING_RACE_ROUTE, r.getEncodedRoute());
+        values.put(JOGGING_RACE_WINNER, r.getWinner());
+        values.put(JOGGING_RACE_DISTANCE, r.getDistance());
         db.insert(TABLE_JOGGING_RACES, JOGGING_RACE_START, values);
         db.close();
     }
@@ -367,11 +371,9 @@ public class GameDBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-<<<<<<< HEAD
+
     public ArrayList<BasketballGame> getBasketballGames() {
-=======
-    public ArrayList<BasketballGame> getGames() {
->>>>>>> 3c7662ce578516a3ccdf9c6b713c5e07c1b85b4f
+
         ArrayList<BasketballGame> basketballGames = new ArrayList<BasketballGame>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(TABLE_BASKETBALL_GAMES,
@@ -474,6 +476,37 @@ public class GameDBHelper extends SQLiteOpenHelper {
         return tennisGames;
     }
 
+    public ArrayList<JoggingRace> getJoggingRaces() {
+        ArrayList<JoggingRace> joggingRaces = new ArrayList<JoggingRace>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.query(TABLE_JOGGING_RACES,
+                new String[]{JOGGING_RACE_ID,
+                        JOGGING_RACE_START,
+                        JOGGING_RACE_FINISH,
+                        JOGGING_RACE_WINNER,
+                        JOGGING_RACE_DISTANCE,
+                        JOGGING_RACE_DATE,
+                        JOGGING_RACE_ROUTE
+                },
+                null, null, null, null, null
+        );
+
+        if (c.moveToFirst()) {
+            do {
+                joggingRaces.add(new JoggingRace(c.getLong(0),
+                        c.getString(1),
+                        c.getString(2),
+                        new Date(c.getInt(5)),
+                        c.getString(3),
+                        c.getInt(4),
+                        c.getString(6)
+                ));
+            } while (c.moveToNext());
+        }
+        db.close();
+        return joggingRaces;
+    }
+
     public ArrayList<BasketballStats> getBasketballPlayerStats(long id, boolean playerOrGame)  {
         ArrayList<BasketballStats> stats = new ArrayList<BasketballStats>();
         SQLiteDatabase db = getReadableDatabase();
@@ -530,6 +563,34 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         c.getInt(3),
                         c.getInt(4),
                         c.getString(5))
+                );
+            } while (c.moveToNext());
+        }
+        db.close();
+        return stats;
+    }
+
+    public ArrayList<JoggingStats> getJoggingRunnerStats(long id, boolean runnerOrRace)  {
+        ArrayList<JoggingStats> stats = new ArrayList<JoggingStats>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] args = new String[]{Long.toString(id)};
+
+        Cursor c = db.query(TABLE_JOGGING_STATS,
+                new String[]{JOGGING_STATS_RACE_ID,
+                        JOGGING_STATS_RUNNER_ID,
+                        JOGGING_STATS_PLACE,
+                        JOGGING_STATS_TIME},
+                (runnerOrRace ? JOGGING_STATS_RUNNER_ID : JOGGING_STATS_RACE_ID) + "=?", args,
+                null, null, null);
+
+        if (c.moveToFirst()) {
+
+            do {
+                stats.add(new JoggingStats(c.getLong(0),
+                        c.getLong(1),
+                        c.getInt(2),
+                        c.getInt(3))
                 );
             } while (c.moveToNext());
         }
@@ -693,7 +754,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
             return false;
         }
 
-        db.delete(TABLE_JOGGING_RACES, JOGGING_RACE_ID + "=?", args);
+        db.delete(TABLE_JOGGING_STATS, JOGGING_STATS_RACE_ID + "=?", args);
         return true;
     }
 
