@@ -19,7 +19,11 @@ public class BasketballPlayerList extends AppCompatActivity{
 
     GameDBHelper dbHelper = GameDBHelper.getInstance(this);
     ArrayList<BasketballPlayerStats> basketballPlayerStats = new ArrayList<>();
+<<<<<<< HEAD
     BasketballPlayerStatsAdapter adapter = new BasketballPlayerStatsAdapter(basketballPlayerStats);
+=======
+    PlayerStatsAdapter adapter = new PlayerStatsAdapter(basketballPlayerStats);
+>>>>>>> 3c7662ce578516a3ccdf9c6b713c5e07c1b85b4f
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

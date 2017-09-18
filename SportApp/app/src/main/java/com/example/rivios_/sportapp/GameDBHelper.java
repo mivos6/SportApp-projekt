@@ -367,7 +367,11 @@ public class GameDBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+<<<<<<< HEAD
     public ArrayList<BasketballGame> getBasketballGames() {
+=======
+    public ArrayList<BasketballGame> getGames() {
+>>>>>>> 3c7662ce578516a3ccdf9c6b713c5e07c1b85b4f
         ArrayList<BasketballGame> basketballGames = new ArrayList<BasketballGame>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(TABLE_BASKETBALL_GAMES,
