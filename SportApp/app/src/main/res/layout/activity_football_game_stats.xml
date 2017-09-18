@@ -111,7 +111,7 @@
         android:layout_below="@+id/footballstats"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:onClick="arhivakosarka"
+        android:onClick="footballarchive"
         android:text="Pogledaj arhivu"
         android:textAllCaps="false"
         android:textColor="@color/football"

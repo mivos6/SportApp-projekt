@@ -7,17 +7,17 @@ import android.util.Log;
 import android.widget.ListView;
 
 import com.example.rivios_.sportapp.GameDBHelper;
-import com.example.rivios_.sportapp.PlayerStatsAdapter;
+import com.example.rivios_.sportapp.BasketballPlayerStatsAdapter;
 import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.data.BasketballPlayerStats;
 import com.example.rivios_.sportapp.data.BasketballStats;
 
 import java.util.ArrayList;
 
-public class BaskerballGamePlayers extends AppCompatActivity {
+public class BasketballGamePlayers extends AppCompatActivity {
     long gameId;
     ArrayList<BasketballPlayerStats> playerStats = new ArrayList<>();
-    PlayerStatsAdapter adapter;
+    BasketballPlayerStatsAdapter adapter;
     ListView lvplayerStats;
     GameDBHelper dbHelper = GameDBHelper.getInstance(this);;
 
@@ -44,7 +44,7 @@ public class BaskerballGamePlayers extends AppCompatActivity {
 
         //basketballPlayerStats = dbHelper.getBasketballPlayerStats(gameId, false);
 
-        adapter = new PlayerStatsAdapter(playerStats);
+        adapter = new BasketballPlayerStatsAdapter(playerStats);
 
         lvplayerStats.setAdapter(adapter);
     }

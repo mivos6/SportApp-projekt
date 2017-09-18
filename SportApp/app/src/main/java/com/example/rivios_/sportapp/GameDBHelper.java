@@ -13,6 +13,7 @@ import com.example.rivios_.sportapp.data.FootballGame;
 import com.example.rivios_.sportapp.data.FootballStats;
 import com.example.rivios_.sportapp.data.JoggingRace;
 import com.example.rivios_.sportapp.data.JoggingStats;
+import com.example.rivios_.sportapp.data.TennisStats;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,7 +24,7 @@ import java.util.Date;
 public class GameDBHelper extends SQLiteOpenHelper {
 
     private static final String DTATBASE_NAME = "sportStatsDB";
-    private static final int SCHEMA = 12;
+    private static final int SCHEMA = 16;
 
     private static GameDBHelper instance;
 
@@ -69,6 +70,10 @@ public class GameDBHelper extends SQLiteOpenHelper {
     static final String TENNIS_SET4 = "set4";
     static final String TENNIS_SET5 = "set5";
 
+    static final String TABLE_TENNIS_STATS = "tennis_stats";
+    static final String TENNIS_STATS_GAME_ID = "id";
+    static final String TENNIS_STATS_PLAYER_ID = "player_id";
+    static final String TENNIS_STATS_SETS_WON = "sets_won";
 
     static final String TABLE_ATHLETES = "athletes";
     static final String ATHLETE_ID = "id";
@@ -125,7 +130,8 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         FOOTBALL_TEAM2 + " TEXT," +
                         FOOTBALL_RESULT1 + " INTEGER," +
                         FOOTBALL_RESULT2 + " INTEGER," +
-                        FOOTBALL_DATUM + " INTEGER);";
+                        FOOTBALL_DATUM + " INTEGER," +
+                        FOOTBALL_WINNER + " TEXT);";
 
         final String CREATE_TABLE_TENNIS_GAMES =
                 "CREATE TABLE " + TABLE_TENNIS_GAMES +
@@ -141,6 +147,12 @@ public class GameDBHelper extends SQLiteOpenHelper {
                         TENNIS_SET3 + " INTEGER," +
                         TENNIS_SET5 + " INTEGER," +
                         TENNIS_SET4 + " INTEGER);";
+
+        final String CREATE_TABLE_TENNIS_STATS =
+                "CREATE TABLE " + TABLE_TENNIS_STATS +
+                        " (" + TENNIS_STATS_GAME_ID + " INTEGER PRIMARY KEY," +
+                        TENNIS_STATS_PLAYER_ID  + " INTEGER," +
+                        TENNIS_STATS_SETS_WON + " INTEGER);";
 
         final String CREATE_TABLE_ATHLETES =
                 "CREATE TABLE " + TABLE_ATHLETES +
@@ -188,6 +200,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_BASKETBALL_GAMES);
         db.execSQL(CREATE_TABLE_FOOTBALL_GAMES);
         db.execSQL(CREATE_TABLE_TENNIS_GAMES);
+        db.execSQL(CREATE_TABLE_TENNIS_STATS);
         db.execSQL(CREATE_TABLE_ATHLETES);
         db.execSQL(CREATE_TABLE_BASKETBALL_STATS);
         db.execSQL(CREATE_TABLE_FOOTBALL_STATS);
@@ -205,6 +218,8 @@ public class GameDBHelper extends SQLiteOpenHelper {
                 "DROP TABLE IF EXISTS " + TABLE_FOOTBALL_GAMES;
         final String DROP_TABLE_TENNIS_GAMES =
                 "DROP TABLE IF EXISTS " + TABLE_TENNIS_GAMES;
+        final String DROP_TABLE_TENNIS_STATS =
+                "DROP TABLE IF EXISTS " + TABLE_TENNIS_STATS;
         final String DROP_TABLE_ATHLETES =
                 "DROP TABLE IF EXISTS " + TABLE_ATHLETES;
         final String DROP_TABLE_BASKETBALL_STATS =
@@ -220,6 +235,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
         db.execSQL(DROP_TABLE_BASKETBALL_GAMES);
         db.execSQL(DROP_TABLE_FOOTBALL_GAMES);
         db.execSQL(DROP_TABLE_TENNIS_GAMES);
+        db.execSQL(DROP_TABLE_TENNIS_STATS);
         db.execSQL(DROP_TABLE_ATHLETES);
         db.execSQL(DROP_TABLE_BASKETBALL_STATS);
         db.execSQL(DROP_TABLE_FOOTBALL_STATS);
@@ -252,7 +268,8 @@ public class GameDBHelper extends SQLiteOpenHelper {
         values.put(FOOTBALL_RESULT1, g.getResult1());
         values.put(FOOTBALL_RESULT2, g.getResult2());
         values.put(FOOTBALL_DATUM, g.getDatum().getTime());
-        db.insert(TABLE_BASKETBALL_GAMES, BASKETBALL_TEAM1, values);
+        values.put(FOOTBALL_WINNER, g.getWinner());
+        db.insert(TABLE_FOOTBALL_GAMES, FOOTBALL_TEAM1, values);
         db.close();
     }
 
@@ -275,6 +292,19 @@ public class GameDBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void addJoggingRace (JoggingRace r)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(JOGGING_RACE_START, r.getStart());
+        values.put(JOGGING_RACE_FINISH, r.getFinish());
+        values.put(JOGGING_RACE_DISTANCE, r.getDistance());
+        values.put(JOGGING_RACE_ROUTE, r.getEncodedRoute());
+        db.insert(TABLE_JOGGING_RACES, JOGGING_RACE_START, values);
+        db.close();
+    }
+
     public void addAthlete(Athlete p) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -286,7 +316,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addStats(BasketballStats s) {
+    public void addBasketballStats(BasketballStats s) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -313,7 +343,31 @@ public class GameDBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public ArrayList<BasketballGame> getGames() {
+    public void addTennisStats(TennisStats s) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(TENNIS_STATS_GAME_ID, s.getGameId());
+        values.put(TENNIS_STATS_PLAYER_ID, s.getPlayerId());
+        values.put(TENNIS_STATS_SETS_WON, s.getSetsWon());
+        db.insert(TABLE_FOOTBALL_STATS, FOOTBALL_STATS_GAME_ID, values);
+        db.close();
+    }
+
+    public void addJoggingStats (JoggingStats st)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(JOGGING_STATS_RACE_ID, st.getRaceId());
+        values.put(JOGGING_STATS_RUNNER_ID, st.getRunnerId());
+        values.put(JOGGING_STATS_TIME, st.getTime());
+        values.put(JOGGING_STATS_PLACE, st.getPlace());
+        db.insert(TABLE_JOGGING_RACES, JOGGING_STATS_RACE_ID, values);
+        db.close();
+    }
+
+    public ArrayList<BasketballGame> getBasketballGames() {
         ArrayList<BasketballGame> basketballGames = new ArrayList<BasketballGame>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(TABLE_BASKETBALL_GAMES,
@@ -344,6 +398,78 @@ public class GameDBHelper extends SQLiteOpenHelper {
         return basketballGames;
     }
 
+    public ArrayList<FootballGame> getFootballGames() {
+        ArrayList<FootballGame> footballGames = new ArrayList<FootballGame>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.query(TABLE_FOOTBALL_GAMES,
+                new String[]{FOOTBALL_GAME_ID,
+                        FOOTBALL_TEAM1,
+                        FOOTBALL_TEAM2,
+                        FOOTBALL_RESULT1,
+                        FOOTBALL_RESULT2,
+                        FOOTBALL_DATUM,
+                        FOOTBALL_WINNER
+                },
+                null, null, null, null, null
+        );
+
+        if (c.moveToFirst()) {
+            do {
+                footballGames.add(new FootballGame(c.getLong(0),
+                        c.getString(1),
+                        c.getString(2),
+                        c.getInt(3),
+                        c.getInt(4),
+                        new Date(c.getLong(5)),
+                        c.getString(6)
+                ));
+            } while (c.moveToNext());
+        }
+        db.close();
+        return footballGames;
+    }
+
+    public ArrayList<TennisGame> getTennisGames() {
+        ArrayList<TennisGame> tennisGames = new ArrayList<TennisGame>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.query(TABLE_TENNIS_GAMES,
+                new String[]{TENNIS_GAME_ID,
+                        TENNIS_PLAYER1,
+                        TENNIS_PLAYER2,
+                        TENNIS_RESULT1,
+                        TENNIS_RESULT2,
+                        FOOTBALL_DATUM,
+                        FOOTBALL_WINNER,
+                        TENNIS_SET1,
+                        TENNIS_SET2,
+                        TENNIS_SET3,
+                        TENNIS_SET4,
+                        TENNIS_SET5
+                },
+                null, null, null, null, null
+        );
+
+        if (c.moveToFirst()) {
+            do {
+                tennisGames.add(new TennisGame(c.getLong(0),
+                        c.getString(1),
+                        c.getString(2),
+                        c.getInt(3),
+                        c.getInt(4),
+                        new Date(c.getLong(5)),
+                        c.getString(6),
+                        c.getInt(7),
+                        c.getInt(8),
+                        c.getInt(9),
+                        c.getInt(10),
+                        c.getInt(11)
+                ));
+            } while (c.moveToNext());
+        }
+        db.close();
+        return tennisGames;
+    }
+
     public ArrayList<BasketballStats> getBasketballPlayerStats(long id, boolean playerOrGame)  {
         ArrayList<BasketballStats> stats = new ArrayList<BasketballStats>();
         SQLiteDatabase db = getReadableDatabase();
@@ -364,6 +490,37 @@ public class GameDBHelper extends SQLiteOpenHelper {
 
             do {
                 stats.add(new BasketballStats(c.getLong(1),
+                        c.getLong(0),
+                        c.getInt(2),
+                        c.getInt(3),
+                        c.getInt(4),
+                        c.getString(5))
+                );
+            } while (c.moveToNext());
+        }
+        db.close();
+        return stats;
+    }
+
+    public ArrayList<FootballStats> getFoottballPlayerStats(long id, boolean playerOrGame)  {
+        ArrayList<FootballStats> stats = new ArrayList<FootballStats>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] args = new String[]{Long.toString(id)};
+
+        Cursor c = db.query(TABLE_FOOTBALL_STATS,
+                new String[]{FOOTBALL_STATS_GAME_ID,
+                        FOOTBALL_STATS_PLAYER_ID,
+                        FOOTBALL_STATS_GOALS,
+                        FOOTBALL_STATS_ASSISTS,
+                        FOOTBALL_STATS_TEAM},
+                (playerOrGame ? FOOTBALL_STATS_PLAYER_ID : FOOTBALL_STATS_GAME_ID) + "=?", args,
+                null, null, null);
+
+        if (c.moveToFirst()) {
+
+            do {
+                stats.add(new FootballStats(c.getLong(1),
                         c.getLong(0),
                         c.getInt(2),
                         c.getInt(3),
@@ -481,6 +638,19 @@ public class GameDBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean deleteTennisGame(long gameID)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] args = new String[]{Long.toString(gameID)};
+        if (db.delete(TABLE_TENNIS_GAMES, TENNIS_GAME_ID + "=?", args) == 0) {
+            return false;
+        }
+
+        db.delete(TABLE_TENNIS_STATS, TENNIS_STATS_GAME_ID + "=?", args);
+        return true;
+    }
+
     public boolean deleteFoottballGame(long gameID)
     {
         SQLiteDatabase db = getReadableDatabase();
@@ -504,32 +674,10 @@ public class GameDBHelper extends SQLiteOpenHelper {
         }
 
         db.delete(TABLE_BASKETBALL_STATS, BASKETBALL_STATS_PLAYER_ID + "=?", args);
+        db.delete(TABLE_FOOTBALL_STATS, FOOTBALL_STATS_PLAYER_ID + "=?", args);
+        db.delete(TABLE_TENNIS_STATS, TENNIS_STATS_PLAYER_ID + "=?", args);
+        db.delete(TABLE_JOGGING_STATS, JOGGING_STATS_RUNNER_ID + "=?", args);
         return true;
-    }
-
-    public boolean deleteStats(long gameID, long playerID)
-    {
-        SQLiteDatabase db = getReadableDatabase();
-
-        String[] args = new String[]{Long.toString(gameID), Long.toString(playerID)};
-        if (db.delete(TABLE_BASKETBALL_STATS, BASKETBALL_STATS_GAME_ID + "=? AND " + BASKETBALL_STATS_PLAYER_ID + "=?", args) == 0) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public void addJoggingRace (JoggingRace r)
-    {
-        SQLiteDatabase db = getReadableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(JOGGING_RACE_START, r.getStart());
-        values.put(JOGGING_RACE_FINISH, r.getFinish());
-        values.put(JOGGING_RACE_DISTANCE, r.getDistance());
-        values.put(JOGGING_RACE_ROUTE, r.getEncodedRoute());
-        db.insert(TABLE_JOGGING_RACES, JOGGING_RACE_START, values);
-        db.close();
     }
 
     public boolean deleteBJoggingRace(long raceID)
@@ -545,18 +693,6 @@ public class GameDBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public void addJoggingStats (JoggingStats st)
-    {
-        SQLiteDatabase db = getReadableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(JOGGING_STATS_RACE_ID, st.getRaceId());
-        values.put(JOGGING_STATS_RUNNER_ID, st.getRunnerId());
-        values.put(JOGGING_STATS_TIME, st.getTime());
-        values.put(JOGGING_STATS_PLACE, st.getPlace());
-        db.insert(TABLE_JOGGING_RACES, JOGGING_STATS_RACE_ID, values);
-        db.close();
-    }
 
     public long getFootballGameID(String team1, String team2, Date datum) {
 

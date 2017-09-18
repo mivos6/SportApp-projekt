@@ -14,9 +14,10 @@ import com.example.rivios_.sportapp.DatePickerFragment;
 import com.example.rivios_.sportapp.GameDBHelper;
 import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.data.Athlete;
-import com.example.rivios_.sportapp.data.BasketballStats;
+import com.example.rivios_.sportapp.data.FootballStats;
 import com.example.rivios_.sportapp.data.FootballGame;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class FootballGameStatsActivity extends AppCompatActivity {
 
     private FootballGame currentFootballGame = new FootballGame();
     private ArrayList<Athlete> currentFootballPlayers = new ArrayList<Athlete>();
-    private ArrayList<BasketballStats> currentFootballStats = new ArrayList<BasketballStats>();
+    private ArrayList<FootballStats> currentFootballStats = new ArrayList<FootballStats>();
 
     EditText etTeam1;
     EditText etTeam2;
@@ -85,9 +86,8 @@ public class FootballGameStatsActivity extends AppCompatActivity {
             return;
         }
 
-        FootballGame currentFootbalGame = new FootballGame();
-        currentFootbalGame.setTeam1(team1);
-        currentFootbalGame.setTeam2(team2);
+        currentFootballGame.setTeam1(team1);
+        currentFootballGame.setTeam2(team2);
 
         int indikator = result.indexOf(":");
         if ((indikator <= 0) || (indikator == result.length() - 1)) {
@@ -114,6 +114,24 @@ public class FootballGameStatsActivity extends AppCompatActivity {
         catch (NumberFormatException e) {
             Toast.makeText(this, "Neispravno upisan rezultat.", Toast.LENGTH_SHORT).show();
             return;
+        }
+
+        try {
+            currentFootballGame.setDatum(dateFormat.parse(datum));
+        } catch (ParseException e) {
+            Toast.makeText(this, "Neispravno upisan datum.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        currentFootballGame.setResult1(result1);
+        currentFootballGame.setResult2(result2);
+
+        if (currentFootballGame.getResult1() < currentFootballGame.getResult2()) {
+            currentFootballGame.setWinner(team2);
+        } else if (currentFootballGame.getResult1() > currentFootballGame.getResult2()) {
+            currentFootballGame.setWinner(team1);
+        } else {
+            currentFootballGame.setWinner("");
         }
 
         GameDBHelper dbHelper = GameDBHelper.getInstance(this);
@@ -143,16 +161,48 @@ public class FootballGameStatsActivity extends AppCompatActivity {
                 currentFootballStats.get(i).setGameId(currentFootballGame.getId());
                 currentFootballStats.get(i).setPlayerId(currentFootballPlayers.get(i).getId());
 
-                dbHelper.addStats(currentFootballStats.get(i));
+                dbHelper.addFootballStats(currentFootballStats.get(i));
 
                 Log.d("PERO", "Spremljena statistika: utakmica "
                         + currentFootballStats.get(i).getGameId()
                         + ", igrač " + currentFootballStats.get(i).getPlayerId());
             }
         }
+
+        currentFootballGame = new FootballGame();
+        currentFootballPlayers.clear();
+        currentFootballStats.clear();
+        etTeam1.setText("");
+        etTeam2.setText("");
+        etResult.setText("");
+        etDatum.setText("");
+        Toast.makeText(this, "Utakmica uspješno spremljena.", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.PLAYER_RESULT)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                ArrayList<Athlete> listaDodanih = data.getParcelableArrayListExtra(Constants.PLAYERS);
+                ArrayList<FootballStats> listaStatistika = data.getParcelableArrayListExtra(Constants.STATS);
 
+                for ( Athlete igrac : listaDodanih) {
+                    currentFootballPlayers.add(igrac);
+                }
+                for ( FootballStats st : listaStatistika) {
+                    currentFootballStats.add(st);
+                }
+            }
+        }
+    }
+
+    public void footballarchive (View v) {
+        Intent i = new Intent();
+        i.setClass(this, FootballGameList.class);
+        startActivity(i);
+    }
 
     public void birajDatum (View v)
     {

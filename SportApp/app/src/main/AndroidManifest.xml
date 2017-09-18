@@ -25,7 +25,7 @@
         <activity android:name=".activities.BasketballGameStatsActivity" />
         <activity android:name=".activities.BasketballAddPlayers" />
         <activity android:name=".activities.BasketballGameList" />
-        <activity android:name=".activities.BaskerballGamePlayers" />
+        <activity android:name=".activities.BasketballGamePlayers" />
         <activity android:name=".activities.BasketballPlayerList" />
         <activity android:name=".activities.FootballGameStatsActivity" />
         <activity android:name=".activities.FootballAddPlayers" />
@@ -45,7 +45,10 @@
         <activity android:name=".activities.JoggingRaceStats" />
         <activity android:name=".activities.JoggingRunners" />
         <activity android:name=".activities.MapsActivity" />
-        <activity android:name=".activities.JoggingRaceList"></activity>
+        <activity android:name=".activities.JoggingRaceList" />
+        <activity android:name=".activities.FootballGameList" />
+        <activity android:name=".activities.ArhivaNogometActivity" />
+        <activity android:name=".activities.FootballPlayerList"></activity>
     </application>
 
 </manifest>

@@ -42,7 +42,7 @@ public class JoggingRaceAdapter extends BaseAdapter {
         RaceViewHolder holder;
 
         if (convertView == null) {
-            convertView = View.inflate(parent.getContext(), R.layout.list_element, null);
+            convertView = View.inflate(parent.getContext(), R.layout.basketball_list_alement, null);
 
             holder = new RaceViewHolder();
             holder.tvStart = (TextView) convertView.findViewById(R.id.tvTeam1);

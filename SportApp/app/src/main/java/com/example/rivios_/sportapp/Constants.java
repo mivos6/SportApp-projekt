@@ -1,7 +1,7 @@
 package com.example.rivios_.sportapp;
 
 /**
- * Created by Milan on 31.8.2017..
+ * Created by rivios_ on 31.8.2017..
  */
 
 public class Constants {

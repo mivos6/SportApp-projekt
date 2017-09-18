@@ -10,15 +10,15 @@ import android.widget.ListView;
 import com.example.rivios_.sportapp.Constants;
 import com.example.rivios_.sportapp.DeleteDialog;
 import com.example.rivios_.sportapp.GameDBHelper;
-import com.example.rivios_.sportapp.adapters.BasketballGameStatsAdapter;
+import com.example.rivios_.sportapp.adapters.FootballGameStatsAdapter;
 import com.example.rivios_.sportapp.R;
-import com.example.rivios_.sportapp.data.BasketballGame;
+import com.example.rivios_.sportapp.data.FootballGame;
 
 import java.util.ArrayList;
 
-public class BasketballGameList extends AppCompatActivity implements DeleteDialog.DeleteDialogListener, AdapterView.OnItemLongClickListener{
-    ArrayList<BasketballGame> basketballGames;
-    BasketballGameStatsAdapter adapter;
+public class FootballGameList extends AppCompatActivity implements DeleteDialog.DeleteDialogListener, AdapterView.OnItemLongClickListener{
+    ArrayList<FootballGame> footballGames;
+    FootballGameStatsAdapter adapter;
     ListView lvGameStats;
     GameDBHelper dbHelper;
 
@@ -28,16 +28,16 @@ public class BasketballGameList extends AppCompatActivity implements DeleteDialo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_arhivakosarka);
+        setContentView(R.layout.activity_arhivanogomet);
 
         //fillDB();
 
-        lvGameStats = (ListView) findViewById(R.id.lvGameStats);
+        lvGameStats = (ListView) findViewById(R.id.lvFootballGameStats);
         dbHelper = GameDBHelper.getInstance(this);
 
-        basketballGames = dbHelper.getBasketballGames();
+        footballGames = dbHelper.getFootballGames();
 
-        adapter = new BasketballGameStatsAdapter(basketballGames);
+        adapter = new FootballGameStatsAdapter(footballGames);
 
         lvGameStats.setAdapter(adapter);
 
@@ -68,7 +68,7 @@ public class BasketballGameList extends AppCompatActivity implements DeleteDialo
     public void onDialogClick(boolean yes) {
         if (yes) {
             if (dbHelper.deleteBasketballGame(deleteId)) {
-                basketballGames.remove(deletePos);
+                footballGames.remove(deletePos);
                 adapter.notifyDataSetChanged();
             }
         }

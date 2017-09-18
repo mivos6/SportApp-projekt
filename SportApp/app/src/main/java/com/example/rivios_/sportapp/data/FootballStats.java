@@ -15,7 +15,7 @@ public class FootballStats implements Parcelable{
     private int assists;
     private String team;
 
-    public FootballStats() {
+    public FootballStats(int i, int i1, int golovi, int asistencije, String ekipa) {
         this.playerId = 0;
         this.gameId = 0;
         this.goals = 0;
