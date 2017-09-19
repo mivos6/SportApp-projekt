@@ -48,19 +48,6 @@ public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCa
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        Intent i = getIntent();
-        race = i.getParcelableExtra("RACE");
-
-        ArrayList<JoggingStats> stats = dbHelper.getJoggingRunnerStats(race.getRaceId(), false);
-        for (JoggingStats st : stats)
-        {
-            rs.add(new JoggingRunnerStats(dbHelper.getAthlete(st.getRunnerId()), st));
-        }
-
-        lvRunners = (ListView) findViewById(R.id.lvRunnerStats);
-        adapter = new ArrayAdapter<JoggingRunnerStats>(this, android.R.layout.simple_list_item_1, rs);
-        lvRunners.setAdapter(adapter);
     }
 
 
@@ -75,6 +62,19 @@ public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCa
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Intent i = getIntent();
+        race = i.getParcelableExtra("RACE");
+
+        ArrayList<JoggingStats> stats = dbHelper.getJoggingRunnerStats(race.getRaceId(), false);
+        for (JoggingStats st : stats)
+        {
+            rs.add(new JoggingRunnerStats(dbHelper.getAthlete(st.getRunnerId()), st));
+        }
+
+        lvRunners = (ListView) findViewById(R.id.lvRunnerStats);
+        adapter = new ArrayAdapter<JoggingRunnerStats>(this, android.R.layout.simple_list_item_1, rs);
+        lvRunners.setAdapter(adapter);
+
         mMap = googleMap;
         
         if (race != null)
