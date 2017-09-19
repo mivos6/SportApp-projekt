@@ -97,7 +97,31 @@ public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCa
                     .title("Cilj")
                     .snippet(race.getFinish()));
 
-            LatLngBounds b = new LatLngBounds(m1.getPosition(), m2.getPosition());
+            LatLng southwest = new LatLng(0, 0);
+            LatLng northeast = new LatLng(0, 0);
+            if (m1.getPosition().latitude < m2.getPosition().latitude)
+            {
+                southwest.lat = m1.getPosition().latitude;
+                northeast.lat = m2.getPosition().latitude;
+            }
+            else
+            {
+                southwest.lat = m2.getPosition().latitude;
+                northeast.lat = m1.getPosition().latitude;
+            }
+
+            if (m1.getPosition().longitude < m2.getPosition().latitude)
+            {
+                southwest.lng = m1.getPosition().longitude;
+                northeast.lng = m2.getPosition().longitude;
+            }
+            else
+            {
+                southwest.lng = m2.getPosition().longitude;
+                northeast.lng = m1.getPosition().longitude;
+            }
+
+            LatLngBounds b = new LatLngBounds(convert(southwest), convert(northeast));
             mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(b, 0));
         }
     }
