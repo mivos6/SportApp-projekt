@@ -100,7 +100,7 @@ public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCa
             LatLngBounds b =  new LatLngBounds.Builder().include(m1.getPosition())
                     .include(m2.getPosition())
                     .build();
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(b, 0));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(b, 10));
         }
     }
 
