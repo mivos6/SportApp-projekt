@@ -110,7 +110,7 @@ public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCa
                 northeast.lat = m1.getPosition().latitude + 0.5;
             }
 
-            if (m1.getPosition().longitude < m2.getPosition().latitude)
+            if (m1.getPosition().longitude < m2.getPosition().longitude)
             {
                 southwest.lng = m1.getPosition().longitude - 0.5;
                 northeast.lng = m2.getPosition().longitude + 0.5;
