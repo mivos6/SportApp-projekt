@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.rivios_.sportapp.data.Athlete;
 import com.example.rivios_.sportapp.data.BasketballGame;
@@ -484,9 +485,9 @@ public class GameDBHelper extends SQLiteOpenHelper {
                 new String[]{JOGGING_RACE_ID,
                         JOGGING_RACE_START,
                         JOGGING_RACE_FINISH,
+                        JOGGING_RACE_DATE,
                         JOGGING_RACE_WINNER,
                         JOGGING_RACE_DISTANCE,
-                        JOGGING_RACE_DATE,
                         JOGGING_RACE_ROUTE
                 },
                 null, null, null, null, null
@@ -497,9 +498,9 @@ public class GameDBHelper extends SQLiteOpenHelper {
                 joggingRaces.add(new JoggingRace(c.getLong(0),
                         c.getString(1),
                         c.getString(2),
-                        new Date(c.getInt(5)),
-                        c.getString(3),
-                        c.getInt(4),
+                        new Date(c.getLong(3)),
+                        c.getString(4),
+                        c.getInt(5),
                         c.getString(6)
                 ));
             } while (c.moveToNext());

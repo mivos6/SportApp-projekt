@@ -3,6 +3,7 @@ package com.example.rivios_.sportapp.activities.jogging;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -27,8 +28,8 @@ import java.util.ArrayList;
  */
 public class JoggingRaceStats extends AppCompatActivity {
     private JoggingRace newRace = null;
-    private ArrayList<Athlete> runners;
-    private ArrayList<JoggingStats> stats;
+    private ArrayList<Athlete> runners = new ArrayList<>();
+    private ArrayList<JoggingStats> stats = new ArrayList<>();;
 
     EditText etSart;
     EditText etFinish;
@@ -80,6 +81,9 @@ public class JoggingRaceStats extends AppCompatActivity {
         }
 
         GameDBHelper dbHelper = GameDBHelper.getInstance(this);
+        Log.d("PERO", "Spremljena statistika: datum " + sdf.format(newRace.getDate()));
+        Log.d("PERO", "Spremljena statistika: duljina " + Integer.toString(newRace.getDistance()));
+
         dbHelper.addJoggingRace(newRace);
         long rid = dbHelper.getJoggingRaceID(newRace.getStart(), newRace.getFinish(), newRace.getDate());
         newRace.setRaceId(rid);

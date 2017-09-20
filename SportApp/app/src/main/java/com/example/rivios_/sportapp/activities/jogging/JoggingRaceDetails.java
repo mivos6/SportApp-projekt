@@ -29,7 +29,7 @@ import com.google.maps.model.LatLng;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCallback {
+public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLoadedCallback {
 
     private GoogleMap mMap;
     private ArrayList<JoggingRunnerStats> rs = new ArrayList<JoggingRunnerStats>();
@@ -76,7 +76,16 @@ public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCa
         lvRunners.setAdapter(adapter);
 
         mMap = googleMap;
-        
+        mMap.setOnMapLoadedCallback(this);
+    }
+
+    private com.google.android.gms.maps.model.LatLng convert(LatLng ll)
+    {
+        return new com.google.android.gms.maps.model.LatLng(ll.lat, ll.lng);
+    }
+
+    @Override
+    public void onMapLoaded() {
         if (race != null)
         {
             EncodedPolyline encp = new EncodedPolyline(race.getEncodedRoute());
@@ -102,10 +111,5 @@ public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCa
                     .build();
             mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(b, 10));
         }
-    }
-
-    private com.google.android.gms.maps.model.LatLng convert(LatLng ll)
-    {
-        return new com.google.android.gms.maps.model.LatLng(ll.lat, ll.lng);
     }
 }
