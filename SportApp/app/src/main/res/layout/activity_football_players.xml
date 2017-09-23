@@ -57,11 +57,11 @@
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="match_parent"
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/assists"
         android:popupBackground="@color/football"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/linlay"
@@ -107,5 +107,13 @@
         android:textColor="@color/football"
         android:textStyle="bold"
         android:layout_alignTop="@+id/dodajigraca" />
+
+    <Spinner
+        android:id="@+id/spinner_players"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/assists"
+        android:layout_toRightOf="@+id/spinner"
+        android:layout_toEndOf="@+id/spinner" />
 
 </RelativeLayout>
