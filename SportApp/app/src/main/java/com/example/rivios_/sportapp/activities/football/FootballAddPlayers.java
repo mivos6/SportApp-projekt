@@ -183,19 +183,27 @@ public class FootballAddPlayers extends AppCompatActivity implements AdapterView
     {
         nicknames.clear();
         nicknames.add("Novi sportaš");
-        for (Athlete a : existingPlayers)
-        {
-            ArrayList<FootballStats> stats = dbHelper.getFoottballPlayerStats(a.getId(), true);
-            for (FootballStats s : stats)
-            {
-                if (s.getTeam().equals(spEkipe.getSelectedItem().toString())) {
-                    nicknames.add(a.getNickname());
-                    break;
+        if (!spEkipe.getSelectedItem().toString().equals("Odaberite ekipu")) {
+            for (Athlete a : existingPlayers) {
+                ArrayList<FootballStats> stats = dbHelper.getFoottballPlayerStats(a.getId(), true);
+                for (FootballStats s : stats) {
+                    if (s.getTeam().equals(spEkipe.getSelectedItem().toString())) {
+                        nicknames.add(a.getNickname());
+                        break;
+                    }
                 }
+            }
+        }
+        else
+        {
+            for (Athlete a : existingPlayers)
+            {
+                nicknames.add(a.getNickname());
             }
         }
         spPlayersAdapter.notifyDataSetChanged();
         spPlayers.setSelection(0);
+
     }
 
     public void playerSelected()
