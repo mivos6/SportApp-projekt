@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.rivios_.sportapp.Constants;
@@ -22,6 +23,7 @@ public class TennisGameList extends AppCompatActivity implements DeleteDialog.De
     ArrayList<TennisGame> tennisGames;
     TennisGameStatsAdapter adapter;
     ListView lvGameStats;
+    EditText editText;
     GameDBHelper dbHelper;
 
     private int deletePos = -1;
@@ -31,8 +33,9 @@ public class TennisGameList extends AppCompatActivity implements DeleteDialog.De
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-
+        editText = (EditText) findViewById(R.id.txtsearch);
         lvGameStats = (ListView) findViewById(R.id.lvStats);
+        editText.setBackground(getResources().getDrawable(R.color.tennis));
         lvGameStats.setBackground(getResources().getDrawable(R.color.tennis));
 
         dbHelper = GameDBHelper.getInstance(this);

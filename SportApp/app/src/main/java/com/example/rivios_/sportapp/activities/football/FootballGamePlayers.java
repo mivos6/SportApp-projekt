@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.rivios_.sportapp.adapters.FootballPlayerStatsAdapter;
@@ -19,6 +20,7 @@ public class FootballGamePlayers extends AppCompatActivity {
     ArrayList<FootballPlayersStats> playerStats = new ArrayList<>();
     FootballPlayerStatsAdapter adapter;
     ListView lvplayerStats;
+    EditText editText;
     GameDBHelper dbHelper = GameDBHelper.getInstance(this);;
 
     @Override
@@ -32,6 +34,9 @@ public class FootballGamePlayers extends AppCompatActivity {
         gameId = i.getLongExtra("GAME_ID", 0);
 
         Log.d("PERO", "Arhiva igraca, utakmica: " + gameId);
+
+        editText = (EditText) findViewById(R.id.txtsearch);
+        editText.setBackground(getResources().getDrawable(R.color.football));
 
         lvplayerStats = (ListView) findViewById(R.id.lvStats);
         lvplayerStats.setBackground(getResources().getDrawable(R.color.football));

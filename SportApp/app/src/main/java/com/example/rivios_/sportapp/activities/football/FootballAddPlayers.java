@@ -80,7 +80,7 @@ public class FootballAddPlayers extends AppCompatActivity implements AdapterView
 
         existingPlayers = dbHelper.getAthletes(Constants.DISCIPLINE_FOOTBALL);
         nicknames = new ArrayList<String>();
-        nicknames.add("Novi sportaš");
+        nicknames.add("Novi igrač");
         for (Athlete a : existingPlayers)
         {
             nicknames.add(a.getNickname());
