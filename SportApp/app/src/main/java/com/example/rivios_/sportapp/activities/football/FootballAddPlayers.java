@@ -22,7 +22,6 @@ import com.example.rivios_.sportapp.data.FootballStats;
 import java.util.ArrayList;
 
 public class FootballAddPlayers extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
     ArrayList<FootballPlayersStats> newPlayers = new ArrayList<FootballPlayersStats>();
 
     ArrayList<Athlete> existingPlayers;
@@ -46,7 +45,6 @@ public class FootballAddPlayers extends AppCompatActivity implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_football_players);
-
         Intent i = getIntent();
         dbHelper = GameDBHelper.getInstance(this);
 
@@ -80,7 +78,7 @@ public class FootballAddPlayers extends AppCompatActivity implements AdapterView
 
         existingPlayers = dbHelper.getAthletes(Constants.DISCIPLINE_FOOTBALL);
         nicknames = new ArrayList<String>();
-        nicknames.add("Novi igrač");
+        nicknames.add("Novi sportaš");
         for (Athlete a : existingPlayers)
         {
             nicknames.add(a.getNickname());
@@ -165,9 +163,11 @@ public class FootballAddPlayers extends AppCompatActivity implements AdapterView
         switch (adapterView.getId())
         {
             case R.id.spinner:
+                Toast.makeText(this, "ekipe", Toast.LENGTH_SHORT).show();
                 teamSelected();
                 break;
             case R.id.spinner_players:
+                Toast.makeText(this, "sportaši", Toast.LENGTH_SHORT).show();
                 playerSelected();
                 break;
             default:
@@ -203,7 +203,6 @@ public class FootballAddPlayers extends AppCompatActivity implements AdapterView
         }
         spPlayersAdapter.notifyDataSetChanged();
         spPlayers.setSelection(0);
-
     }
 
     public void playerSelected()

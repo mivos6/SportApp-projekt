@@ -68,11 +68,20 @@
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="match_parent"
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/skokovi"
         android:popupBackground="@color/basketball"
         android:textStyle="bold"/>
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/skokovi"
+        android:popupBackground="@color/basketball"
+        android:textStyle="bold"
+        android:layout_toRightOf="@id/spinner"/>
 
     <LinearLayout
         android:id="@+id/linlay"

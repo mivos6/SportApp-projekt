@@ -47,7 +47,7 @@ public class TennisGameStatsActivity extends AppCompatActivity {
 
 
         etplayer1Name = (EditText) findViewById(R.id.player1Name);
-        etpl1Nickname = (EditText) findViewById(R.id.player2Nickname);
+        etpl1Nickname = (EditText) findViewById(R.id.player1Nickname);
         etpl2Name = (EditText) findViewById(R.id.player2Name);
         etpl2Nickname = (EditText) findViewById(R.id.player2Nickname);
         etResult = (EditText) findViewById(R.id.tennisresult);
@@ -180,7 +180,18 @@ public class TennisGameStatsActivity extends AppCompatActivity {
             }
         }
 
-
+        etplayer1Name.setText("");
+        etpl1Nickname.setText("");
+        etpl2Name.setText("");
+        etpl2Nickname.setText("");
+        etResult.setText("");
+        etfirstSet.setText("");
+        etsecondSet.setText("");
+        etthirdSet.setText("");
+        etfourthSet.setText("");
+        etfifthSet.setText("");
+        etDatum.setText("");
+        currentTennisgame = new TennisGame();
     }
 
     public void birajDatum (View v)

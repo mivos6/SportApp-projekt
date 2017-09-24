@@ -48,7 +48,6 @@
         <activity android:name=".activities.jogging.JoggingRaceList" />
         <activity android:name=".activities.football.FootballGameList" />
         <activity android:name=".activities.football.FootballPlayerList" />
-        <activity android:name=".activities.jogging.JoggingRunnerList" />
         <activity
             android:name=".activities.jogging.JoggingRaceDetails"
             android:label="@string/title_activity_jogging_race_details" />

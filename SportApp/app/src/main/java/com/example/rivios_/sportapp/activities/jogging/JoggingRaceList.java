@@ -3,9 +3,12 @@ package com.example.rivios_.sportapp.activities.jogging;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.rivios_.sportapp.Constants;
@@ -15,6 +18,7 @@ import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.adapters.JoggingRaceAdapter;
 import com.example.rivios_.sportapp.data.JoggingRace;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class JoggingRaceList extends AppCompatActivity implements AdapterView.OnItemLongClickListener, DeleteDialog.DeleteDialogListener{
@@ -22,6 +26,7 @@ public class JoggingRaceList extends AppCompatActivity implements AdapterView.On
 
     ListView lvRaces;
     JoggingRaceAdapter adapter;
+    EditText editText;
     GameDBHelper dbHelper = GameDBHelper.getInstance(this);
 
     int deletePos;
@@ -34,6 +39,9 @@ public class JoggingRaceList extends AppCompatActivity implements AdapterView.On
 
         lvRaces = (ListView) findViewById(R.id.lvStats);
         lvRaces.setBackground(getResources().getDrawable(R.color.jogging));
+
+        editText = (EditText) findViewById(R.id.txtsearch);
+        editText.setBackground(getResources().getDrawable(R.color.jogging));
 
         races = dbHelper.getJoggingRaces();
         Log.d("PERO", "Num races " + races.size());
@@ -50,6 +58,43 @@ public class JoggingRaceList extends AppCompatActivity implements AdapterView.On
             }
         });
         lvRaces.setOnItemLongClickListener(this);
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+                ArrayList<JoggingRace> games = dbHelper.getJoggingRaces();
+                String filter = editText.getText().toString().toLowerCase();
+
+                races.clear();
+                if (filter.equals(""))
+                {
+                    races.addAll(games);
+                }
+                else
+                {
+                    for (JoggingRace g : games)
+                    {
+                        if (g.getStart().toLowerCase().contains(filter)
+                                || g.getFinish().toLowerCase().contains(filter)
+                                || sdf.format(g.getDate()).contains(filter)) {
+                            races.add(g);
+                        }
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override

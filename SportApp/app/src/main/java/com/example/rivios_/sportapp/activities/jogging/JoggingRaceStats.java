@@ -168,11 +168,4 @@ public class JoggingRaceStats extends AppCompatActivity {
         i.setClass(this, JoggingRaceList.class);
         startActivity(i);
     }
-
-    public void openRunners(View v)
-    {
-        Intent i = new Intent();
-        i.setClass(this, JoggingRunnerList.class);
-        startActivity(i);
-    }
 }

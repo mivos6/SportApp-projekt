@@ -17,6 +17,7 @@ import com.example.rivios_.sportapp.adapters.BasketballGameStatsAdapter;
 import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.data.BasketballGame;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class BasketballGameList extends AppCompatActivity implements DeleteDialog.DeleteDialogListener, AdapterView.OnItemLongClickListener{
@@ -33,7 +34,6 @@ public class BasketballGameList extends AppCompatActivity implements DeleteDialo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        //fillDB();
         editText = (EditText) findViewById(R.id.txtsearch);
         editText.setBackground(getResources().getDrawable(R.color.basketball));
 
@@ -44,25 +44,21 @@ public class BasketballGameList extends AppCompatActivity implements DeleteDialo
 
         basketballGames = dbHelper.getBasketballGames();
         adapter = new BasketballGameStatsAdapter(basketballGames);
+        lvGameStats.setAdapter(adapter);
+        lvGameStats.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent();
+                i.setClass(getApplicationContext(), BasketballGamePlayers.class);
+                i.putExtra("GAME_ID", id);
+                startActivity(i);
+            }
+        });
+        lvGameStats.setOnItemLongClickListener(this);
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.toString().equals("")){
-
-                    // reset listview
-
-                    lvGameStats.setAdapter(adapter);
-
-                }
-
-                else{
-
-                    // perform search
-
-                    searchItem(s.toString());
-
-                }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
 
@@ -73,21 +69,30 @@ public class BasketballGameList extends AppCompatActivity implements DeleteDialo
 
             @Override
             public void afterTextChanged(Editable editable) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+                ArrayList<BasketballGame> games = dbHelper.getBasketballGames();
+                String filter = editText.getText().toString().toLowerCase();
 
+                basketballGames.clear();
+                if (filter.equals(""))
+                {
+                    basketballGames.addAll(games);
+                }
+                else
+                {
+                    for (BasketballGame g : games)
+                    {
+                        if (g.getTeam1().toLowerCase().contains(filter)
+                                || g.getTeam2().toLowerCase().contains(filter)
+                                || sdf.format(g.getDatum()).contains(filter)
+                                || (g.getTeam1() + " VS " + g.getTeam2()).toLowerCase().contains(filter)) {
+                            basketballGames.add(g);
+                        }
+                    }
+                }
+                adapter.notifyDataSetChanged();
             }
         });
-
-        lvGameStats.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent();
-                i.setClass(getApplicationContext(), BasketballGamePlayers.class);
-                i.putExtra("GAME_ID", id);
-                startActivity(i);
-            }
-        });
-
-        lvGameStats.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -108,21 +113,5 @@ public class BasketballGameList extends AppCompatActivity implements DeleteDialo
                 adapter.notifyDataSetChanged();
             }
         }
-    }
-
-    public void searchItem(String textToSearch){
-
-        for(String item:){
-
-            if(!item.contains(textToSearch)){
-
-                basketballGames.remove(item);
-
-            }
-
-        }
-
-        adapter.notifyDataSetChanged();
-
     }
 }

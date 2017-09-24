@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.rivios_.sportapp.Constants;
+import com.example.rivios_.sportapp.GameDBHelper;
 import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.data.Athlete;
 import com.example.rivios_.sportapp.data.BasketballPlayerStats;
@@ -20,32 +21,41 @@ import com.example.rivios_.sportapp.data.BasketballStats;
 
 import java.util.ArrayList;
 
-public class BasketballAddPlayers extends AppCompatActivity {
+public class BasketballAddPlayers extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     ArrayList<BasketballPlayerStats> pst = new ArrayList<BasketballPlayerStats>();
+
+    ArrayList<Athlete> existingPlayers;
+    ArrayList<String> nicknames;
 
     EditText etIme;
     EditText etNadimak;
     EditText etPoeni;
     EditText etAsistencije;
     EditText etSkokovi;
-    Spinner spTimovi;
+    Spinner spEkipe;
+    Spinner spPlayers;
     ListView lvPlayers;
 
     ArrayAdapter<BasketballPlayerStats> plAdapter;
     ArrayAdapter<String> spAdapter;
+    ArrayAdapter<String> spPlayersAdapter;
+
+    GameDBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basketball_players);
         Intent i = getIntent();
+        dbHelper = GameDBHelper.getInstance(this);
 
         etIme = (EditText) findViewById(R.id.imekosarkasa);
         etNadimak = (EditText) findViewById(R.id.nadimakkosarkasa);
         etPoeni = (EditText) findViewById(R.id.poeni);
         etAsistencije = (EditText) findViewById(R.id.asistencije);
         etSkokovi = (EditText) findViewById(R.id.skokovi);
-        spTimovi = (Spinner) findViewById(R.id.spinner);
+        spEkipe = (Spinner) findViewById(R.id.spinner);
+        spPlayers = (Spinner) findViewById(R.id.spinner2);
         lvPlayers = (ListView) findViewById(R.id.listaIgraca);
 
         plAdapter = new ArrayAdapter<BasketballPlayerStats>(this, android.R.layout.simple_list_item_1, pst);
@@ -64,8 +74,21 @@ public class BasketballAddPlayers extends AppCompatActivity {
         teams.add(i.getStringExtra(Constants.TEAM1_TAG));
         teams.add(i.getStringExtra(Constants.TEAM2_TAG));
         spAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, teams);
-        spTimovi.setAdapter(spAdapter);
-        spTimovi.setSelection(0);
+        spEkipe.setAdapter(spAdapter);
+        spEkipe.setSelection(0);
+        spEkipe.setOnItemSelectedListener(this);
+
+        existingPlayers = dbHelper.getAthletes(Constants.DISCIPLINE_BASKETBALL);
+        nicknames = new ArrayList<String>();
+        nicknames.add("Novi sportaš");
+        for (Athlete a : existingPlayers)
+        {
+            nicknames.add(a.getNickname());
+        }
+        spPlayersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nicknames);
+        spPlayers.setAdapter(spPlayersAdapter);
+        spPlayers.setSelection(0);
+        spPlayers.setOnItemSelectedListener(this);
     }
 
     public void dodajIgraca (View v)
@@ -101,7 +124,7 @@ public class BasketballAddPlayers extends AppCompatActivity {
                 return;
             }
         }
-        ekipa = spTimovi.getSelectedItem().toString();
+        ekipa = spEkipe.getSelectedItem().toString();
         if (ekipa.equals("Odaberite ekipu"))
         {
             Toast.makeText(this, "Ekipa nije odabrana.", Toast.LENGTH_SHORT).show();
@@ -116,7 +139,7 @@ public class BasketballAddPlayers extends AppCompatActivity {
         etPoeni.setText("");
         etAsistencije.setText("");
         etSkokovi.setText("");
-        spTimovi.setSelection(0);
+        spEkipe.setSelection(0);
     }
 
     public void spremi (View v)
@@ -137,5 +160,68 @@ public class BasketballAddPlayers extends AppCompatActivity {
         setResult(RESULT_OK, i);
 
         finish();
+    }
+
+    public void teamSelected()
+    {
+        nicknames.clear();
+        nicknames.add("Novi sportaš");
+        if (!spEkipe.getSelectedItem().toString().equals("Odaberite ekipu")) {
+            for (Athlete a : existingPlayers) {
+                ArrayList<BasketballStats> stats = dbHelper.getBasketballPlayerStats(a.getId(), true);
+                for (BasketballStats s : stats) {
+                    if (s.getTeam().equals(spEkipe.getSelectedItem().toString())) {
+                        nicknames.add(a.getNickname());
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            for (Athlete a : existingPlayers)
+            {
+                nicknames.add(a.getNickname());
+            }
+        }
+        spPlayersAdapter.notifyDataSetChanged();
+        spPlayers.setSelection(0);
+    }
+
+    public void playerSelected()
+    {
+        String nick = spPlayers.getSelectedItem().toString();
+        if (!nick.equals("Novi sportaš"))
+        {
+            Athlete a = dbHelper.getAthlete(dbHelper.getAthleteID(nick));
+            etIme.setText(a.getName());
+            etNadimak.setText(a.getNickname());
+        }
+        else
+        {
+            etIme.setText("");
+            etNadimak.setText("");
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        switch (adapterView.getId())
+        {
+            case R.id.spinner:
+                Toast.makeText(this, "ekipe", Toast.LENGTH_SHORT).show();
+                teamSelected();
+                break;
+            case R.id.spinner2:
+                Toast.makeText(this, "sportaši", Toast.LENGTH_SHORT).show();
+                playerSelected();
+                break;
+            default:
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

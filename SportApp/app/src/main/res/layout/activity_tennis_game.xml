@@ -97,8 +97,10 @@
         android:id="@+id/fourthSet"
         android:hint="4. set"
         android:layout_below="@+id/tennisresult"
-        android:layout_alignRight="@+id/button4"
-        android:layout_alignEnd="@+id/button4" />
+        android:layout_toLeftOf="@+id/fifthSet"
+        android:layout_toStartOf="@+id/fifthSet"
+        android:layout_marginRight="19dp"
+        android:layout_marginEnd="19dp" />
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

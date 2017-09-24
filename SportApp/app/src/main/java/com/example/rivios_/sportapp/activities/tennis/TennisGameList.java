@@ -3,6 +3,8 @@ package com.example.rivios_.sportapp.activities.tennis;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +19,7 @@ import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.adapters.TennisGameStatsAdapter;
 import com.example.rivios_.sportapp.data.TennisGame;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class TennisGameList extends AppCompatActivity implements DeleteDialog.DeleteDialogListener, AdapterView.OnItemLongClickListener{
@@ -39,14 +42,49 @@ public class TennisGameList extends AppCompatActivity implements DeleteDialog.De
         lvGameStats.setBackground(getResources().getDrawable(R.color.tennis));
 
         dbHelper = GameDBHelper.getInstance(this);
-
         tennisGames = dbHelper.getTennisGames();
 
         adapter = new TennisGameStatsAdapter(tennisGames);
-
         lvGameStats.setAdapter(adapter);
-
         lvGameStats.setOnItemLongClickListener(this);
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+                ArrayList<TennisGame> games = dbHelper.getTennisGames();
+                String filter = editText.getText().toString().toLowerCase();
+
+                tennisGames.clear();
+                if (filter.equals(""))
+                {
+                    tennisGames.addAll(games);
+                }
+                else
+                {
+                    for (TennisGame g : games)
+                    {
+                        if (g.getPlayer1().toLowerCase().contains(filter)
+                                || g.getPlayer2().toLowerCase().contains(filter)
+                                || sdf.format(g.getDatum()).contains(filter)
+                                || (g.getPlayer1() + " VS " + g.getPlayer2()).toLowerCase().contains(filter)) {
+                            tennisGames.add(g);
+                        }
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
