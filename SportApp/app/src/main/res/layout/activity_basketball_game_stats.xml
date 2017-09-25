@@ -12,14 +12,15 @@
     android:contextClickable="false">
 
     <Spinner
-        android:id="@+id/spinner4"
+        android:id="@+id/spinner1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/team2"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textView" />
+        android:layout_toRightOf="@+id/textView"
+        android:popupBackground="@color/basketball" />
 
     <EditText
         android:id="@+id/team1"
@@ -81,9 +82,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="VS"
         android:id="@+id/textView"
-        android:layout_below="@+id/team1"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_above="@+id/spinner2"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/statistike"
@@ -149,7 +150,8 @@
         android:textStyle="bold" />
 
     <Spinner
-        android:id="@+id/spinner3"
+        android:id="@+id/spinner2"
+        android:popupBackground="@color/basketball"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/rezultat"

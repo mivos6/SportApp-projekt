@@ -43,6 +43,6 @@ public class FootballPlayersStats implements Comparable{
     public int compareTo(@NonNull Object o) {
         FootballPlayersStats ps = (FootballPlayersStats) o;
 
-        return stats.getGoals() - ps.getStats().getGoals();
+        return ps.getStats().getGoals() - stats.getGoals();
     }
 }

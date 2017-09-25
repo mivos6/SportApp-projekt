@@ -46,6 +46,6 @@ public class BasketballPlayerStats implements Comparable{
     public int compareTo(@NonNull Object o) {
         BasketballPlayerStats ps = (BasketballPlayerStats) o;
 
-        return stats.getPoints() - ps.getStats().getPoints();
+        return ps.getStats().getPoints() - stats.getPoints();
     }
 }
