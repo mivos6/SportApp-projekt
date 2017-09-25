@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -113,5 +114,18 @@ public class BasketballGameList extends AppCompatActivity implements DeleteDialo
                 adapter.notifyDataSetChanged();
             }
         }
+        else
+        {
+            Intent i = new Intent();
+            i.setClass(this, BasketballGameStatsActivity.class);
+            i.putExtra(Constants.GAME, basketballGames.get(deletePos));
+            startActivity(i);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        editText.setText("");
     }
 }

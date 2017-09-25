@@ -117,5 +117,18 @@ public class FootballGameList extends AppCompatActivity implements DeleteDialog.
                 adapter.notifyDataSetChanged();
             }
         }
+        else
+        {
+            Intent i = new Intent();
+            i.setClass(this, FootballGameStatsActivity.class);
+            i.putExtra(Constants.GAME, footballGames.get(deletePos));
+            startActivity(i);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        editText.setText("");
     }
 }

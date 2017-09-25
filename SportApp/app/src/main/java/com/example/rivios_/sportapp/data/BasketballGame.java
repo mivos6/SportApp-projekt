@@ -44,6 +44,7 @@ public class BasketballGame implements Parcelable{
         result1 = in.readInt();
         result2 = in.readInt();
         winner = in.readString();
+        datum = new Date(in.readLong());
     }
 
     public static final Creator<BasketballGame> CREATOR = new Creator<BasketballGame>() {
@@ -127,5 +128,6 @@ public class BasketballGame implements Parcelable{
         parcel.writeInt(result1);
         parcel.writeInt(result2);
         parcel.writeString(winner);
+        parcel.writeLong(datum.getTime());
     }
 }

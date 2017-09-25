@@ -22,13 +22,13 @@ public class DeleteDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Želite li obrisati odabranu stavku?")
-                .setNegativeButton("Da", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Obriši", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         listener.onDialogClick(true);
                     }
                 })
-                .setPositiveButton("Ne", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Uredi", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         listener.onDialogClick(false);

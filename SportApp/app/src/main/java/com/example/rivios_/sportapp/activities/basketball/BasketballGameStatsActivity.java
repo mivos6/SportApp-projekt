@@ -26,6 +26,7 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
     private BasketballGame trenutnaUtakmica = new BasketballGame();
     private ArrayList<Athlete> trenutniIgraci = new ArrayList<Athlete>();
     private ArrayList<BasketballStats> trenutneStatistike = new ArrayList<BasketballStats>();
+    private boolean update;
 
     EditText etTeam1;
     EditText etTeam2;
@@ -41,6 +42,27 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
         etTeam2 = (EditText) findViewById(R.id.team2);
         etResult = (EditText) findViewById(R.id.rezultat);
         etDatum = (EditText) findViewById(R.id.datum);
+
+        Intent i = getIntent();
+        if (i.hasExtra(Constants.GAME))
+        {
+            update = true;
+            trenutnaUtakmica = i.getParcelableExtra(Constants.GAME);
+
+            etTeam1.setText(trenutnaUtakmica.getTeam1());
+            etTeam2.setText(trenutnaUtakmica.getTeam2());
+            etResult.setText(Integer.toString(trenutnaUtakmica.getResult1())
+                    + ":" + Integer.toString(trenutnaUtakmica.getResult2()));
+            etDatum.setText(new SimpleDateFormat("dd.MM.yyyy").format(trenutnaUtakmica.getDatum()));
+
+            findViewById(R.id.arhiva).setVisibility(View.INVISIBLE);
+            findViewById(R.id.arhivaIgraca).setVisibility(View.INVISIBLE);
+            findViewById(R.id.statistike).setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            update = false;
+        }
     }
 
     public void igracikosarka(View v) {
@@ -148,7 +170,14 @@ public class BasketballGameStatsActivity extends AppCompatActivity {
 
         GameDBHelper dbHelper = GameDBHelper.getInstance(this);
 
-        dbHelper.addBasketballGame(trenutnaUtakmica);
+        if (!update) {
+            dbHelper.addBasketballGame(trenutnaUtakmica);
+        }
+        else {
+            dbHelper.updateBasketballGame(trenutnaUtakmica);
+            finish();
+        }
+
         long gid = dbHelper.getBasketballGameID(trenutnaUtakmica.getTeam1(), trenutnaUtakmica.getTeam2(), trenutnaUtakmica.getDatum());
         trenutnaUtakmica.setId(gid);
 

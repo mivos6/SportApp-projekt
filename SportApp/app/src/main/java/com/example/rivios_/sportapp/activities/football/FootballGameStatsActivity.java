@@ -26,6 +26,7 @@ public class FootballGameStatsActivity extends AppCompatActivity {
     private FootballGame currentFootballGame = new FootballGame();
     private ArrayList<Athlete> currentFootballPlayers = new ArrayList<Athlete>();
     private ArrayList<FootballStats> currentFootballStats = new ArrayList<FootballStats>();
+    private boolean update;
 
     EditText etTeam1;
     EditText etTeam2;
@@ -41,6 +42,27 @@ public class FootballGameStatsActivity extends AppCompatActivity {
         etTeam2 = (EditText) findViewById(R.id.footballteam2);
         etResult = (EditText) findViewById(R.id.footballresult);
         etDatum = (EditText) findViewById(R.id.datum);
+
+        Intent i = getIntent();
+        if (i.hasExtra(Constants.GAME))
+        {
+            update = true;
+            currentFootballGame = i.getParcelableExtra(Constants.GAME);
+
+            etTeam1.setText(currentFootballGame.getTeam1());
+            etTeam2.setText(currentFootballGame.getTeam2());
+            etResult.setText(Integer.toString(currentFootballGame.getResult1())
+                    + ":" + Integer.toString(currentFootballGame.getResult2()));
+            etDatum.setText(new SimpleDateFormat("dd.MM.yyyy").format(currentFootballGame.getDatum()));
+
+            findViewById(R.id.footballstats).setVisibility(View.INVISIBLE);
+            findViewById(R.id.arhiva).setVisibility(View.INVISIBLE);
+            findViewById(R.id.arhivaIgraca).setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            update = false;
+        }
     }
 
     public void footballplayers(View v) {
@@ -136,7 +158,14 @@ public class FootballGameStatsActivity extends AppCompatActivity {
 
         GameDBHelper dbHelper = GameDBHelper.getInstance(this);
 
-        dbHelper.addFootballGame(currentFootballGame);
+        if (!update) {
+            dbHelper.addFootballGame(currentFootballGame);
+        }
+        else {
+            dbHelper.updateFootballGame(currentFootballGame);
+            finish();
+        }
+
         long gid = dbHelper.getFootballGameID(currentFootballGame.getTeam1(), currentFootballGame.getTeam2(), currentFootballGame.getDatum());
         currentFootballGame.setId(gid);
 
