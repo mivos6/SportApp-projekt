@@ -9,9 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.rivios_.sportapp.Constants;
+import com.example.rivios_.sportapp.GameDBHelper;
 import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.data.Athlete;
 import com.example.rivios_.sportapp.data.JoggingRunnerStats;
@@ -22,24 +24,31 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.SortedMap;
 
 /**
  * Created by rivios_ on 9/14/2017.
  */
-public class JoggingRunners extends AppCompatActivity {
+public class JoggingRunners extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    ArrayList<Athlete> existingPlayers;
+    ArrayList<String> nicknames;
     EditText etRunnerName;
     EditText etRunnerNickname;
     EditText etRunnerTime;
+    Spinner spPlayers;
     ListView lvAddRunners;
     ArrayAdapter<JoggingRunnerStats> adapter;
+    GameDBHelper dbHelper;
+    ArrayAdapter<String> spPlayersAdapter;
 
     ArrayList<JoggingRunnerStats> rs = new ArrayList<JoggingRunnerStats>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = GameDBHelper.getInstance(this);
         setContentView(R.layout.activity_runners);
-
+        spPlayers = (Spinner) findViewById(R.id.spinner);
         etRunnerName = (EditText) findViewById(R.id.runnerName);
         etRunnerNickname = (EditText) findViewById(R.id.runnerNickname);
         etRunnerTime = (EditText) findViewById(R.id.runnerTime);
@@ -55,6 +64,18 @@ public class JoggingRunners extends AppCompatActivity {
                 return true;
             }
         });
+
+        existingPlayers = dbHelper.getAthletes(Constants.DISCIPLINE_JOGGING);
+        nicknames = new ArrayList<String>();
+        nicknames.add("Novi sportaš");
+        for (Athlete a : existingPlayers)
+        {
+            nicknames.add(a.getNickname());
+        }
+        spPlayersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nicknames);
+        spPlayers.setAdapter(spPlayersAdapter);
+        spPlayers.setSelection(0);
+        spPlayers.setOnItemSelectedListener(this);
     }
 
     public void addRunner(View v)
@@ -90,6 +111,23 @@ public class JoggingRunners extends AppCompatActivity {
         etRunnerTime.setText("");
     }
 
+    public void playerSelected()
+    {
+        String nick = spPlayers.getSelectedItem().toString();
+        if (!nick.equals("Novi sportaš"))
+        {
+            Athlete a = dbHelper.getAthlete(dbHelper.getAthleteID(nick));
+            etRunnerName.setText(a.getName());
+            etRunnerNickname.setText(a.getNickname());
+        }
+        else
+        {
+            etRunnerName.setText("");
+            etRunnerNickname.setText("");
+        }
+    }
+
+
     public void saveRunners(View v)
     {
         Intent resultIntent = new Intent();
@@ -107,5 +145,18 @@ public class JoggingRunners extends AppCompatActivity {
 
         setResult(RESULT_OK, resultIntent);
         finish();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+        playerSelected();
+
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

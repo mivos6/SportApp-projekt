@@ -117,6 +117,7 @@ public class JoggingRaceStats extends AppCompatActivity {
         etSart.setText("");
         etFinish.setText("");
         etRaceDate.setText("");
+        Toast.makeText(this, "Utrka uspješno spremljena.", Toast.LENGTH_SHORT).show();
 
         newRace = null;
         runners.clear();
