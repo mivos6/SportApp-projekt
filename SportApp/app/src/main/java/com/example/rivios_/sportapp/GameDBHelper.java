@@ -747,13 +747,13 @@ public class GameDBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean deleteBasketballGamePlayerStats(long gameID)
+    public boolean deleteBasketballGamePlayerStats(long gameID, long playerId)
     {
         SQLiteDatabase db = getReadableDatabase();
 
-        String[] args = new String[]{Long.toString(gameID)};
+        String[] args = new String[]{Long.toString(gameID),Long.toString(playerId)};
 
-        db.delete(TABLE_BASKETBALL_STATS, BASKETBALL_STATS_PLAYER_ID + "=?", args);
+        db.delete(TABLE_BASKETBALL_STATS, BASKETBALL_STATS_GAME_ID + "=? AND " + BASKETBALL_STATS_PLAYER_ID + "=?", args);
         return true;
     }
 
@@ -782,13 +782,13 @@ public class GameDBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean deleteFootballGamePlayerStats(long gameID)
+    public boolean deleteFootballGamePlayerStats(long gameID, long playerId)
     {
         SQLiteDatabase db = getReadableDatabase();
 
-        String[] args = new String[]{Long.toString(gameID)};
+        String[] args = new String[]{Long.toString(gameID), Long.toString(playerId)};
 
-        db.delete(TABLE_FOOTBALL_STATS, FOOTBALL_STATS_PLAYER_ID + "=?", args);
+        db.delete(TABLE_FOOTBALL_STATS, FOOTBALL_STATS_GAME_ID + "=? AND " + FOOTBALL_STATS_PLAYER_ID + "=?", args);
         return true;
     }
 
