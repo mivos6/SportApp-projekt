@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.rivios_.sportapp.Constants;
@@ -22,13 +25,16 @@ import java.util.ArrayList;
 /**
  * Created by rivios_ on 9/14/2017.
  */
-public class TennisGameStatsActivity extends AppCompatActivity {
+public class TennisGameStatsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private ArrayList<TennisGame> games;
+    private ArrayList<String> players = new ArrayList();
     private TennisGame currentTennisgame = new TennisGame();
     private ArrayList<Athlete> currentTennisPlayers = new ArrayList<Athlete>();
 
-
-    EditText etplayer1Name;
+    Spinner spinnerPlayer1;
+    Spinner spinnerPlayer2;
+    EditText etpl1Name;
     EditText etpl1Nickname;
     EditText etpl2Name;
     EditText etpl2Nickname;
@@ -39,14 +45,18 @@ public class TennisGameStatsActivity extends AppCompatActivity {
     EditText etfourthSet;
     EditText etfifthSet;
     EditText etDatum;
+    GameDBHelper dbHelper;
+    ArrayAdapter<String> spPlayersAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = GameDBHelper.getInstance(this);
         setContentView(R.layout.activity_tennis_game);
 
-
-        etplayer1Name = (EditText) findViewById(R.id.player1Name);
+        spinnerPlayer1 = (Spinner) findViewById(R.id.spPlayer1);
+        spinnerPlayer2 = (Spinner) findViewById(R.id.spPlayer2);
+        etpl1Name = (EditText) findViewById(R.id.player1Name);
         etpl1Nickname = (EditText) findViewById(R.id.player1Nickname);
         etpl2Name = (EditText) findViewById(R.id.player2Name);
         etpl2Nickname = (EditText) findViewById(R.id.player2Nickname);
@@ -57,10 +67,32 @@ public class TennisGameStatsActivity extends AppCompatActivity {
         etfourthSet = (EditText) findViewById(R.id.fourthSet);
         etfifthSet = (EditText) findViewById(R.id.fifthSet);
         etDatum = (EditText) findViewById(R.id.datum);
+
+        games = dbHelper.getTennisGames();
+        players = new ArrayList<String>();
+        players.add("Odaberi igrača");
+        for(TennisGame g : games){
+
+            if(!players.contains(g.getPlayer1())){
+                players.add(g.getPlayer1());
+            }
+
+            if(!players.contains(g.getPlayer2())){
+                players.add(g.getPlayer2());
+            }
+
+        }
+        spPlayersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, players);
+        spinnerPlayer1.setAdapter(spPlayersAdapter);
+        spinnerPlayer1.setSelection(0);
+        spinnerPlayer1.setOnItemSelectedListener(this);
+        spinnerPlayer2.setAdapter(spPlayersAdapter);
+        spinnerPlayer2.setSelection(0);
+        spinnerPlayer2.setOnItemSelectedListener(this);
     }
 
     public void saveTennisGame (View v) {
-        String player1 = etplayer1Name.getText().toString();
+        String player1 = etpl1Name.getText().toString();
         String nickname1 = etpl1Nickname.getText().toString();
         String player2 = etpl2Name.getText().toString();
         String nickname2 = etpl2Nickname.getText().toString();
@@ -162,10 +194,9 @@ public class TennisGameStatsActivity extends AppCompatActivity {
         GameDBHelper dbHelper = GameDBHelper.getInstance(this);
 
         dbHelper.addTennisGame(currentTennisgame);
-        long gid = dbHelper.getBasketballGameID(currentTennisgame.getPlayer1(), currentTennisgame.getPlayer2(), currentTennisgame.getDatum());
+        long gid = dbHelper.getTennisGameID(currentTennisgame.getPlayer1(), currentTennisgame.getPlayer2(), currentTennisgame.getDatum());
         currentTennisgame.setId(gid);
 
-        Log.d("PERO", "Spremljena utakmica: " + gid);
 
         if (currentTennisPlayers.size() > 0)
         {
@@ -176,11 +207,10 @@ public class TennisGameStatsActivity extends AppCompatActivity {
                 }
                 long pid = dbHelper.getAthleteID(player.getNickname());
                 player.setId(pid);
-                Log.d("PERO", "Spremljen igrač: " + pid);
             }
         }
 
-        etplayer1Name.setText("");
+        etpl1Name.setText("");
         etpl1Nickname.setText("");
         etpl2Name.setText("");
         etpl2Nickname.setText("");
@@ -206,5 +236,39 @@ public class TennisGameStatsActivity extends AppCompatActivity {
         Intent i = new Intent();
         i.setClass(this, TennisGameList.class);
         startActivity(i);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String Player1check = spinnerPlayer1.getSelectedItem().toString();
+        String Team2check = spinnerPlayer2.getSelectedItem().toString();
+
+        if (!Player1check.equals("Odaberi igrača"))
+        {
+            String myStr = spinnerPlayer1.getSelectedItem().toString();
+            etpl1Name.setText(myStr);
+
+
+        }
+        else
+        {
+            etpl1Name.setText("");
+        }
+
+        if (!Team2check.equals("Odaberi igrača")){
+
+            String myStr = spinnerPlayer2.getSelectedItem().toString();
+            etpl2Name.setText(myStr);
+        }
+
+        else {
+            etpl2Name.setText("");
+        }
+    }
+
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

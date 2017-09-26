@@ -114,6 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/assists"
         android:layout_toRightOf="@+id/spinner"
-        android:layout_toEndOf="@+id/spinner" />
+        android:layout_toEndOf="@+id/spinner"
+        android:popupBackground="@color/football"/>
 
 </RelativeLayout>

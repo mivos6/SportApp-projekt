@@ -163,11 +163,9 @@ public class FootballAddPlayers extends AppCompatActivity implements AdapterView
         switch (adapterView.getId())
         {
             case R.id.spinner:
-                Toast.makeText(this, "ekipe", Toast.LENGTH_SHORT).show();
                 teamSelected();
                 break;
             case R.id.spinner_players:
-                Toast.makeText(this, "sportaši", Toast.LENGTH_SHORT).show();
                 playerSelected();
                 break;
             default:
@@ -182,7 +180,7 @@ public class FootballAddPlayers extends AppCompatActivity implements AdapterView
     public void teamSelected()
     {
         nicknames.clear();
-        nicknames.add("Novi sportaš");
+        nicknames.add("Odaberi igrača");
         if (!spEkipe.getSelectedItem().toString().equals("Odaberite ekipu")) {
             for (Athlete a : existingPlayers) {
                 ArrayList<FootballStats> stats = dbHelper.getFoottballPlayerStats(a.getId(), true);
@@ -208,7 +206,7 @@ public class FootballAddPlayers extends AppCompatActivity implements AdapterView
     public void playerSelected()
     {
         String nick = spPlayers.getSelectedItem().toString();
-        if (!nick.equals("Novi sportaš"))
+        if (!nick.equals("Odaberi igrača"))
         {
             Athlete a = dbHelper.getAthlete(dbHelper.getAthleteID(nick));
             etIme.setText(a.getName());

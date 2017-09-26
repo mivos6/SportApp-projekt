@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.rivios_.sportapp.Constants;
+import com.example.rivios_.sportapp.DeleteDialog;
 import com.example.rivios_.sportapp.adapters.FootballPlayerStatsAdapter;
 import com.example.rivios_.sportapp.GameDBHelper;
 import com.example.rivios_.sportapp.R;
@@ -15,18 +19,20 @@ import com.example.rivios_.sportapp.data.FootballStats;
 
 import java.util.ArrayList;
 
-public class FootballGamePlayers extends AppCompatActivity {
+public class FootballGamePlayers extends AppCompatActivity implements AdapterView.OnItemLongClickListener, DeleteDialog.DeleteDialogListener {
     long gameId;
     ArrayList<FootballPlayersStats> playerStats = new ArrayList<>();
     FootballPlayerStatsAdapter adapter;
     ListView lvplayerStats;
     EditText editText;
-    GameDBHelper dbHelper = GameDBHelper.getInstance(this);;
+    GameDBHelper dbHelper = GameDBHelper.getInstance(this);
+    private int deletePos = -1;
+    private long deleteId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.activity_football_game_players);
 
         //fillDBPlayers();
 
@@ -34,9 +40,6 @@ public class FootballGamePlayers extends AppCompatActivity {
         gameId = i.getLongExtra("GAME_ID", 0);
 
         Log.d("PERO", "Arhiva igraca, utakmica: " + gameId);
-
-        editText = (EditText) findViewById(R.id.txtsearch);
-        editText.setBackground(getResources().getDrawable(R.color.football));
 
         lvplayerStats = (ListView) findViewById(R.id.lvStats);
         lvplayerStats.setBackground(getResources().getDrawable(R.color.football));
@@ -53,5 +56,25 @@ public class FootballGamePlayers extends AppCompatActivity {
         adapter = new FootballPlayerStatsAdapter(playerStats);
 
         lvplayerStats.setAdapter(adapter);
+        lvplayerStats.setOnItemLongClickListener(this);
+    }
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long id) {
+        DeleteDialog delDialog =  new DeleteDialog();
+        delDialog.setListener(this);
+        deletePos = pos;
+        deleteId = id;
+        delDialog.show(getFragmentManager(), Constants.DELETE_DIALOG_TAG);
+        return true;
+    }
+
+    @Override
+    public void onDialogClick(boolean yes) {
+        if (yes) {
+            if (dbHelper.deleteFootballGamePlayerStats(deleteId)) {
+                playerStats.remove(deletePos);
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 }

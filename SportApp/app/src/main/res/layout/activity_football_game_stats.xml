@@ -138,7 +138,8 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/textView"
         android:layout_toEndOf="@+id/textView"
-        android:layout_above="@+id/textView" />
+        android:layout_above="@+id/textView"
+        android:popupBackground="@color/football"/>
 
     <Spinner
         android:id="@+id/spinner2"
@@ -147,7 +148,8 @@
         android:layout_alignTop="@+id/footballteam2"
         android:layout_toRightOf="@+id/textView"
         android:layout_toEndOf="@+id/textView"
-        android:layout_above="@+id/footballresult" />
+        android:layout_above="@+id/footballresult"
+        android:popupBackground="@color/football"/>
 
 </RelativeLayout>
 

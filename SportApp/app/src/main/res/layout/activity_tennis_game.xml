@@ -11,50 +11,48 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.rivios_.sportapp.activities.tennis.TennisGameStatsActivity">
 
+
+
     <EditText
         android:id="@+id/player1Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Ime igrača"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textStyle="bold"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/firstSet"
-        android:layout_toEndOf="@+id/firstSet" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/textView" />
 
     <EditText
         android:id="@+id/player1Nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Nadimak igrača"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView" />
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/textView"
+        android:layout_toStartOf="@+id/textView" />
 
     <EditText
         android:id="@+id/player2Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Ime igrača"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/player1Name"
-        android:layout_alignStart="@+id/player1Name" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView" />
 
     <EditText
         android:id="@+id/player2Nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Nadimak igrača"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:layout_below="@+id/textView"
+        android:layout_alignBaseline="@+id/player1Nickname"
+        android:layout_alignBottom="@+id/player1Nickname"
         android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
 
     <EditText
         android:id="@+id/tennisresult"
@@ -63,52 +61,62 @@
         android:hint="Rezultat"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:layout_below="@+id/player2Name"
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/spPlayer1"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="19dp" />
+        android:layout_alignParentStart="true" />
+
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/firstSet"
-        android:layout_below="@id/tennisresult"
-        android:hint="1. set"/>
-    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="1. set"
+        android:layout_alignBaseline="@+id/secondSet"
+        android:layout_alignBottom="@+id/secondSet"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
         android:id="@+id/secondSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:hint="2. set"
-        android:layout_below="@+id/tennisresult"
-        android:layout_alignLeft="@+id/player2Name"
-        android:layout_alignStart="@+id/player2Name"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp" />
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/firstSet"
+        android:layout_toEndOf="@+id/firstSet"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp" />
+
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/thirdSet"
-        android:hint="3. set"
-        android:layout_below="@+id/tennisresult"
-        android:layout_toRightOf="@+id/player2Name"
-        android:layout_toEndOf="@+id/player2Name" />
-    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="3. set"
+        android:layout_alignBaseline="@+id/fourthSet"
+        android:layout_alignBottom="@+id/fourthSet"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
         android:id="@+id/fourthSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:hint="4. set"
-        android:layout_below="@+id/tennisresult"
+        android:layout_alignBaseline="@+id/fifthSet"
+        android:layout_alignBottom="@+id/fifthSet"
         android:layout_toLeftOf="@+id/fifthSet"
         android:layout_toStartOf="@+id/fifthSet"
-        android:layout_marginRight="19dp"
-        android:layout_marginEnd="19dp" />
+        android:layout_marginRight="17dp"
+        android:layout_marginEnd="17dp" />
+
     <EditText
+        android:id="@+id/fifthSet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fifthSet"
         android:hint="5. set"
-        android:layout_below="@+id/tennisresult"
+        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
 
     <EditText
         android:id="@+id/datum"
@@ -119,8 +127,8 @@
         android:onClick="birajDatum"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:layout_marginTop="26dp"
-        android:layout_below="@+id/firstSet"
+        android:layout_marginBottom="12dp"
+        android:layout_above="@+id/button2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -130,9 +138,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="VS"
         android:id="@+id/textView"
-        android:layout_below="@+id/player1Nickname"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textStyle="bold" />
+        android:layout_marginTop="47dp" />
 
     <Button
         android:id="@+id/button2"
@@ -143,10 +152,10 @@
         android:textAllCaps="false"
         android:textColor="@color/tennis"
         android:textStyle="bold"
-        android:layout_below="@+id/datum"
+        android:onClick="tennisArchive"
+        android:layout_above="@+id/button3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:onClick="tennisArchive"/>
+        android:layout_marginBottom="25dp" />
 
     <Button
         android:id="@+id/button3"
@@ -163,6 +172,28 @@
         android:textColor="@color/tennis"
         android:textStyle="bold"
         android:onClick="saveTennisGame"/>
+
+    <Spinner
+        android:id="@+id/spPlayer1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/player1Nickname"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="22dp"
+        android:layout_alignRight="@+id/player1Nickname"
+        android:layout_alignEnd="@+id/player1Nickname"
+        android:popupBackground="@color/tennis"/>
+
+    <Spinner
+        android:id="@+id/spPlayer2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/spPlayer1"
+        android:layout_above="@id/tennisresult"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:popupBackground="@color/tennis"></Spinner>
 
 </RelativeLayout>
 
