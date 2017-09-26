@@ -11,9 +11,20 @@
     android:background="@color/basketball"
     android:contextClickable="false">
 
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/team2"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textView"
+        android:popupBackground="@color/basketball" />
+
     <EditText
         android:id="@+id/team1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -21,11 +32,13 @@
         android:hint="Team 1"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_toLeftOf="@+id/textView"
+        android:layout_toStartOf="@+id/textView" />
 
     <EditText
         android:id="@+id/team2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -33,7 +46,9 @@
         android:layout_marginTop="37dp"
         android:hint="Team 2"
         android:textAlignment="center"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_toLeftOf="@+id/textView"
+        android:layout_toStartOf="@+id/textView" />
 
     <EditText
         android:id="@+id/rezultat"
@@ -67,9 +82,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="VS"
         android:id="@+id/textView"
-        android:layout_below="@+id/team1"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_above="@+id/spinner2"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/statistike"
@@ -92,18 +107,18 @@
         style="@android:style/Widget.Material.Light.Button.Toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/team2"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/team2"
         android:backgroundTint="@color/colorPrimaryDark"
         android:onClick="spremiuBazu"
         android:singleLine="false"
         android:text="Spremi"
         android:textAllCaps="false"
         android:textColor="@color/basketball"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/arhiva"
@@ -133,5 +148,17 @@
         android:textAllCaps="false"
         android:textColor="@color/basketball"
         android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:popupBackground="@color/basketball"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rezultat"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_alignTop="@+id/team2" />
 
 </RelativeLayout>

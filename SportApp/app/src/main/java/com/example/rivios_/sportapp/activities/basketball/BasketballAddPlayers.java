@@ -165,7 +165,7 @@ public class BasketballAddPlayers extends AppCompatActivity implements AdapterVi
     public void teamSelected()
     {
         nicknames.clear();
-        nicknames.add("Novi sportaš");
+        nicknames.add("Odaberi igrača");
         if (!spEkipe.getSelectedItem().toString().equals("Odaberite ekipu")) {
             for (Athlete a : existingPlayers) {
                 ArrayList<BasketballStats> stats = dbHelper.getBasketballPlayerStats(a.getId(), true);
@@ -191,7 +191,7 @@ public class BasketballAddPlayers extends AppCompatActivity implements AdapterVi
     public void playerSelected()
     {
         String nick = spPlayers.getSelectedItem().toString();
-        if (!nick.equals("Novi sportaš"))
+        if (!nick.equals("Odaberi igrača"))
         {
             Athlete a = dbHelper.getAthlete(dbHelper.getAthleteID(nick));
             etIme.setText(a.getName());
@@ -209,11 +209,9 @@ public class BasketballAddPlayers extends AppCompatActivity implements AdapterVi
         switch (adapterView.getId())
         {
             case R.id.spinner:
-                Toast.makeText(this, "ekipe", Toast.LENGTH_SHORT).show();
                 teamSelected();
                 break;
             case R.id.spinner2:
-                Toast.makeText(this, "sportaši", Toast.LENGTH_SHORT).show();
                 playerSelected();
                 break;
             default:

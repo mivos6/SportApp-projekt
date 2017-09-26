@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.rivios_.sportapp.Constants;
@@ -21,23 +24,32 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class FootballGameStatsActivity extends AppCompatActivity {
+public class FootballGameStatsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private ArrayList<FootballGame> games;
+    private ArrayList<String> teams = new ArrayList();
     private FootballGame currentFootballGame = new FootballGame();
     private ArrayList<Athlete> currentFootballPlayers = new ArrayList<Athlete>();
     private ArrayList<FootballStats> currentFootballStats = new ArrayList<FootballStats>();
     private boolean update;
 
+    Spinner spTeam1;
+    Spinner spTeam2;
     EditText etTeam1;
     EditText etTeam2;
     EditText etResult;
     EditText etDatum;
+    GameDBHelper dbHelper;
+    ArrayAdapter<String> spTeamsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = GameDBHelper.getInstance(this);
         setContentView(R.layout.activity_football_game_stats);
 
+        spTeam1 = (Spinner) findViewById(R.id.spinner1);
+        spTeam2 = (Spinner) findViewById(R.id.spinner2);
         etTeam1 = (EditText) findViewById(R.id.footballteam1);
         etTeam2 = (EditText) findViewById(R.id.footballteam2);
         etResult = (EditText) findViewById(R.id.footballresult);
@@ -63,6 +75,28 @@ public class FootballGameStatsActivity extends AppCompatActivity {
         {
             update = false;
         }
+
+        games = dbHelper.getFootballGames();
+        teams = new ArrayList<String>();
+        teams.add("Odaberi ekipu");
+        for(FootballGame g : games){
+
+            if(!teams.contains(g.getTeam1())){
+                teams.add(g.getTeam1());
+            }
+
+            if(!teams.contains(g.getTeam2())){
+                teams.add(g.getTeam2());
+            }
+
+        }
+        spTeamsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, teams);
+        spTeam1.setAdapter(spTeamsAdapter);
+        spTeam1.setSelection(0);
+        spTeam1.setOnItemSelectedListener(this);
+        spTeam2.setAdapter(spTeamsAdapter);
+        spTeam2.setSelection(0);
+        spTeam2.setOnItemSelectedListener(this);
     }
 
     public void footballplayers(View v) {
@@ -244,5 +278,39 @@ public class FootballGameStatsActivity extends AppCompatActivity {
     {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), Constants.DATE_PICKER_TAG);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+        String Team1check = spTeam1.getSelectedItem().toString();
+        String Team2check = spTeam2.getSelectedItem().toString();
+
+        if (!Team1check.equals("Odaberi ekipu"))
+        {
+            String myStr = spTeam1.getSelectedItem().toString();
+            etTeam1.setText(myStr);
+
+
+        }
+        else
+        {
+            etTeam1.setText("");
+        }
+
+        if (!Team2check.equals("Odaberi ekipu")){
+
+            String myStr = spTeam2.getSelectedItem().toString();
+            etTeam2.setText(myStr);
+        }
+
+        else {
+            etTeam2.setText("");
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
