@@ -71,7 +71,7 @@ public class FootballGamePlayers extends AppCompatActivity implements AdapterVie
     @Override
     public void onDialogClick(boolean yes) {
         if (yes) {
-            if (dbHelper.deleteFootballGamePlayerStats(deleteId)) {
+            if (dbHelper.deleteFootballGamePlayerStats(playerStats.get(deletePos).getStats().getGameId(), playerStats.get(deletePos).getStats().getPlayerId())) {
                 playerStats.remove(deletePos);
                 adapter.notifyDataSetChanged();
             }

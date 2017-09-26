@@ -68,7 +68,7 @@ public class BasketballGamePlayers extends AppCompatActivity implements AdapterV
     @Override
     public void onDialogClick(boolean yes) {
         if (yes) {
-            if (dbHelper.deleteBasketballGamePlayerStats(deleteId)) {
+            if (dbHelper.deleteBasketballGamePlayerStats(playerStats.get(deletePos).getStats().getGameId(), playerStats.get(deletePos).getStats().getPlayerId())) {
                 playerStats.remove(deletePos);
                 adapter.notifyDataSetChanged();
             }
