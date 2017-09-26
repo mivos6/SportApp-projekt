@@ -10,9 +10,6 @@ import com.example.rivios_.sportapp.data.BasketballPlayerStats;
 
 import java.util.ArrayList;
 
-/**
- * Created by admin on 6.6.2016..
- */
 public class BasketballPlayerStatsAdapter extends BaseAdapter {
     ArrayList<BasketballPlayerStats> playerStats;
 

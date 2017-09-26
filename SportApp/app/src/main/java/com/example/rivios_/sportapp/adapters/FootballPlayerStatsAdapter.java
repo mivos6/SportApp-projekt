@@ -10,10 +10,6 @@ import com.example.rivios_.sportapp.data.FootballPlayersStats;
 
 import java.util.ArrayList;
 
-/**
- * Created by rivios_ on 9/18/2017.
- */
-
 public class FootballPlayerStatsAdapter extends BaseAdapter {
     ArrayList<FootballPlayersStats> playerStats;
 

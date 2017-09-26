@@ -1,9 +1,5 @@
 package com.example.rivios_.sportapp;
 
-/**
- * Created by rivios_ on 31.8.2017..
- */
-
 public class Constants {
     public static final int PLAYER_RESULT = 1;
     public static final int ROUTE_RESULT = 2;

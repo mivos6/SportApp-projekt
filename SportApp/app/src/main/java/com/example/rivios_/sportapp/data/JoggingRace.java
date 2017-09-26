@@ -5,10 +5,6 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-/**
- * Created by Milan on 9.9.2017..
- */
-
 public class JoggingRace implements Parcelable{
     private long raceId;
     private String start;

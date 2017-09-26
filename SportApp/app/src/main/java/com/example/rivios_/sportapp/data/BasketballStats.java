@@ -3,9 +3,6 @@ package com.example.rivios_.sportapp.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by admin on 3.6.2016..
- */
 public class BasketballStats implements Parcelable {
     private long playerId;
     private long gameId;

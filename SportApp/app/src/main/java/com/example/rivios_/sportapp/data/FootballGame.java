@@ -5,9 +5,6 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-/**
- * Created by admin on 26.5.2016..
- */
 public class FootballGame implements Parcelable{
     private long id;
     private String team1;

@@ -4,10 +4,6 @@ import android.support.annotation.NonNull;
 
 import java.util.Date;
 
-/**
- * Created by Milan on 16.9.2017..
- */
-
 public class JoggingRunnerStats implements Comparable {
     private Athlete runner;
     private JoggingStats stats;
