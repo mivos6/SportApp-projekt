@@ -29,7 +29,8 @@ import java.util.ArrayList;
 public class JoggingRaceStats extends AppCompatActivity {
     private JoggingRace newRace = null;
     private ArrayList<Athlete> runners = new ArrayList<>();
-    private ArrayList<JoggingStats> stats = new ArrayList<>();;
+    private ArrayList<JoggingStats> stats = new ArrayList<>();
+    private boolean update;
 
     EditText etSart;
     EditText etFinish;
@@ -43,6 +44,24 @@ public class JoggingRaceStats extends AppCompatActivity {
         etSart = (EditText) findViewById(R.id.start);
         etFinish = (EditText) findViewById(R.id.finish);
         etRaceDate = (EditText) findViewById(R.id.datum);
+
+        Intent i = getIntent();
+        if (i.hasExtra(Constants.GAME))
+        {
+            update = true;
+            newRace = i.getParcelableExtra(Constants.GAME);
+
+            etSart.setText(newRace.getStart());
+            etFinish.setText(newRace.getFinish());
+            etRaceDate.setText(new SimpleDateFormat("dd.MM.yyyy").format(newRace.getDate()));
+
+            findViewById(R.id.addRunner).setVisibility(View.INVISIBLE);
+            findViewById(R.id.archive).setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            update = false;
+        }
     }
 
     public void runnersActivity(View v) {
@@ -84,9 +103,18 @@ public class JoggingRaceStats extends AppCompatActivity {
         Log.d("PERO", "Spremljena statistika: datum " + sdf.format(newRace.getDate()));
         Log.d("PERO", "Spremljena statistika: duljina " + Integer.toString(newRace.getDistance()));
 
-        dbHelper.addJoggingRace(newRace);
+        if (!update) {
+            dbHelper.addJoggingRace(newRace);
+        }
+        else {
+            dbHelper.updateJoggingRace(newRace);
+            finish();
+        }
+
         long rid = dbHelper.getJoggingRaceID(newRace.getStart(), newRace.getFinish(), newRace.getDate());
         newRace.setRaceId(rid);
+
+
 
         if (runners.size() > 0)
         {

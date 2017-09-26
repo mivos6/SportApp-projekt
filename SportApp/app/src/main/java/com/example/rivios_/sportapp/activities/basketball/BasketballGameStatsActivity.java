@@ -68,7 +68,6 @@ public class BasketballGameStatsActivity extends AppCompatActivity implements Ad
 
             findViewById(R.id.arhiva).setVisibility(View.INVISIBLE);
             findViewById(R.id.arhivaIgraca).setVisibility(View.INVISIBLE);
-            findViewById(R.id.statistike).setVisibility(View.INVISIBLE);
         }
         else
         {
@@ -208,7 +207,6 @@ public class BasketballGameStatsActivity extends AppCompatActivity implements Ad
         }
         else {
             dbHelper.updateBasketballGame(trenutnaUtakmica);
-            finish();
         }
 
         long gid = dbHelper.getBasketballGameID(trenutnaUtakmica.getTeam1(), trenutnaUtakmica.getTeam2(), trenutnaUtakmica.getDatum());
@@ -241,6 +239,8 @@ public class BasketballGameStatsActivity extends AppCompatActivity implements Ad
                         + ", igrač " + trenutneStatistike.get(i).getPlayerId());
             }
         }
+
+        if (update) finish();
 
         trenutnaUtakmica = new BasketballGame();
         trenutniIgraci.clear();
@@ -290,19 +290,11 @@ public class BasketballGameStatsActivity extends AppCompatActivity implements Ad
 
 
         }
-        else
-        {
-            etTeam1.setText("");
-        }
 
         if (!Team2check.equals("Odaberi ekipu")){
 
             String myStr = spTeam2.getSelectedItem().toString();
             etTeam2.setText(myStr);
-        }
-
-        else {
-            etTeam2.setText("");
         }
     }
 

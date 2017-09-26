@@ -105,6 +105,18 @@ public class TennisGameList extends AppCompatActivity implements DeleteDialog.De
                 adapter.notifyDataSetChanged();
             }
         }
+        else
+        {
+            Intent i = new Intent();
+            i.setClass(this, TennisGameStatsActivity.class);
+            i.putExtra(Constants.GAME, tennisGames.get(deletePos));
+            startActivity(i);
+        }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        editText.setText("");
+    }
 }

@@ -13,6 +13,8 @@ public class TennisGame implements Parcelable {
 
 
     private long id;
+    private long player1Id;
+    private long player2Id;
     private String player1;
     private String player2;
     private int result1;
@@ -57,10 +59,13 @@ public class TennisGame implements Parcelable {
 
     protected TennisGame(Parcel in) {
         id = in.readLong();
+        player1Id = in.readLong();
+        player2Id = in.readLong();
         player1 = in.readString();
         player2 = in.readString();
         result1 = in.readInt();
         result2 = in.readInt();
+        datum = new Date(in.readLong());
         winner = in.readString();
         set1 = in.readString();
         set2 = in.readString();
@@ -177,6 +182,21 @@ public class TennisGame implements Parcelable {
         this.set5 = set5;
     }
 
+    public long getPlayer1Id() {
+        return player1Id;
+    }
+
+    public void setPlayer1Id(long player1Id) {
+        this.player1Id = player1Id;
+    }
+
+    public long getPlayer2Id() {
+        return player2Id;
+    }
+
+    public void setPlayer2Id(long player2Id) {
+        this.player2Id = player2Id;
+    }
 
     @Override
     public int describeContents() {
@@ -186,10 +206,13 @@ public class TennisGame implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeLong(id);
+        parcel.writeLong(player1Id);
+        parcel.writeLong(player2Id);
         parcel.writeString(player1);
         parcel.writeString(player2);
         parcel.writeInt(result1);
         parcel.writeInt(result2);
+        parcel.writeLong(datum.getTime());
         parcel.writeString(winner);
         parcel.writeString(set1);
         parcel.writeString(set2);

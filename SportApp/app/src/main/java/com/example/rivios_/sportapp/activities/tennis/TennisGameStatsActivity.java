@@ -20,17 +20,19 @@ import com.example.rivios_.sportapp.data.TennisGame;
 import com.example.rivios_.sportapp.data.Athlete;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
  * Created by rivios_ on 9/14/2017.
  */
 public class TennisGameStatsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
-    private ArrayList<TennisGame> games;
-    private ArrayList<String> players = new ArrayList();
+    private ArrayList<Athlete> players;
+    private ArrayList<String> playerNames;
+    private ArrayList<String> playerNicknames;
     private TennisGame currentTennisgame = new TennisGame();
     private ArrayList<Athlete> currentTennisPlayers = new ArrayList<Athlete>();
+    private boolean update;
 
     Spinner spinnerPlayer1;
     Spinner spinnerPlayer2;
@@ -68,21 +70,42 @@ public class TennisGameStatsActivity extends AppCompatActivity implements Adapte
         etfifthSet = (EditText) findViewById(R.id.fifthSet);
         etDatum = (EditText) findViewById(R.id.datum);
 
-        games = dbHelper.getTennisGames();
-        players = new ArrayList<String>();
-        players.add("Odaberi igrača");
-        for(TennisGame g : games){
+        Intent i = getIntent();
+        if (i.hasExtra(Constants.GAME))
+        {
+            update = true;
+            currentTennisgame = i.getParcelableExtra(Constants.GAME);
+            Athlete player1 = dbHelper.getAthlete(currentTennisgame.getPlayer1Id());
+            Athlete player2 = dbHelper.getAthlete(currentTennisgame.getPlayer2Id());
 
-            if(!players.contains(g.getPlayer1())){
-                players.add(g.getPlayer1());
-            }
+            etpl1Name.setText(player1.getName());
+            etpl1Nickname.setText(player1.getNickname());
+            etpl2Name.setText(player2.getName());
+            etpl2Nickname.setText(player2.getNickname());
+            etResult.setText(Integer.toString(currentTennisgame.getResult1())
+                    + ":" + Integer.toString(currentTennisgame.getResult2()));
+            etfirstSet.setText(currentTennisgame.getSet1());
+            etsecondSet.setText(currentTennisgame.getSet2());
+            etthirdSet.setText(currentTennisgame.getSet3());
+            etfourthSet.setText(currentTennisgame.getSet4());
+            etfifthSet.setText(currentTennisgame.getSet5());
+            etDatum.setText(new SimpleDateFormat("dd.MM.yyyy").format(currentTennisgame.getDatum()));
 
-            if(!players.contains(g.getPlayer2())){
-                players.add(g.getPlayer2());
-            }
-
+            findViewById(R.id.button).setVisibility(View.INVISIBLE);
         }
-        spPlayersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, players);
+        else
+        {
+            update = false;
+        }
+
+        players = dbHelper.getAthletes(Constants.DISCIPLINE_TENNIS);
+        playerNames.add("Odaberi igrača");
+        playerNicknames.add("Odaberi igrača");
+        for(Athlete a : players){
+            playerNames.add(a.getName());
+            playerNicknames.add(a.getNickname());
+        }
+        spPlayersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, playerNames);
         spinnerPlayer1.setAdapter(spPlayersAdapter);
         spinnerPlayer1.setSelection(0);
         spinnerPlayer1.setOnItemSelectedListener(this);
@@ -136,6 +159,8 @@ public class TennisGameStatsActivity extends AppCompatActivity implements Adapte
 
         currentTennisgame.setPlayer1(player1);
         currentTennisgame.setPlayer2(player2);
+        currentTennisPlayers.add(new Athlete(0, player1, nickname1, Constants.DISCIPLINE_TENNIS));
+        currentTennisPlayers.add(new Athlete(0, player2, nickname2, Constants.DISCIPLINE_TENNIS));
 
         if (((result.indexOf(":") <= 0) || (result.indexOf(":") == result.length() - 1)) ||
                 (!set1.equals("")&&((set1.indexOf(":") <= 0) || (set1.indexOf(":") == set1.length() - 1))) ||
@@ -191,24 +216,27 @@ public class TennisGameStatsActivity extends AppCompatActivity implements Adapte
             return;
         }
 
-        GameDBHelper dbHelper = GameDBHelper.getInstance(this);
+        for (Athlete player : currentTennisPlayers)
+        {
+            if (dbHelper.getAthleteID(player.getNickname()) == -1) {
+                dbHelper.addAthlete(player);
+            }
+            long pid = dbHelper.getAthleteID(player.getNickname());
+            player.setId(pid);
+        }
+        currentTennisgame.setPlayer1Id(currentTennisPlayers.get(0).getId());
+        currentTennisgame.setPlayer2Id(currentTennisPlayers.get(1).getId());
 
-        dbHelper.addTennisGame(currentTennisgame);
+        if (!update) {
+            dbHelper.addTennisGame(currentTennisgame);
+        }
+        else {
+            dbHelper.updateTennisGame(currentTennisgame);
+            finish();
+        }
+
         long gid = dbHelper.getTennisGameID(currentTennisgame.getPlayer1(), currentTennisgame.getPlayer2(), currentTennisgame.getDatum());
         currentTennisgame.setId(gid);
-
-
-        if (currentTennisPlayers.size() > 0)
-        {
-            for (Athlete player : currentTennisPlayers)
-            {
-                if (dbHelper.getAthleteID(player.getNickname()) == -1) {
-                    dbHelper.addAthlete(player);
-                }
-                long pid = dbHelper.getAthleteID(player.getNickname());
-                player.setId(pid);
-            }
-        }
 
         etpl1Name.setText("");
         etpl1Nickname.setText("");
@@ -247,22 +275,24 @@ public class TennisGameStatsActivity extends AppCompatActivity implements Adapte
         {
             String myStr = spinnerPlayer1.getSelectedItem().toString();
             etpl1Name.setText(myStr);
-
-
+            etpl1Nickname.setText(playerNicknames.get(i));
         }
         else
         {
             etpl1Name.setText("");
+            etpl1Nickname.setText("");
         }
 
         if (!Team2check.equals("Odaberi igrača")){
 
             String myStr = spinnerPlayer2.getSelectedItem().toString();
             etpl2Name.setText(myStr);
+            etpl2Nickname.setText(playerNicknames.get(i));
         }
 
         else {
             etpl2Name.setText("");
+            etpl2Nickname.setText("");
         }
     }
 

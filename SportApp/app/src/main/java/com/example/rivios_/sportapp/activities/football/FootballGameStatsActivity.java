@@ -67,7 +67,6 @@ public class FootballGameStatsActivity extends AppCompatActivity implements Adap
                     + ":" + Integer.toString(currentFootballGame.getResult2()));
             etDatum.setText(new SimpleDateFormat("dd.MM.yyyy").format(currentFootballGame.getDatum()));
 
-            findViewById(R.id.footballstats).setVisibility(View.INVISIBLE);
             findViewById(R.id.arhiva).setVisibility(View.INVISIBLE);
             findViewById(R.id.arhivaIgraca).setVisibility(View.INVISIBLE);
         }
@@ -197,7 +196,6 @@ public class FootballGameStatsActivity extends AppCompatActivity implements Adap
         }
         else {
             dbHelper.updateFootballGame(currentFootballGame);
-            finish();
         }
 
         long gid = dbHelper.getFootballGameID(currentFootballGame.getTeam1(), currentFootballGame.getTeam2(), currentFootballGame.getDatum());
@@ -231,6 +229,8 @@ public class FootballGameStatsActivity extends AppCompatActivity implements Adap
                         + ", igrač " + currentFootballStats.get(i).getPlayerId());
             }
         }
+
+        if (update) finish();
 
         currentFootballGame = new FootballGame();
         currentFootballPlayers.clear();
@@ -290,22 +290,12 @@ public class FootballGameStatsActivity extends AppCompatActivity implements Adap
         {
             String myStr = spTeam1.getSelectedItem().toString();
             etTeam1.setText(myStr);
-
-
-        }
-        else
-        {
-            etTeam1.setText("");
         }
 
         if (!Team2check.equals("Odaberi ekipu")){
 
             String myStr = spTeam2.getSelectedItem().toString();
             etTeam2.setText(myStr);
-        }
-
-        else {
-            etTeam2.setText("");
         }
     }
 

@@ -42,11 +42,22 @@ public class BasketballAddPlayers extends AppCompatActivity implements AdapterVi
 
     GameDBHelper dbHelper;
 
+    boolean update;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basketball_players);
         Intent i = getIntent();
+        if (i.hasExtra(Constants.ATHLETE_TAG) && i.hasExtra(Constants.STATS_TAG))
+        {
+            update = true;
+        }
+        else
+        {
+            update = false;
+        }
+
         dbHelper = GameDBHelper.getInstance(this);
 
         etIme = (EditText) findViewById(R.id.imekosarkasa);
@@ -58,37 +69,54 @@ public class BasketballAddPlayers extends AppCompatActivity implements AdapterVi
         spPlayers = (Spinner) findViewById(R.id.spinner2);
         lvPlayers = (ListView) findViewById(R.id.listaIgraca);
 
-        plAdapter = new ArrayAdapter<BasketballPlayerStats>(this, android.R.layout.simple_list_item_1, pst);
-        lvPlayers.setAdapter(plAdapter);
-        lvPlayers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                pst.remove(i);
-                plAdapter.notifyDataSetChanged();
-                return true;
+        if (!update) {
+            plAdapter = new ArrayAdapter<BasketballPlayerStats>(this, android.R.layout.simple_list_item_1, pst);
+            lvPlayers.setAdapter(plAdapter);
+            lvPlayers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    pst.remove(i);
+                    plAdapter.notifyDataSetChanged();
+                    return true;
+                }
+            });
+
+            ArrayList<String> teams = new ArrayList<String>();
+            teams.add("Odaberite ekipu");
+            teams.add(i.getStringExtra(Constants.TEAM1_TAG));
+            teams.add(i.getStringExtra(Constants.TEAM2_TAG));
+            spAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, teams);
+            spEkipe.setAdapter(spAdapter);
+            spEkipe.setSelection(0);
+            spEkipe.setOnItemSelectedListener(this);
+
+            existingPlayers = dbHelper.getAthletes(Constants.DISCIPLINE_BASKETBALL);
+            nicknames = new ArrayList<String>();
+            nicknames.add("Novi sportaš");
+            for (Athlete a : existingPlayers) {
+                nicknames.add(a.getNickname());
             }
-        });
-
-        ArrayList<String> teams = new ArrayList<String>();
-        teams.add("Odaberite ekipu");
-        teams.add(i.getStringExtra(Constants.TEAM1_TAG));
-        teams.add(i.getStringExtra(Constants.TEAM2_TAG));
-        spAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, teams);
-        spEkipe.setAdapter(spAdapter);
-        spEkipe.setSelection(0);
-        spEkipe.setOnItemSelectedListener(this);
-
-        existingPlayers = dbHelper.getAthletes(Constants.DISCIPLINE_BASKETBALL);
-        nicknames = new ArrayList<String>();
-        nicknames.add("Novi sportaš");
-        for (Athlete a : existingPlayers)
-        {
-            nicknames.add(a.getNickname());
+            spPlayersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nicknames);
+            spPlayers.setAdapter(spPlayersAdapter);
+            spPlayers.setSelection(0);
+            spPlayers.setOnItemSelectedListener(this);
         }
-        spPlayersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nicknames);
-        spPlayers.setAdapter(spPlayersAdapter);
-        spPlayers.setSelection(0);
-        spPlayers.setOnItemSelectedListener(this);
+        else
+        {
+            pst.add(new BasketballPlayerStats((Athlete) i.getParcelableExtra(Constants.ATHLETE_TAG),
+                    (BasketballStats) i.getParcelableExtra(Constants.STATS_TAG), 0));
+
+            etIme.setText(pst.get(0).getAthlete().getName());
+            etNadimak.setText(pst.get(0).getAthlete().getNickname());
+            etPoeni.setText(pst.get(0).getStats().getPoints());
+            etAsistencije.setText(pst.get(0).getStats().getAssists());
+            etSkokovi.setText(pst.get(0).getStats().getJumps());
+
+            spEkipe.setVisibility(View.INVISIBLE);
+            spPlayers.setVisibility(View.INVISIBLE);
+            lvPlayers.setVisibility(View.INVISIBLE);
+            findViewById(R.id.dodajigraca).setVisibility(View.INVISIBLE);
+        }
     }
 
     public void dodajIgraca (View v)
@@ -144,20 +172,39 @@ public class BasketballAddPlayers extends AppCompatActivity implements AdapterVi
 
     public void spremi (View v)
     {
-        ArrayList<Athlete> igraci = new ArrayList<Athlete>();
-        ArrayList<BasketballStats> statistike = new ArrayList<BasketballStats>();
+        if (!update) {
+            ArrayList<Athlete> igraci = new ArrayList<Athlete>();
+            ArrayList<BasketballStats> statistike = new ArrayList<BasketballStats>();
 
-        for (BasketballPlayerStats p : pst)
-        {
-            igraci.add(p.getAthlete());
-            statistike.add(p.getStats());
-            Log.d("PERO", "Dodan igrac " + p.getAthlete().getNickname());
+            for (BasketballPlayerStats p : pst) {
+                igraci.add(p.getAthlete());
+                statistike.add(p.getStats());
+                Log.d("PERO", "Dodan igrac " + p.getAthlete().getNickname());
+            }
+
+            Intent i = new Intent();
+            i.putParcelableArrayListExtra(Constants.PLAYERS, igraci);
+            i.putParcelableArrayListExtra(Constants.STATS, statistike);
+            setResult(RESULT_OK, i);
         }
+        else
+        {
+            pst.get(0).getAthlete().setName(etIme.getText().toString());
+            pst.get(0).getAthlete().setNickname(etNadimak.getText().toString());
+            try {
+                pst.get(0).getStats().setPoints(Integer.parseInt(etPoeni.getText().toString()));
+                pst.get(0).getStats().setAssists(Integer.parseInt(etAsistencije.getText().toString()));
+                pst.get(0).getStats().setJumps(Integer.parseInt(etSkokovi.getText().toString()));
+            }
+            catch (NumberFormatException e)
+            {
+                Toast.makeText(this, "Neispravan upis.", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-        Intent i = new Intent();
-        i.putParcelableArrayListExtra(Constants.PLAYERS, igraci);
-        i.putParcelableArrayListExtra(Constants.STATS, statistike);
-        setResult(RESULT_OK, i);
+            dbHelper.updateAthlete(pst.get(0).getAthlete());
+            dbHelper.updateBasketballStats(pst.get(0).getStats());
+        }
 
         finish();
     }

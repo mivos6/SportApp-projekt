@@ -73,5 +73,27 @@ public class BasketballGamePlayers extends AppCompatActivity implements AdapterV
                 adapter.notifyDataSetChanged();
             }
         }
+        else
+        {
+            Intent i = new Intent();
+            i.setClass(this, BasketballAddPlayers.class);
+            i.putExtra(Constants.ATHLETE_TAG, playerStats.get(deletePos).getAthlete());
+            i.putExtra(Constants.STATS_TAG, playerStats.get(deletePos).getStats());
+            startActivity(i);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        playerStats.clear();
+        ArrayList<BasketballStats> stats = dbHelper.getBasketballPlayerStats(gameId, false);
+
+        for (BasketballStats st : stats)
+        {
+            playerStats.add(new BasketballPlayerStats(dbHelper.getAthlete(st.getPlayerId()), st, 0));
+        }
+        adapter.notifyDataSetChanged();
     }
 }

@@ -41,12 +41,23 @@ public class FootballAddPlayers extends AppCompatActivity implements AdapterView
 
     GameDBHelper dbHelper;
 
+    boolean update;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_football_players);
         Intent i = getIntent();
         dbHelper = GameDBHelper.getInstance(this);
+
+        if (i.hasExtra(Constants.ATHLETE_TAG) && i.hasExtra(Constants.STATS_TAG))
+        {
+            update = true;
+        }
+        else
+        {
+            update = false;
+        }
 
         etIme = (EditText) findViewById(R.id.playername);
         etNadimak = (EditText) findViewById(R.id.playernickname);
@@ -56,37 +67,53 @@ public class FootballAddPlayers extends AppCompatActivity implements AdapterView
         spPlayers = (Spinner) findViewById(R.id.spinner_players);
         lvPlayers = (ListView) findViewById(R.id.listaIgraca);
 
-        plAdapter = new ArrayAdapter<FootballPlayersStats>(this, android.R.layout.simple_list_item_1, newPlayers);
-        lvPlayers.setAdapter(plAdapter);
-        lvPlayers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                newPlayers.remove(i);
-                plAdapter.notifyDataSetChanged();
-                return true;
+        if (!update) {
+            plAdapter = new ArrayAdapter<FootballPlayersStats>(this, android.R.layout.simple_list_item_1, newPlayers);
+            lvPlayers.setAdapter(plAdapter);
+            lvPlayers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    newPlayers.remove(i);
+                    plAdapter.notifyDataSetChanged();
+                    return true;
+                }
+            });
+
+            ArrayList<String> teams = new ArrayList<String>();
+            teams.add("Odaberite ekipu");
+            teams.add(i.getStringExtra(Constants.TEAM1_TAG));
+            teams.add(i.getStringExtra(Constants.TEAM2_TAG));
+            spTeamsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, teams);
+            spEkipe.setAdapter(spTeamsAdapter);
+            spEkipe.setSelection(0);
+            spEkipe.setOnItemSelectedListener(this);
+
+            existingPlayers = dbHelper.getAthletes(Constants.DISCIPLINE_FOOTBALL);
+            nicknames = new ArrayList<String>();
+            nicknames.add("Novi sportaš");
+            for (Athlete a : existingPlayers) {
+                nicknames.add(a.getNickname());
             }
-        });
-
-        ArrayList<String> teams = new ArrayList<String>();
-        teams.add("Odaberite ekipu");
-        teams.add(i.getStringExtra(Constants.TEAM1_TAG));
-        teams.add(i.getStringExtra(Constants.TEAM2_TAG));
-        spTeamsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, teams);
-        spEkipe.setAdapter(spTeamsAdapter);
-        spEkipe.setSelection(0);
-        spEkipe.setOnItemSelectedListener(this);
-
-        existingPlayers = dbHelper.getAthletes(Constants.DISCIPLINE_FOOTBALL);
-        nicknames = new ArrayList<String>();
-        nicknames.add("Novi sportaš");
-        for (Athlete a : existingPlayers)
-        {
-            nicknames.add(a.getNickname());
+            spPlayersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nicknames);
+            spPlayers.setAdapter(spPlayersAdapter);
+            spPlayers.setSelection(0);
+            spPlayers.setOnItemSelectedListener(this);
         }
-        spPlayersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nicknames);
-        spPlayers.setAdapter(spPlayersAdapter);
-        spPlayers.setSelection(0);
-        spPlayers.setOnItemSelectedListener(this);
+        else
+        {
+            newPlayers.add(new FootballPlayersStats((Athlete) i.getParcelableExtra(Constants.ATHLETE_TAG),
+                    (FootballStats) i.getParcelableExtra(Constants.STATS_TAG), 0));
+
+            etIme.setText(newPlayers.get(0).getAthlete().getName());
+            etNadimak.setText(newPlayers.get(0).getAthlete().getNickname());
+            etGolovi.setText(newPlayers.get(0).getStats().getGoals());
+            etAsistencije.setText(newPlayers.get(0).getStats().getAssists());
+
+            spEkipe.setVisibility(View.INVISIBLE);
+            spPlayers.setVisibility(View.INVISIBLE);
+            lvPlayers.setVisibility(View.INVISIBLE);
+            findViewById(R.id.dodajigraca).setVisibility(View.INVISIBLE);
+        }
     }
 
     public void addFootballPlayer (View v)
@@ -139,23 +166,40 @@ public class FootballAddPlayers extends AppCompatActivity implements AdapterView
 
     public void saveFootballPlayer (View v)
     {
-        ArrayList<Athlete> igraci = new ArrayList<Athlete>();
-        ArrayList<FootballStats> statistike = new ArrayList<FootballStats>();
+        if (!update) {
+            ArrayList<Athlete> igraci = new ArrayList<Athlete>();
+            ArrayList<FootballStats> statistike = new ArrayList<FootballStats>();
 
-        for (FootballPlayersStats p : newPlayers)
+            for (FootballPlayersStats p : newPlayers) {
+                igraci.add(p.getAthlete());
+                statistike.add(p.getStats());
+                Log.d("PERO", "Dodan igrac " + p.getAthlete().getNickname());
+            }
+
+            Intent i = new Intent();
+            i.putParcelableArrayListExtra(Constants.PLAYERS, igraci);
+            i.putParcelableArrayListExtra(Constants.STATS, statistike);
+            setResult(RESULT_OK, i);
+        }
+        else
         {
-            igraci.add(p.getAthlete());
-            statistike.add(p.getStats());
-            Log.d("PERO", "Dodan igrac " + p.getAthlete().getNickname());
+            newPlayers.get(0).getAthlete().setName(etIme.getText().toString());
+            newPlayers.get(0).getAthlete().setNickname(etNadimak.getText().toString());
+            try {
+                newPlayers.get(0).getStats().setGoals(Integer.parseInt(etGolovi.getText().toString()));
+                newPlayers.get(0).getStats().setAssists(Integer.parseInt(etAsistencije.getText().toString()));
+            }
+            catch (NumberFormatException e)
+            {
+                Toast.makeText(this, "Neispravan upis.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            dbHelper.updateAthlete(newPlayers.get(0).getAthlete());
+            dbHelper.updateFootballStats(newPlayers.get(0).getStats());
         }
 
-        Intent i = new Intent();
-        i.putParcelableArrayListExtra(Constants.PLAYERS, igraci);
-        i.putParcelableArrayListExtra(Constants.STATS, statistike);
-        setResult(RESULT_OK, i);
-
         finish();
-
     }
 
     @Override

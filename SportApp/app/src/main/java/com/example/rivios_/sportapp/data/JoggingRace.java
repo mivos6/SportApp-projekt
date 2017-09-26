@@ -41,6 +41,7 @@ public class JoggingRace implements Parcelable{
         raceId = in.readLong();
         start = in.readString();
         finish = in.readString();
+        date = new Date(in.readLong());
         distance = in.readInt();
         winner = in.readString();
         encodedRoute = in.readString();
@@ -124,6 +125,7 @@ public class JoggingRace implements Parcelable{
         dest.writeLong(raceId);
         dest.writeString(start);
         dest.writeString(finish);
+        dest.writeLong(date.getTime());
         dest.writeInt(distance);
         dest.writeString(winner);
         dest.writeString(encodedRoute);

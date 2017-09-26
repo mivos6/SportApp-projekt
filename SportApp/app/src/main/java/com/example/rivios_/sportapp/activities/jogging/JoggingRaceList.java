@@ -115,5 +115,18 @@ public class JoggingRaceList extends AppCompatActivity implements AdapterView.On
                 adapter.notifyDataSetChanged();
             }
         }
+        else
+        {
+            Intent i = new Intent();
+            i.setClass(this, JoggingRaceStats.class);
+            i.putExtra(Constants.GAME, races.get(deletePos));
+            startActivity(i);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        editText.setText("");
     }
 }
