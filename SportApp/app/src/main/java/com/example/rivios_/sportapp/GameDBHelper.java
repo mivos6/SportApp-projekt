@@ -315,7 +315,7 @@ public class GameDBHelper extends SQLiteOpenHelper {
         values.put(TENNIS_SET3, g.getSet3());
         values.put(TENNIS_SET4, g.getSet4());
         values.put(TENNIS_SET5, g.getSet5());
-        db.insert(TABLE_TENNIS_GAMES, TENNIS_PLAYER1, values);
+        db.insert(TABLE_TENNIS_GAMES, TENNIS_GAME_PLAYER1_ID, values);
         db.close();
     }
 
@@ -544,6 +544,8 @@ public class GameDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(TABLE_TENNIS_GAMES,
                 new String[]{TENNIS_GAME_ID,
+                        TENNIS_GAME_PLAYER1_ID,
+                        TENNIS_GAME_PLAYER2_ID,
                         TENNIS_PLAYER1,
                         TENNIS_PLAYER2,
                         TENNIS_RESULT1,
@@ -562,17 +564,19 @@ public class GameDBHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 tennisGames.add(new TennisGame(c.getLong(0),
-                        c.getString(1),
-                        c.getString(2),
-                        c.getInt(3),
-                        c.getInt(4),
-                        new Date(c.getLong(5)),
-                        c.getString(6),
-                        c.getString(7),
+                        c.getLong(1),
+                        c.getLong(2),
+                        c.getString(3),
+                        c.getString(4),
+                        c.getInt(5),
+                        c.getInt(6),
+                        new Date(c.getLong(7)),
                         c.getString(8),
                         c.getString(9),
                         c.getString(10),
-                        c.getString(11)
+                        c.getString(11),
+                        c.getString(12),
+                        c.getString(13)
                 ));
             } while (c.moveToNext());
         }

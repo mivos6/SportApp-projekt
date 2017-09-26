@@ -106,8 +106,8 @@ public class FootballAddPlayers extends AppCompatActivity implements AdapterView
 
             etIme.setText(newPlayers.get(0).getAthlete().getName());
             etNadimak.setText(newPlayers.get(0).getAthlete().getNickname());
-            etGolovi.setText(newPlayers.get(0).getStats().getGoals());
-            etAsistencije.setText(newPlayers.get(0).getStats().getAssists());
+            etGolovi.setText(Integer.toString(newPlayers.get(0).getStats().getGoals()));
+            etAsistencije.setText(Integer.toString(newPlayers.get(0).getStats().getAssists()));
 
             spEkipe.setVisibility(View.INVISIBLE);
             spPlayers.setVisibility(View.INVISIBLE);

@@ -42,8 +42,10 @@ public class TennisGame implements Parcelable {
         this.set5 = null;
     }
 
-    public TennisGame(long id, String player1, String player2, int result1, int result2, Date datum, String winner, String set1, String set2, String set3, String set4, String set5) {
+    public TennisGame(long id, long player1Id, long player2Id, String player1, String player2, int result1, int result2, Date datum, String winner, String set1, String set2, String set3, String set4, String set5) {
         this.id = id;
+        this.player1Id = player1Id;
+        this.player2Id = player2Id;
         this.player1 = player1;
         this.player2 = player2;
         this.result1 = result1;

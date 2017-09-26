@@ -28,8 +28,8 @@ import java.util.ArrayList;
  */
 public class TennisGameStatsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private ArrayList<Athlete> players;
-    private ArrayList<String> playerNames;
-    private ArrayList<String> playerNicknames;
+    private ArrayList<String> playerNames = new ArrayList<>();
+    private ArrayList<String> playerNicknames = new ArrayList<>();
     private TennisGame currentTennisgame = new TennisGame();
     private ArrayList<Athlete> currentTennisPlayers = new ArrayList<Athlete>();
     private boolean update;
@@ -75,6 +75,8 @@ public class TennisGameStatsActivity extends AppCompatActivity implements Adapte
         {
             update = true;
             currentTennisgame = i.getParcelableExtra(Constants.GAME);
+            Log.d("PERO", Long.toString(currentTennisgame.getPlayer1Id()));
+            Log.d("PERO", Long.toString(currentTennisgame.getPlayer2Id()));
             Athlete player1 = dbHelper.getAthlete(currentTennisgame.getPlayer1Id());
             Athlete player2 = dbHelper.getAthlete(currentTennisgame.getPlayer2Id());
 
@@ -91,7 +93,7 @@ public class TennisGameStatsActivity extends AppCompatActivity implements Adapte
             etfifthSet.setText(currentTennisgame.getSet5());
             etDatum.setText(new SimpleDateFormat("dd.MM.yyyy").format(currentTennisgame.getDatum()));
 
-            findViewById(R.id.button).setVisibility(View.INVISIBLE);
+            findViewById(R.id.button2).setVisibility(View.INVISIBLE);
         }
         else
         {
@@ -277,22 +279,12 @@ public class TennisGameStatsActivity extends AppCompatActivity implements Adapte
             etpl1Name.setText(myStr);
             etpl1Nickname.setText(playerNicknames.get(i));
         }
-        else
-        {
-            etpl1Name.setText("");
-            etpl1Nickname.setText("");
-        }
 
         if (!Team2check.equals("Odaberi igrača")){
 
             String myStr = spinnerPlayer2.getSelectedItem().toString();
             etpl2Name.setText(myStr);
             etpl2Nickname.setText(playerNicknames.get(i));
-        }
-
-        else {
-            etpl2Name.setText("");
-            etpl2Nickname.setText("");
         }
     }
 

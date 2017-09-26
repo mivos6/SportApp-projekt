@@ -108,9 +108,9 @@ public class BasketballAddPlayers extends AppCompatActivity implements AdapterVi
 
             etIme.setText(pst.get(0).getAthlete().getName());
             etNadimak.setText(pst.get(0).getAthlete().getNickname());
-            etPoeni.setText(pst.get(0).getStats().getPoints());
-            etAsistencije.setText(pst.get(0).getStats().getAssists());
-            etSkokovi.setText(pst.get(0).getStats().getJumps());
+            etPoeni.setText(Integer.toString(pst.get(0).getStats().getPoints()));
+            etAsistencije.setText(Integer.toString(pst.get(0).getStats().getAssists()));
+            etSkokovi.setText(Integer.toString(pst.get(0).getStats().getJumps()));
 
             spEkipe.setVisibility(View.INVISIBLE);
             spPlayers.setVisibility(View.INVISIBLE);
