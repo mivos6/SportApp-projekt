@@ -54,20 +54,7 @@ public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCa
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-    }
 
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
         Intent i = getIntent();
         race = i.getParcelableExtra("RACE");
 
@@ -83,8 +70,20 @@ public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCa
         adapter = new ArrayAdapter<JoggingRunnerStats>(this, android.R.layout.simple_list_item_1, rs);  // popuni adapter
         lvRunners.setAdapter(adapter); // poveži adapter i listu
         lvRunners.setOnItemLongClickListener(this);
+    }
 
 
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setOnMapLoadedCallback(this); // slušaj kada će mapa biti učitana
     }
@@ -154,5 +153,19 @@ public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCa
             i.putExtra(Constants.STATS_TAG, rs.get(deletePos).getStats());
             startActivity(i);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        rs.clear();
+        ArrayList<JoggingStats> stats = dbHelper.getJoggingRunnerStats(race.getRaceId(), false);
+
+        for (JoggingStats st : stats)
+        {
+            rs.add(new JoggingRunnerStats(dbHelper.getAthlete(st.getRunnerId()), st));
+        }
+        adapter.notifyDataSetChanged();
     }
 }
