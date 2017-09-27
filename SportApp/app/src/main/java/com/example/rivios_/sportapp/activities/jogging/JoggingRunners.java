@@ -40,39 +40,65 @@ public class JoggingRunners extends AppCompatActivity implements AdapterView.OnI
 
     ArrayList<JoggingRunnerStats> rs = new ArrayList<JoggingRunnerStats>();
 
+    boolean update;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dbHelper = GameDBHelper.getInstance(this);
         setContentView(R.layout.activity_runners);
+        Intent i = getIntent();
+        if (i.hasExtra(Constants.ATHLETE_TAG) && i.hasExtra(Constants.STATS_TAG))
+        {
+            update = true;
+        }
+        else
+        {
+            update = false;
+        }
+
         spPlayers = (Spinner) findViewById(R.id.spinner);
         etRunnerName = (EditText) findViewById(R.id.runnerName);
         etRunnerNickname = (EditText) findViewById(R.id.runnerNickname);
         etRunnerTime = (EditText) findViewById(R.id.runnerTime);
         lvAddRunners = (ListView) findViewById(R.id.addRunnersList);
 
-        adapter = new ArrayAdapter<JoggingRunnerStats>(this, android.R.layout.simple_list_item_1, rs);
-        lvAddRunners.setAdapter(adapter);
-        lvAddRunners.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                rs.remove(i);
-                adapter.notifyDataSetChanged();
-                return true;
-            }
-        });
+        if (!update) {
+            adapter = new ArrayAdapter<JoggingRunnerStats>(this, android.R.layout.simple_list_item_1, rs);
+            lvAddRunners.setAdapter(adapter);
+            lvAddRunners.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    rs.remove(i);
+                    adapter.notifyDataSetChanged();
+                    return true;
+                }
+            });
 
-        existingPlayers = dbHelper.getAthletes(Constants.DISCIPLINE_JOGGING);
-        nicknames = new ArrayList<String>();
-        nicknames.add("Novi sportaš");
-        for (Athlete a : existingPlayers)
-        {
-            nicknames.add(a.getNickname());
+            existingPlayers = dbHelper.getAthletes(Constants.DISCIPLINE_JOGGING);
+            nicknames = new ArrayList<String>();
+            nicknames.add("Novi sportaš");
+            for (Athlete a : existingPlayers) {
+                nicknames.add(a.getNickname());
+            }
+            spPlayersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nicknames);
+            spPlayers.setAdapter(spPlayersAdapter);
+            spPlayers.setSelection(0);
+            spPlayers.setOnItemSelectedListener(this);
         }
-        spPlayersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nicknames);
-        spPlayers.setAdapter(spPlayersAdapter);
-        spPlayers.setSelection(0);
-        spPlayers.setOnItemSelectedListener(this);
+        else
+        {
+            rs.add(new JoggingRunnerStats((Athlete) i.getParcelableExtra(Constants.ATHLETE_TAG),
+                    (JoggingStats) i.getParcelableExtra(Constants.STATS_TAG)));
+
+            etRunnerName.setText(rs.get(0).getRunner().getName());
+            etRunnerNickname.setText(rs.get(0).getRunner().getNickname());
+            etRunnerTime.setText(new SimpleDateFormat("HH:mm:ss").format(rs.get(0).getStats().getTime()));
+
+            spPlayers.setVisibility(View.INVISIBLE);
+            lvAddRunners.setVisibility(View.INVISIBLE);
+            findViewById(R.id.addSingleRunner).setVisibility(View.INVISIBLE);
+        }
     }
 
     public void addRunner(View v)
@@ -127,20 +153,38 @@ public class JoggingRunners extends AppCompatActivity implements AdapterView.OnI
 
     public void saveRunners(View v)
     {
-        Intent resultIntent = new Intent();
-        ArrayList<Athlete> addedRunners = new ArrayList<Athlete>();
-        ArrayList<JoggingStats> addedStats = new ArrayList<JoggingStats>();
+        if (!update) {
+            Intent resultIntent = new Intent();
+            ArrayList<Athlete> addedRunners = new ArrayList<Athlete>();
+            ArrayList<JoggingStats> addedStats = new ArrayList<JoggingStats>();
 
-        for (JoggingRunnerStats added : rs)
+            for (JoggingRunnerStats added : rs) {
+                addedRunners.add(added.getRunner());
+                addedStats.add(added.getStats());
+            }
+
+            resultIntent.putExtra(Constants.ATHLETE_TAG, addedRunners);
+            resultIntent.putExtra(Constants.STATS_TAG, addedStats);
+
+            setResult(RESULT_OK, resultIntent);
+        }
+        else
         {
-            addedRunners.add(added.getRunner());
-            addedStats.add(added.getStats());
+            rs.get(0).getRunner().setName(etRunnerName.getText().toString());
+            rs.get(0).getRunner().setNickname(etRunnerNickname.getText().toString());
+            try {
+                rs.get(0).getStats().setTime(new SimpleDateFormat("HH:mm:ss").parse(etRunnerTime.getText().toString()).getTime());
+            }
+            catch (ParseException e)
+            {
+                Toast.makeText(this, "Neispravan upis.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            dbHelper.updateAthlete(rs.get(0).getRunner());
+            dbHelper.updateJoggingStats(rs.get(0).getStats());
         }
 
-        resultIntent.putExtra(Constants.ATHLETE_TAG, addedRunners);
-        resultIntent.putExtra(Constants.STATS_TAG, addedStats);
-
-        setResult(RESULT_OK, resultIntent);
         finish();
     }
 

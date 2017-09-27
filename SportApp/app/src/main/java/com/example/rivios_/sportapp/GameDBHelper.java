@@ -852,6 +852,16 @@ public class GameDBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean deleteJoggingRaceRunnerStats(long raceID, long runnerID)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] args = new String[]{Long.toString(raceID), Long.toString(runnerID)};
+
+        db.delete(TABLE_JOGGING_STATS, JOGGING_STATS_RACE_ID + "=? AND " + JOGGING_STATS_RUNNER_ID + "=?", args);
+        return true;
+    }
+
     public boolean deleteAthlete(long playerID)
     {
         SQLiteDatabase db = getReadableDatabase();

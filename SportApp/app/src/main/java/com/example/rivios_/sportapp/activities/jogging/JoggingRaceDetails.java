@@ -3,10 +3,13 @@ package com.example.rivios_.sportapp.activities.jogging;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.rivios_.sportapp.Constants;
+import com.example.rivios_.sportapp.DeleteDialog;
 import com.example.rivios_.sportapp.GameDBHelper;
 import com.example.rivios_.sportapp.R;
 import com.example.rivios_.sportapp.data.Athlete;
@@ -29,7 +32,7 @@ import com.google.maps.model.LatLng;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLoadedCallback {
+public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLoadedCallback, AdapterView.OnItemLongClickListener, DeleteDialog.DeleteDialogListener {
 
     private GoogleMap mMap;
     private ArrayList<JoggingRunnerStats> rs = new ArrayList<JoggingRunnerStats>();
@@ -39,6 +42,9 @@ public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCa
 
     JoggingRace race;
     GameDBHelper dbHelper = GameDBHelper.getInstance(this);
+
+    int deletePos = -1;
+    long deleteId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +82,8 @@ public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCa
         lvRunners = (ListView) findViewById(R.id.lvRunnerStats);    //nađi listview
         adapter = new ArrayAdapter<JoggingRunnerStats>(this, android.R.layout.simple_list_item_1, rs);  // popuni adapter
         lvRunners.setAdapter(adapter); // poveži adapter i listu
+        lvRunners.setOnItemLongClickListener(this);
+
 
         mMap = googleMap;
         mMap.setOnMapLoadedCallback(this); // slušaj kada će mapa biti učitana
@@ -116,6 +124,35 @@ public class JoggingRaceDetails extends FragmentActivity implements OnMapReadyCa
                     .build();
             // zumiraj mapu na bounds
             mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(b, 10));
+        }
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long id) {
+        DeleteDialog delDialog =  new DeleteDialog();
+        delDialog.setListener(this);
+        deletePos = pos;
+        deleteId = id;
+        delDialog.show(getFragmentManager(), Constants.DELETE_DIALOG_TAG);
+
+        return true;
+    }
+
+    @Override
+    public void onDialogClick(boolean yes) {
+        if (yes) {
+            if (dbHelper.deleteJoggingRaceRunnerStats(rs.get(deletePos).getStats().getRaceId(), rs.get(deletePos).getStats().getRunnerId())) {
+                rs.remove(deletePos);
+                adapter.notifyDataSetChanged();
+            }
+        }
+        else
+        {
+            Intent i = new Intent();
+            i.setClass(this, JoggingRunners.class);
+            i.putExtra(Constants.ATHLETE_TAG, rs.get(deletePos).getRunner());
+            i.putExtra(Constants.STATS_TAG, rs.get(deletePos).getStats());
+            startActivity(i);
         }
     }
 }
