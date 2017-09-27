@@ -23,9 +23,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-/**
- * Created by rivios_ on 9/14/2017.
- */
 public class TennisGameStatsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private ArrayList<Athlete> players;
     private ArrayList<String> playerNames = new ArrayList<>();

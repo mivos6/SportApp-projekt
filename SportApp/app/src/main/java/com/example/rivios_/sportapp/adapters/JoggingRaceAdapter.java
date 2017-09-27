@@ -11,10 +11,6 @@ import com.example.rivios_.sportapp.data.JoggingRace;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-/**
- * Created by Milan on 17.9.2017..
- */
-
 public class JoggingRaceAdapter extends BaseAdapter {
     ArrayList<JoggingRace> races;
 

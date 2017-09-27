@@ -23,9 +23,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-/**
- * Created by rivios_ on 9/14/2017.
- */
 public class JoggingRaceStats extends AppCompatActivity {
     private JoggingRace newRace = null;
     private ArrayList<Athlete> runners = new ArrayList<>();

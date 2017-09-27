@@ -5,10 +5,6 @@ import android.support.annotation.NonNull;
 import com.example.rivios_.sportapp.data.Athlete;
 import com.example.rivios_.sportapp.data.BasketballStats;
 
-/**
- * Created by Milan on 2.9.2017..
- */
-
 public class BasketballPlayerStats implements Comparable{
     private Athlete athlete;
     private BasketballStats stats;

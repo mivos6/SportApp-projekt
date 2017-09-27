@@ -6,10 +6,6 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-/**
- * Created by Milan on 7.9.2017..
- */
-
 public class DeleteDialog extends DialogFragment {
 
     public interface DeleteDialogListener {

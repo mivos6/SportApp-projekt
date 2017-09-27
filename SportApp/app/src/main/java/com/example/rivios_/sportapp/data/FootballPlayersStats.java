@@ -2,10 +2,6 @@ package com.example.rivios_.sportapp.data;
 
 import android.support.annotation.NonNull;
 
-/**
- * Created by rivios_ on 9/18/2017.
- */
-
 public class FootballPlayersStats implements Comparable{
     private Athlete athlete;
     private FootballStats stats;

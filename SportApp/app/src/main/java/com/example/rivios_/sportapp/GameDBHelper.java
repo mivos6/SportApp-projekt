@@ -20,9 +20,6 @@ import com.example.rivios_.sportapp.data.TennisStats;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * Created by admin on 27.5.2016..
- */
 public class GameDBHelper extends SQLiteOpenHelper {
 
     private static final String DTATBASE_NAME = "sportStatsDB";

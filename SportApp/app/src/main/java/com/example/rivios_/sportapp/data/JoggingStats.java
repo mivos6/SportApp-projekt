@@ -4,10 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-/**
- * Created by Milan on 9.9.2017..
- */
-
 public class JoggingStats implements Parcelable{
     private long raceId;
     private long runnerId;

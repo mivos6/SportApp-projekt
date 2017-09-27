@@ -26,9 +26,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.SortedMap;
 
-/**
- * Created by rivios_ on 9/14/2017.
- */
 public class JoggingRunners extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     ArrayList<Athlete> existingPlayers;
     ArrayList<String> nicknames;

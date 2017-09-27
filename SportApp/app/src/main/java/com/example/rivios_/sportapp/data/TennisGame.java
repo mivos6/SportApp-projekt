@@ -5,10 +5,6 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-/**
- * Created by rivios_ on 9/12/2017.
- */
-
 public class TennisGame implements Parcelable {
 
 

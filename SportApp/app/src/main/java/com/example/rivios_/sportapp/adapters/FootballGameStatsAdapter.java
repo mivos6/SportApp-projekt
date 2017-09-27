@@ -11,10 +11,6 @@ import com.example.rivios_.sportapp.data.FootballGame;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-/**
- * Created by rivios_ on 9/17/2017.
- */
-
 public class FootballGameStatsAdapter  extends BaseAdapter{
 
     ArrayList<FootballGame> games;
