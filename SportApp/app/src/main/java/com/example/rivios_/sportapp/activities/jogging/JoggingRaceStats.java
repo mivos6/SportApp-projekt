@@ -55,7 +55,7 @@ public class JoggingRaceStats extends AppCompatActivity {
             etFinish.setText(newRace.getFinish());
             etRaceDate.setText(new SimpleDateFormat("dd.MM.yyyy").format(newRace.getDate()));
 
-            findViewById(R.id.addRunner).setVisibility(View.INVISIBLE);
+            //findViewById(R.id.addRunner).setVisibility(View.INVISIBLE);
             findViewById(R.id.archive).setVisibility(View.INVISIBLE);
         }
         else
